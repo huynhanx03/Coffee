@@ -24,7 +24,7 @@
 
     <Grid>
         <materialDesign:ColorZone x:Name="backGroum"        
-                                  Background="Black"
+                                  Background="#F7F7F7"
                                   Padding="2"
                                   Margin="0 2 0 0"
                                   CornerRadius="10 10 0 0" >     

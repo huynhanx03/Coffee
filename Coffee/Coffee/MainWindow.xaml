@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Coffee"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:uc="clr-namespace:Coffee.UserControls"
+        Title="MainAdminWindow"
+        Name="MainAdminWD"
+        xmlns:i = "http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="none"
+        AllowsTransparency="True"
+        Width="1400" Height="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <uc:ControlbarUC></uc:ControlbarUC>
+        </Grid>
     </Grid>
 </Window>

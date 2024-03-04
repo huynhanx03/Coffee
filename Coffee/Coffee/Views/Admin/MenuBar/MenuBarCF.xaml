@@ -40,6 +40,22 @@
             </Button>
         </StackPanel>
 
+        <!--<StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left">
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    Background="{DynamicResource MainColorCF}"
+                    BorderBrush="{x:Null}"
+                    Margin="15 0 0 0">
+                <materialDesign:PackIcon Kind="ArrowRight" 
+                                         Foreground="{DynamicResource BackgroundCF}"/>
+            </Button>
+
+            <Image Source="/Resources/Images/cup-of-coffee-avatar-removebg-preview.png"
+                   Width="70"
+                   Margin="5 0 0 0"/>
+        </StackPanel>-->
+
         <!-- Các chức năng -->
         <StackPanel Grid.Row="1">
             <!--Button dashboard-->

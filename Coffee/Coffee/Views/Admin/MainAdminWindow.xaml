@@ -23,7 +23,7 @@
         DataContext="{StaticResource AdminVM}"
         Width="1400" Height="800">
     <Window.Clip>
-        <RectangleGeometry Rect="0, 0, 1400, 800" RadiusX="20" RadiusY="20"></RectangleGeometry>
+        <RectangleGeometry Rect="0, 0, 1400, 800" RadiusX="15" RadiusY="15"></RectangleGeometry>
     </Window.Clip>
 
     <Window.Resources>
@@ -36,7 +36,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid Background="#F7F7F7">
+    <Grid Background="{DynamicResource Background2CF}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -181,23 +181,23 @@
                 <Grid Grid.Row="0" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding optionName}"
-                                   FontSize="40"
-                                   Foreground="#1F2937"
+                                   FontSize="30"
+                                   Foreground="{DynamicResource ForegroundCF}"
                                    VerticalAlignment="Center"
                                    Margin="20 0 0 0"/>
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="1" Background="#E6E6E9">
+                <Grid Grid.Row="1" Background="{DynamicResource Background3CF}">
                     <materialDesign:Card Width="1180"
                                          Height="690"
                                          UniformCornerRadius="10">
                         <Frame x:Name="mainFrame"
                            NavigationUIVisibility="Hidden"
-                           Background="#F7F7F7">
+                           Background="{DynamicResource Background2CF}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
-                                    <i:InvokeCommandAction Command="{Binding loadDashboardPageIC}"
+                                    <i:InvokeCommandAction Command="{Binding loadEmployeePageIC}"
                                                        CommandParameter="{Binding ElementName=mainFrame}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>

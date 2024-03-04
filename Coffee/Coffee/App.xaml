@@ -11,16 +11,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
-                <ResourceDictionary Source="/ResourcesXAML/MainResources.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/ResourcesXAML/MainResources.xaml"/>
+                <ResourceDictionary Source="/ResourcesXAML/Themes/Light.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="MenuButtonMain" TargetType="RadioButton">
                 <!--Normal button style-->
                 <Setter Property="Height" Value="50"/>
                 <Setter Property="Margin" Value="0 10 0 5"/>
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="BorderBrush" Value="#ECEDEE"/>
+                <Setter Property="Background" Value="{DynamicResource BackgroundCF}"/>
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushCF}"/>
                 <Setter Property="Width" Value="185"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -37,16 +38,16 @@
                 <Style.Triggers>
                     <!--Button Style on hover-->
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#B8A199"/>
-                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="{DynamicResource HoverColorCF}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource BackgroundCF}"/>
                         <!--<Setter Property="BorderBrush" Value=""/>-->
                         <Setter Property="Cursor" Value="Hand"/>
                     </Trigger>
                     
                     <!--Activated button style-->
                     <Trigger Property="IsChecked" Value="True">
-                        <Setter Property="Background" Value="#704232"/>
-                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="{DynamicResource MainColorCF}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource BackgroundCF}"/>
                         <!--<Setter Property="BorderBrush" Value=""/>-->
                     </Trigger>
                 </Style.Triggers>
@@ -66,7 +67,7 @@
                 <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
                 <Setter Property="FontFamily" Value="Montserrat"/>
                 <Setter Property="FontWeight" Value="Medium"/>
-                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
         </ResourceDictionary>

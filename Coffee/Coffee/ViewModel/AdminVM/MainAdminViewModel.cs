@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee.Views.Admin.EmployeePage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,6 +68,7 @@ namespace Coffee.ViewModel.AdminVM
 
             loadEmployeePageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
+                p.Content = new MainEmployeePage();
                 optionName = "Nhân viên";
             });
 

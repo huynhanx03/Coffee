@@ -11,7 +11,7 @@
         xmlns:cv="clr-namespace:Coffee.Utils.ConverterValue"
         xmlns:i = "http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource ForegroundCF}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
@@ -122,7 +122,7 @@
                                     Background="{DynamicResource MainColorCF}"
                                     BorderBrush="{x:Null}"
                                     Margin="15 0 0 0">
-                                <materialDesign:PackIcon Kind="ArrowLeft" 
+                                <materialDesign:PackIcon Kind="ArrowRight" 
                                                          Foreground="{DynamicResource BackgroundCF}"/>
                             </Button>
 
@@ -130,7 +130,53 @@
                                    Width="70"
                                    Margin="5 0 0 0"/>
                         </StackPanel>
+
+                        
                     </Grid>
+
+                    <DockPanel Grid.Column="1">
+                        <TextBlock Text="{Binding optionName}"
+                                   FontSize="30"
+                                   Foreground="{DynamicResource ForegroundCF}"
+                                   VerticalAlignment="Center"
+                                   Margin="20 0 0 0"/>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center">
+                            <materialDesign:PopupBox DockPanel.Dock="Right"
+                                                     Foreground="{DynamicResource ForegroundCF}"
+                                                     PlacementMode="BottomAndAlignRightEdges"
+                                                     Margin="0 0 10 0">
+                                <StackPanel Orientation="Vertical">
+                                    <Button Content="Vi"
+                                            Name="btnVi"
+                                            Command="{Binding changeLanguageIC}"
+                                            CommandParameter="{Binding ElementName=btnVi}"/>
+                                    <Button Content="En"
+                                            Name="btnEn"
+                                            Command="{Binding changeLanguageIC}"
+                                            CommandParameter="{Binding ElementName=btnEn}"/>
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                        </StackPanel>
+                    </DockPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Background="{DynamicResource Background3CF}">
+                    <materialDesign:Card Margin="5"
+                                         UniformCornerRadius="10">
+                        <Frame x:Name="mainFrame"
+                               NavigationUIVisibility="Hidden"
+                               Background="{DynamicResource Background2CF}">
+                            <!--<i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <i:InvokeCommandAction Command="{Binding loadEmployeePageIC}"
+                                                           CommandParameter="{Binding ElementName=mainFrame}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>-->
+                        </Frame>
+                    </materialDesign:Card>
                 </Grid>
             </Grid>
 
@@ -179,7 +225,7 @@
                             <materialDesign:PackIcon Kind="Finance"
                                  VerticalAlignment="Center"
                                  Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="{DynamicResource Dashboard}" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 
@@ -194,7 +240,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TableFurniture"
                                                          Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Quản lý bàn" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="{DynamicResource Table}" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </Border>
@@ -209,7 +255,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ListBox"
                                                          Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Thực đơn" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="{DynamicResource Item}" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </Border>
@@ -224,7 +270,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Food"
                                          Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Nguyên liệu" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="{DynamicResource Ingredient}" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </Border>
@@ -239,7 +285,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ReceiptText"
                                          Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Hoá đơn" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="{DynamicResource Bill}" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </Border>
@@ -254,7 +300,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountGroup"
                                          Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Nhân viên" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="{DynamicResource Employee}" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </Border>
@@ -269,7 +315,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Settings"
                                          Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Cài đặt" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="{DynamicResource Setting}" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </Border>
@@ -288,47 +334,6 @@
                   MouseDown="Overlay_MouseDown"
                   Panel.ZIndex="1">
             </Grid>
-
-
-            <!--Menu bên trái-->
-            <Grid Grid.Row="0">
-
-
-            </Grid>
-
-            <!--Nội dung bên phải-->
-            <!--<Grid Grid.Column="1">
-                
-
-                <Grid Grid.Row="0" >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding optionName}"
-                                   FontSize="30"
-                                   Foreground="{DynamicResource ForegroundCF}"
-                                   VerticalAlignment="Center"
-                                   Margin="20 0 0 0"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Row="1" Background="{DynamicResource Background3CF}">
-                    <materialDesign:Card Width="1180"
-                                         Height="690"
-                                         UniformCornerRadius="10">
-                        <Frame x:Name="mainFrame"
-                           NavigationUIVisibility="Hidden"
-                           Background="{DynamicResource Background2CF}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Loaded">
-                                    <i:InvokeCommandAction Command="{Binding loadEmployeePageIC}"
-                                                       CommandParameter="{Binding ElementName=mainFrame}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Frame>
-                    </materialDesign:Card>
-                </Grid>
-
-            </Grid>-->
-
         </Grid>
     </Grid>
 </Window>

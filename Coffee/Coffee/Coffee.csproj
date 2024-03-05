@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Settings.cs" />
     <Compile Include="UserControls\ControlbarUC.xaml.cs">
       <DependentUpon>ControlbarUC.xaml</DependentUpon>
     </Compile>
@@ -73,6 +74,9 @@
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\UserControlVM\ControlbarViewModel.cs" />
+    <Compile Include="Views\Admin\EmployeePage\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\EmployeePage\MainEmployeePage.xaml.cs">
       <DependentUpon>MainEmployeePage.xaml</DependentUpon>
     </Compile>
@@ -94,6 +98,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourcesXAML\Languages\LanguageEn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourcesXAML\Languages\LanguageVi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourcesXAML\MainResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ControlbarUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\EmployeePage\AddEmployeeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,6 +166,7 @@
     <Folder Include="DALs\" />
     <Folder Include="DTOs\" />
     <Folder Include="Models\" />
+    <Folder Include="Services\" />
     <Folder Include="Views\MessageBox\" />
   </ItemGroup>
   <ItemGroup>

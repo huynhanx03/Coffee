@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="/ResourcesXAML/MainResources.xaml"/>
                 <ResourceDictionary Source="/ResourcesXAML/Themes/Light.xaml"/>
+                <ResourceDictionary Source="/ResourcesXAML/Languages/LanguageVi.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="MenuButtonMain" TargetType="RadioButton">
@@ -67,8 +68,33 @@
                 <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
                 <Setter Property="FontFamily" Value="Montserrat"/>
                 <Setter Property="FontWeight" Value="Medium"/>
-                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontSize" Value="15"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            
+            <!--Header 1-->
+            <Style x:Key="Header1" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{DynamicResource MainColorCF}"/>
+            </Style>
+
+            <!--Header 2-->
+            <Style x:Key="Header2" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}"/>
+            </Style>
+
+            <Style x:Key="txbStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="SelectionBrush" Value="{DynamicResource MainColorCF}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MainColorCF}" />
+                <Setter Property="CaretBrush" Value="{DynamicResource HoverColorCF}" />
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}" />
+                <Setter Property="FontStyle" Value="Normal" />
+                <Setter Property="FontSize" Value="13.5" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

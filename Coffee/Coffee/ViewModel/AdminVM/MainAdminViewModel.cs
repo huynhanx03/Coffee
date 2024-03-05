@@ -1,11 +1,14 @@
-﻿using Coffee.Views.Admin.EmployeePage;
+﻿using Coffee.Properties;
+using Coffee.Views.Admin.EmployeePage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace Coffee.ViewModel.AdminVM
 {
@@ -26,6 +29,7 @@ namespace Coffee.ViewModel.AdminVM
         public ICommand loadEmployeePageIC { get; set; }
         public ICommand loadSettingPageIC { get; set; }
         public ICommand loadRoleIC { get; set; }
+        public ICommand changeLanguageIC { get; set; }
 
         private string _optionName { get; set; }
         public string optionName
@@ -74,7 +78,29 @@ namespace Coffee.ViewModel.AdminVM
 
             loadSettingPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                optionName = "Cài đặt";
+                optionName = (string)Application.Current.Resources["Setting"];
+            });
+
+            changeLanguageIC = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                ResourceDictionary dic = new ResourceDictionary();
+
+                switch (p.Name)
+                {
+                    case "btnVi":
+                        dic.Source = new Uri("..\\ResourcesXAML\\Languages\\LanguageVi.xaml", UriKind.Relative);
+                        break;
+
+                    case "btnEn":
+                        dic.Source = new Uri("..\\ResourcesXAML\\Languages\\LanguageEn.xaml", UriKind.Relative);
+                        break;
+
+                    default:
+                        dic.Source = new Uri("..\\ResourcesXAML\\Languages\\LanguageVi.xaml", UriKind.Relative);
+                        break;
+                }
+
+                Application.Current.Resources.MergedDictionaries.Add(dic);
             });
         }
     }

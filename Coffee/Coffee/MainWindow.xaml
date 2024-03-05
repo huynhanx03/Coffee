@@ -28,5 +28,16 @@
         <Grid Grid.Row="0">
             <uc:ControlbarUC></uc:ControlbarUC>
         </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <ComboBox Name="cmb"
+                    SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Vi"/>
+                    <ComboBoxItem Content="En"/>
+                </ComboBox>
+                <TextBlock Text="{DynamicResource Dashboard}"></TextBlock>
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </Window>

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Dashboard">Trang chủ</system:String>
+    <system:String x:Key="Table">Bàn</system:String>
+    <system:String x:Key="Item">Thực đơn</system:String>
+    <system:String x:Key="Ingredient">Nguyên liệu</system:String>
+    <system:String x:Key="Bill">Hoá đơn</system:String>
+    <system:String x:Key="Employee">Nhân viên</system:String>
+    <system:String x:Key="Setting">Cài đặt</system:String>
+</ResourceDictionary>

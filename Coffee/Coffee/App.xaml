@@ -86,6 +86,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}"/>
             </Style>
 
+            <!--TextBox-->
             <Style x:Key="txbStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
                 <Setter Property="Width" Value="300"/>
                 <Setter Property="Height" Value="50"/>
@@ -95,6 +96,36 @@
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}" />
                 <Setter Property="FontStyle" Value="Normal" />
                 <Setter Property="FontSize" Value="13.5" />
+            </Style>
+
+            <!--DataGrid-->
+            <Style x:Key="dtgStyle" TargetType="DataGrid">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="AutoGenerateColumns" Value="False"/>
+                <Setter Property="Background" Value="{DynamicResource BackgroundCF}"/>
+                <Setter Property="CanUserReorderColumns" Value="False"/>
+                <Setter Property="CanUserResizeColumns" Value="False"/>
+                <Setter Property="CanUserSortColumns" Value="True"/>
+                <Setter Property="ColumnWidth" Value="SizeToCells"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="SelectionMode" Value="Single"/>
+                <Setter Property="SelectionUnit" Value="FullRow"/>
+            </Style>
+            
+            <!--Textblock in datagrid-->
+            <Style x:Key="txblInDtg" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            
+            <!--Button in datagird-->
+            <Style x:Key="btnInDtg" TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Width" Value="25"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Foreground" Value="{DynamicResource BackgroundCF}"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

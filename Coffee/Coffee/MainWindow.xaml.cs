@@ -25,16 +25,9 @@ namespace Coffee
             InitializeComponent();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ResourceDictionary dic = new ResourceDictionary();
-
-            if (cmb.SelectedIndex == 0)
-                dic.Source = new Uri("..\\ResourcesXAML\\Languages\\LanguageVi.xaml", UriKind.Relative);
-            else
-                dic.Source = new Uri("..\\ResourcesXAML\\Languages\\LanguageEn.xaml", UriKind.Relative);
-
-            this.Resources.MergedDictionaries.Add(dic);
+            //var data = new Data
         }
     }
 }

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Coffee.Views.Admin.EmployeePage"
       mc:Ignorable="d" 
-      d:DesignHeight="693" d:DesignWidth="1390"
+      d:DesignHeight="698" d:DesignWidth="1390"
       Title="MainEmployeePage"
       Name="MainEmployeePageCF"
       xmlns:i = "http://schemas.microsoft.com/xaml/behaviors"
@@ -55,105 +55,232 @@
         </Grid>
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"></ColumnDefinition>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="98" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <!--info nhân viên-->
-            <Grid Grid.Column="1">
-                <materialDesign:Card UniformCornerRadius="10"
-                         Margin="5 0 0 0"
-                         >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"></RowDefinition>
-                            <RowDefinition Height="5*"></RowDefinition>
-                            <RowDefinition Height="2*"></RowDefinition>
-                        </Grid.RowDefinitions>
+            <!--  Horizontal Taskbar  -->
+            <Grid Grid.Row="0" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Row="0">
-                            <!--<StackPanel Orientation="Vertical">
-                                <Ellipse Width="100" Height="100">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Resources/registerImage.png"/>
-                                    </Ellipse.Fill>
-                                </Ellipse>
+                <!--  Text Nhân viên  -->
+                <TextBlock
+             Grid.Column="0"
+             Width="auto"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center"
+             Background="Transparent"
+             FontFamily="Roboto Condensed"
+             FontSize="15"
+             FontWeight="Medium">
+                    <!--<TextBlock.Text>
+                        <MultiBinding StringFormat="Nhân viên ({0})">
+                            <Binding Path="Count" />
+                        </MultiBinding>
+                    </TextBlock.Text>-->
+                </TextBlock>
 
-                                <Label Content="{Binding NameEmployee}"
-                           FontSize="24"
-                           Foreground="#ffffff"
-                           HorizontalAlignment="Center">
+                <!--  Tìm kiếm, thêm  -->
+                <StackPanel
+             Grid.Column="1"
+             Width="auto"
+             HorizontalAlignment="Right"
+             Orientation="Horizontal">
+                    <!--  Search Box  -->
+                    <Border
+                 Height="45"
+                 Margin="0,0,20,0"
+                 Background="#FFF4F4"
+                 BorderBrush="DarkGray"
+                 BorderThickness="2"
+                 CornerRadius="16">
+                        <Grid>
+                            <TextBox
+                         x:Name="searchBox"
+                         Width="300"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         materialDesign:HintAssist.Hint="Tìm kiếm"
+                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="17.6"
+                         TextAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
 
-                                </Label>
-                            </StackPanel>-->
+                            <!--<Image
+                         Width="20"
+                         Height="20"
+                         Margin="0,0,10,0"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Center"
+                          />-->
+
                         </Grid>
+                    </Border>
 
-                        <Grid Grid.Row="1">
-                            <StackPanel Orientation="Vertical">
-                                <TextBox 
-                                        VerticalAlignment="Top"
-                                        BorderBrush="#8B4513"
-                                        Foreground="#7D5227"
-                                        Width="200"
-                                        HorizontalAlignment="Center"
-                                        FontStyle="Normal"
-                                        FontSize="13"
-                                        CaretBrush="#8B4513"
-                                        Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" >
-                                    <materialDesign:HintAssist.Hint>
-                                        <TextBlock Foreground="#8B4513"> Họ và tên </TextBlock>
-                                    </materialDesign:HintAssist.Hint>
-                                </TextBox>
-                                
-                                
-                            </StackPanel>
-                        </Grid>
+                    <!--  Button Thêm  -->
+                    <!--<Button
+                 Width="50"
+                 Height="50"
+                 Margin="0,0,30,0"
+                 BorderThickness="0"
+                 Command="{Binding OpenAddWindowCommand}"
+                 CommandParameter="{Binding ElementName=staffPage}">
+                        <Button.Background>
+                        </Button.Background>
+                    </Button>-->
+                </StackPanel>
 
-                        <Grid Grid.Row="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0">
-                                <materialDesign:Card Margin="10 0 10 0"
-                                         Height="70"
-                                         Background="#f0b000"
-                                         UniformCornerRadius="10">
-                                    <Button Content="Sửa thông tin"
-                                FontSize="20"
-                                Height="70"
-                                Background="Transparent"
-                                Foreground="#000000"
-                                BorderBrush="Transparent"
-                                Command="{Binding EditEmployee}">
-
-                                    </Button>
-                                </materialDesign:Card>
-                            </Grid>
-
-                            <Grid Grid.Row="1">
-                                <materialDesign:Card Margin="10 0 10 0"
-                                         Height="70"
-                                         Background="#FF3636"
-                                         UniformCornerRadius="10">
-                                    <Button Content="Xoá nhân viên"
-                                FontSize="20"
-                                Height="70"
-                                Background="Transparent"
-                                Foreground="#000000"
-                                BorderBrush="Transparent"
-                                Command="{Binding DelEmployee}">
-                                    </Button>
-                                </materialDesign:Card>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </materialDesign:Card>
             </Grid>
-        </Grid>        
+
+            <!--  Staff Table  -->
+            <Border Grid.Row="1"
+                    Margin="30,0,30,30"
+                    Background="{DynamicResource MainColorCF}"
+                    CornerRadius="35">
+                <Border Margin="18"
+                        Background="{DynamicResource BackgroundCF}"
+                        CornerRadius="20">
+                    <DataGrid x:Name="dataGrid"
+                              Margin="15"
+                              Style="{DynamicResource dtgStyle}"
+                              ItemsSource="{Binding ListEmployee, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedItem}"
+                              d:ItemsSource="{d:SampleData ItemCount=5}">
+                        <DataGrid.CellStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="MaNhanVien">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding MaNhanVien}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="HoTen">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding HoTen}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Trạng thái" SortMemberPath="CCCD_CMND">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding CCCD_CMND}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Số điện thoại" SortMemberPath="SoDienThoai">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding SoDienThoai}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="Email">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding Email}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Giới tính" SortMemberPath="GioiTinh">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding GioiTinh}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Ngày sinh" SortMemberPath="NgaySinh">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding NgaySinh}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Ngày bắt đầu" SortMemberPath="NgayLam">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding NgayLam}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Chức vụ" SortMemberPath="VaiTro">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding VaiTro}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Lương" SortMemberPath="Luong">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                   Text="{Binding Luong, StringFormat={}{0:N0} VNĐ}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!--  Button chỉnh sửa, xóa cho mỗi nhân viên  -->
+                            <DataGridTemplateColumn Width="auto" Header="">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Style="{DynamicResource btnInDtg}"
+                                                    Background="#512da8"  BorderBrush="#4a148c"
+                                                    Margin="35 0 0 0">
+                                                <materialDesign:PackIcon Kind="EditOutline" Width="15" Height="15"/>
+                                            </Button>
+
+                                            <Button Style="{StaticResource btnInDtg}"
+                                                    Background="#d32f2f"  BorderBrush="#b71c1c"
+                                                    Margin="25 0 0 0">
+                                                <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
+                                            </Button>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+            </Border>
+        </Grid>
     </Grid>
 </Page>

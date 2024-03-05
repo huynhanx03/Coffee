@@ -164,7 +164,7 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Background="{DynamicResource Background3CF}">
-                    <materialDesign:Card Margin="5"
+                    <materialDesign:Card Margin="5 0 5 5"
                                          UniformCornerRadius="10">
                         <Frame x:Name="mainFrame"
                                NavigationUIVisibility="Hidden"

@@ -169,12 +169,12 @@
                         <Frame x:Name="mainFrame"
                                NavigationUIVisibility="Hidden"
                                Background="{DynamicResource Background2CF}">
-                            <!--<i:Interaction.Triggers>
+                            <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
                                     <i:InvokeCommandAction Command="{Binding loadEmployeePageIC}"
                                                            CommandParameter="{Binding ElementName=mainFrame}" />
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+                            </i:Interaction.Triggers>
                         </Frame>
                     </materialDesign:Card>
                 </Grid>

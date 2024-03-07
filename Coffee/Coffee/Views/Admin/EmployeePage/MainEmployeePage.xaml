@@ -16,7 +16,7 @@
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
       FontFamily="{DynamicResource MaterialDesignFont}"
-      DataContext="{StaticResource AdminVM}">
+      DataContext="{StaticResource EmployeeVM}">
 
     <!--Sự kiện chuyển trang-->
     <Page.Triggers>
@@ -33,27 +33,15 @@
         </EventTrigger>
     </Page.Triggers>
 
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding MaskNameCustomer}"
+            <i:InvokeCommandAction Command="{Binding loadShadowMaskIC}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
-            <i:InvokeCommandAction Command="{Binding LoadEmployeeList}" />
+            <!--<i:InvokeCommandAction Command="{Binding LoadEmployeeList}" />-->
         </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
 
     <Grid Background="White">
-        
-        <!--Mặt nạ mờ khi đang load-->
-        <Grid Background="Gray"
-              Opacity="0.3"
-              Visibility="Collapsed"
-              x:Name="ShadowMask"
-              Height="800"
-              Width="1400"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center">
-        </Grid>
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="98" />
@@ -89,6 +77,7 @@
              Grid.Column="1"
              Width="auto"
              HorizontalAlignment="Right"
+                    Margin="0 0 40 0"
              Orientation="Horizontal">
                     <!--  Search Box  -->
                     <Border
@@ -125,6 +114,8 @@
                          VerticalAlignment="Center"
                           />-->
 
+                            
+
                         </Grid>
                     </Border>
 
@@ -139,6 +130,16 @@
                         <Button.Background>
                         </Button.Background>
                     </Button>-->
+
+                    <Button x:Name="OpenMenuBtn"
+                            Cursor="Hand"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            Background="{DynamicResource MainColorCF}"
+                            BorderBrush="{x:Null}"
+                            Command="{Binding openWindowAddEmployeeIC}">
+                           <materialDesign:PackIcon Kind="PlusBold" 
+                                                    Foreground="{DynamicResource BackgroundCF}"/>
+                    </Button>
                 </StackPanel>
 
             </Grid>
@@ -281,6 +282,17 @@
                 </Border>
 
             </Border>
+        </Grid>
+
+        <!--Mặt nạ mờ khi đang load-->
+        <Grid Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask"
+              Height="800"
+              Width="1400"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center">
         </Grid>
     </Grid>
 </Page>

@@ -28,9 +28,10 @@
         <Grid Grid.Row="0">
             <uc:ControlbarUC></uc:ControlbarUC>
         </Grid>
-        <Grid Grid.Row="1">
-            <Button Click="Button_Click"></Button>
+        <StackPanel Grid.Row="1">
+            <Button Click="Button_Click">Thêm dữ liệu</Button>
+            <Button Click="Button_Click_1">Truy xuất dữ liệu</Button>
 
-        </Grid>
+        </StackPanel>
     </Grid>
 </Window>

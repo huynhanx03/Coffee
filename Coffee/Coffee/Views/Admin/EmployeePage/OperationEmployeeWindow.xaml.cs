@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Coffee.Views.Admin.EmployeePage
 {
     /// <summary>
-    /// Interaction logic for AddEmployeeWindow.xaml
+    /// Interaction logic for OperationEmployeeWindow.xaml
     /// </summary>
-    public partial class AddEmployeeWindow : Window
+    public partial class OperationEmployeeWindow : Window
     {
-        public AddEmployeeWindow()
+        public OperationEmployeeWindow()
         {
             InitializeComponent();
         }

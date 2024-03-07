@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Coffee.DTOs;
+using Coffee.Services;
+using Coffee.Utils;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +30,39 @@ namespace Coffee
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var data = new Data
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    if (context.Client != null)
+                    {
+                        PositionDTO cd = new PositionDTO
+                        {
+                            MaChucVu = "CD0003",
+                            TenChucVu = "Nhân viên phục vụ",
+                            Luong = 3000000
+
+                        };
+
+                        await context.Client.SetTaskAsync("ChucDanh/" + cd.MaChucVu, cd);
+                    }
+                        
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            (string label, List<PositionDTO> list) = await PositionService.Ins.getAllPosition();
+
+            MessageBox.Show(label);
         }
     }
 }

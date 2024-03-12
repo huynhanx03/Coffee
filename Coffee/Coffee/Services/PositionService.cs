@@ -26,6 +26,11 @@ namespace Coffee.Services
             private set => _ins = value;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <returns>
+        ///     Trả về danh sách chức vụ
+        /// </returns>
         public async Task<(string, List<PositionDTO>)> getAllPosition()
         {
             return await PositionDAL.Ins.getAllPosition();

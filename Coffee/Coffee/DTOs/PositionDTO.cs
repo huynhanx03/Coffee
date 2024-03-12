@@ -10,6 +10,5 @@ namespace Coffee.DTOs
     {
         public string MaChucVu { get; set; }
         public string TenChucVu { get; set; }
-        public Decimal Luong { get; set; }
     }
 }

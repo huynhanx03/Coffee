@@ -38,7 +38,7 @@ namespace Coffee.DALs
                 {
                     FirebaseResponse response = await context.Client.GetTaskAsync("ChucDanh");
 
-                    if (response.Body != null)
+                    if (response.Body != null && response.Body != "null")
                     {
                         Dictionary<string, PositionDTO> data = response.ResultAs<Dictionary<string, PositionDTO>>();
 

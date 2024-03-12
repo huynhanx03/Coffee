@@ -17,5 +17,9 @@ namespace Coffee.DTOs
         public string DiaChi { get; set; }
         public string NgaySinh { get; set; }
         public string NgayTao { get; set; }
+        public string TaiKhoan { get; set; }    
+        public string MatKhau { get; set; }    
+        public int VaiTro { get; set; }
+        public string HinhAnh { get; set; }
     }
 }

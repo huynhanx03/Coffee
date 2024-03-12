@@ -1,5 +1,9 @@
 ﻿using Coffee.DTOs;
+using Coffee.Services;
+using Coffee.Utils;
 using Coffee.Views.Admin.EmployeePage;
+using Coffee.Views.MessageBox;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,11 +21,23 @@ namespace Coffee.ViewModel.AdminVM.Employee
         #region variable
         public Grid MaskName { get; set; }
 
+        private ObservableCollection<EmployeeDTO> _EmployeeList;
+
+        public ObservableCollection<EmployeeDTO> EmployeeList
+        {
+            get { return _EmployeeList; }
+            set { _EmployeeList = value; OnPropertyChanged(); }
+        }
+
+        private List<EmployeeDTO> __employeeList;
+
         #endregion
 
         #region ICommand
         public ICommand loadShadowMaskIC { get; set; }
         public ICommand openWindowAddEmployeeIC { get; set; }
+        public ICommand loadEmployeeListIC { get; set; }
+        public ICommand searchEmployeeIC { get; set; }
         #endregion
 
         public EmployeeViewModel()
@@ -37,29 +53,35 @@ namespace Coffee.ViewModel.AdminVM.Employee
                 MaskName = p;
             });
 
+            loadEmployeeListIC = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                loadEmployeeList();
+            });
+
             openWindowAddEmployeeIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 MaskName.Visibility = Visibility.Visible;
+                loadPosition();
+                WorkingDay = DateTime.Now;
                 OperationEmployeeWindow w = new OperationEmployeeWindow();
-                TypeOperation = 1; // Add
+                TypeOperation = 1; // Add employee
                 w.ShowDialog();
                 MaskName.Visibility = Visibility.Collapsed;
             });
 
-            #region operation
-            confirmOperationEmployeeIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            searchEmployeeIC = new RelayCommand<TextBox>(null, (p) =>
             {
-                EmployeeDTO employee = new EmployeeDTO
+                if (p.Text != null)
                 {
-                    HoTen = FullName,
-                    CCCD_CMND = IDCard,
-                    Email = Email,
-                    SoDienThoai = NumberPhone,
-                    DiaChi = Address,
-                    GioiTinh = SelectedGender,
-                    Chuc = SelectedPositionID,
-                    Luong = Wage
-                };
+                    if (__employeeList != null)
+                        EmployeeList = new ObservableCollection<EmployeeDTO>(__employeeList.FindAll(x => x.HoTen.ToLower().Contains(p.Text.ToLower())));
+                }
+            });
+
+            #region operation
+            confirmOperationEmployeeIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                confirmOperationEmployee();
             }); 
 
             closeOperationEmployeeWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -67,7 +89,37 @@ namespace Coffee.ViewModel.AdminVM.Employee
                 p.Close();
             });
 
+            uploadImageIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Image Files|*.jpg;*.png;*.jpeg;*.webp;*.gif|All Files|*.*";
+                if (openFileDialog.ShowDialog() == true)
+                {
+
+                    Image = openFileDialog.FileName;
+                    if (Image != null)
+                    {
+                        // Image was uploaded successfully.                        
+                    }
+                    else
+                    {
+                        MessageBoxCF ms = new MessageBoxCF("Tải ảnh lên thất bại", MessageType.Error, MessageButtons.OK);
+                        ms.ShowDialog();
+                    }
+                }
+            });
             #endregion
+        }
+
+        private async void loadEmployeeList()
+        {
+            (string label, List<EmployeeDTO> employees) = await EmployeeService.Ins.getListEmployee();
+
+            if (employees != null)
+            {
+                EmployeeList = new ObservableCollection<EmployeeDTO>(employees);
+                __employeeList = new List<EmployeeDTO>(employees);
+            }
         }
     }
 }

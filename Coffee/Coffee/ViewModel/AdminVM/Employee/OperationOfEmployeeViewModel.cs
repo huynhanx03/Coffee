@@ -1,5 +1,8 @@
 ﻿using Coffee.DTOs;
 using Coffee.Services;
+using Coffee.Utils;
+using Coffee.Utils.Helper;
+using Coffee.Views.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -110,6 +113,27 @@ namespace Coffee.ViewModel.AdminVM.Employee
             get { return _SelectedGender; }
             set { _SelectedGender = value; OnPropertyChanged(); }
         }
+        
+        public string _Image { get; set; }
+        public string Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
+        }
+
+        public string _Username { get; set; }
+        public string Username
+        {
+            get { return _Username; }
+            set { _Username = value; OnPropertyChanged(); }
+        }
+
+        public string _Password { get; set; }
+        public string Password
+        {
+            get { return _Password; }
+            set { _Password = value; OnPropertyChanged(); }
+        }
 
         public int TypeOperation { get; set; }
 
@@ -118,6 +142,7 @@ namespace Coffee.ViewModel.AdminVM.Employee
         #region ICommand
         public ICommand confirmOperationEmployeeIC { get; set; }
         public ICommand closeOperationEmployeeWindowIC { get; set; }
+        public ICommand uploadImageIC { get; set; }
 
         #endregion
 
@@ -135,7 +160,76 @@ namespace Coffee.ViewModel.AdminVM.Employee
             }
             else
             {
+                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
+            }
+        }
 
+        /// <summary>
+        /// Xác nhận thao tác nhân viên
+        /// </summary>
+        public async void confirmOperationEmployee()
+        {
+            if (!Helper.checkCardID(IDCard))
+            {
+                MessageBoxCF ms = new MessageBoxCF("CCCD/CMND không hợp lệ", MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
+                return;
+            }
+
+            if (!Helper.checkEmail(Email))
+            {
+                MessageBoxCF ms = new MessageBoxCF("Email không hợp lệ", MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
+                return;
+            }
+
+            if (!Helper.checkPhone(NumberPhone))
+            {
+                MessageBoxCF ms = new MessageBoxCF("Số điện thoại không hợp lệ", MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
+                return;
+            }
+
+            PositionDTO positionDTO = (ListPosition.First(p => p.TenChucVu == SelectedPositionID) as PositionDTO);
+
+            string newImage = await CloudService.Ins.UploadImage(Image);
+
+            EmployeeDTO employee = new EmployeeDTO
+            {
+                HoTen = FullName,
+                CCCD_CMND = IDCard,
+                Email = Email,
+                SoDienThoai = NumberPhone,
+                DiaChi = Address,
+                GioiTinh = SelectedGender,
+                MaChucVu = positionDTO.MaChucVu,
+                Luong = Wage,
+                NgayLam = WorkingDay.ToString("dd/MM/yyyy"),
+                NgaySinh = Birthday.ToString("dd/MM/yyyy"),
+                HinhAnh = newImage,
+                TaiKhoan = Username,
+                MatKhau = Password
+            };
+
+            (string label, EmployeeDTO NewEmployee) = await EmployeeService.Ins.createEmpoloyee(employee);
+
+            if (NewEmployee != null)
+            {
+                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
+                ms.ShowDialog();
+            }
+            else
+            {
+                // Xoá ảnh
+                string labelClound = await CloudService.Ins.DeleteImage(newImage);
+
+                // Xoá user
+
+                // Xoá employee
+
+                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
             }
         }
         #endregion

@@ -8,4 +8,27 @@
     <system:String x:Key="Bill">Hoá đơn</system:String>
     <system:String x:Key="Employee">Nhân viên</system:String>
     <system:String x:Key="Setting">Cài đặt</system:String>
+    <system:String x:Key="AddEmployee">Thêm nhân viên</system:String>
+    <system:String x:Key="BasicInformation">Thông tin cơ bản</system:String>
+    <system:String x:Key="FullName">Họ và tên</system:String>
+    <system:String x:Key="IDCard">CCCD/CMND</system:String>
+    <system:String x:Key="Email">Email</system:String>
+    <system:String x:Key="NumberPhone">Số điện thoại</system:String>
+    <system:String x:Key="Position">Chức vụ</system:String>
+    <system:String x:Key="Gender">Giới tính</system:String>
+    <system:String x:Key="Address">Địa chỉ</system:String>
+    <system:String x:Key="Birthday">Ngày sinh</system:String>
+    <system:String x:Key="WorkingDay">Ngày làm</system:String>
+    <system:String x:Key="Wage">Lương</system:String>
+    <system:String x:Key="LoginInformation">Thông tin đăng nhập</system:String>
+    <system:String x:Key="Username">Tài khoản</system:String>
+    <system:String x:Key="Password">Mật khẩu</system:String>
+    <system:String x:Key="ConfirmPassword">Xác nhận mật khẩu</system:String>
+    <system:String x:Key="Confirm">Xác nhận</system:String>
+    <system:String x:Key="Cancel">Huỷ</system:String>
+    <system:String x:Key="Male">Nam</system:String>
+    <system:String x:Key="Female">Nữ</system:String>
+    <system:String x:Key="Other">Khác</system:String>
+    <system:String x:Key="Yes">Có</system:String>
+    <system:String x:Key="No">Không</system:String>
 </ResourceDictionary>

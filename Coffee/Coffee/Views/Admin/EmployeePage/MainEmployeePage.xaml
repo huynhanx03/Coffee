@@ -16,7 +16,7 @@
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
       FontFamily="{DynamicResource MaterialDesignFont}"
-      DataContext="{StaticResource AdminVM}">
+      DataContext="{StaticResource EmployeeVM}">
 
     <!--Sự kiện chuyển trang-->
     <Page.Triggers>
@@ -33,27 +33,15 @@
         </EventTrigger>
     </Page.Triggers>
 
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding MaskNameCustomer}"
+            <i:InvokeCommandAction Command="{Binding loadShadowMaskIC}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
-            <i:InvokeCommandAction Command="{Binding LoadEmployeeList}" />
+            <i:InvokeCommandAction Command="{Binding loadEmployeeListIC}" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
 
     <Grid Background="White">
-        
-        <!--Mặt nạ mờ khi đang load-->
-        <Grid Background="Gray"
-              Opacity="0.3"
-              Visibility="Collapsed"
-              x:Name="ShadowMask"
-              Height="800"
-              Width="1400"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center">
-        </Grid>
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="98" />
@@ -62,83 +50,57 @@
 
             <!--  Horizontal Taskbar  -->
             <Grid Grid.Row="0" Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200" />
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <!--  Text Nhân viên  -->
-                <TextBlock
-             Grid.Column="0"
-             Width="auto"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center"
-             Background="Transparent"
-             FontFamily="Roboto Condensed"
-             FontSize="15"
-             FontWeight="Medium">
-                    <!--<TextBlock.Text>
-                        <MultiBinding StringFormat="Nhân viên ({0})">
-                            <Binding Path="Count" />
-                        </MultiBinding>
-                    </TextBlock.Text>-->
-                </TextBlock>
-
                 <!--  Tìm kiếm, thêm  -->
-                <StackPanel
-             Grid.Column="1"
-             Width="auto"
-             HorizontalAlignment="Right"
-             Orientation="Horizontal">
+                <StackPanel Width="auto"
+                            HorizontalAlignment="Right"
+                            Margin="0 0 40 0"
+                            Orientation="Horizontal">
                     <!--  Search Box  -->
-                    <Border
-                 Height="45"
-                 Margin="0,0,20,0"
-                 Background="#FFF4F4"
-                 BorderBrush="DarkGray"
-                 BorderThickness="2"
-                 CornerRadius="16">
-                        <Grid>
+                    <Border Height="45"
+                            Margin="0,0,20,0"
+                            Background="{DynamicResource Background2CF}"
+                            BorderBrush="DarkGray"
+                            BorderThickness="2"
+                            CornerRadius="16">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Magnify"
+                                                     Width="25"
+                                                     Height="35"
+                                                     Foreground="Black"
+                                                     VerticalAlignment="Center" 
+                                                     Margin="10 0 0 0"/>
+
                             <TextBox
-                         x:Name="searchBox"
-                         Width="300"
-                         HorizontalContentAlignment="Center"
-                         VerticalContentAlignment="Center"
-                         materialDesign:HintAssist.Hint="Tìm kiếm"
-                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                         Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="17.6"
-                         TextAlignment="Center">
+                                     x:Name="searchBox"
+                                     Width="300"
+                                     HorizontalContentAlignment="Left"
+                                     VerticalContentAlignment="Center"
+                                     materialDesign:HintAssist.Hint="Tìm kiếm"
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     FontSize="14"
+                                     TextAlignment="Left">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
-                                        <i:InvokeCommandAction Command="{Binding SearchStaff}" CommandParameter="{Binding ElementName=searchBox}" />
+                                        <i:InvokeCommandAction Command="{Binding searchEmployeeIC}" 
+                                                               CommandParameter="{Binding ElementName=searchBox}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </TextBox>
-
-                            <!--<Image
-                         Width="20"
-                         Height="20"
-                         Margin="0,0,10,0"
-                         HorizontalAlignment="Right"
-                         VerticalAlignment="Center"
-                          />-->
-
-                        </Grid>
+                        </StackPanel>
                     </Border>
 
                     <!--  Button Thêm  -->
-                    <!--<Button
-                 Width="50"
-                 Height="50"
-                 Margin="0,0,30,0"
-                 BorderThickness="0"
-                 Command="{Binding OpenAddWindowCommand}"
-                 CommandParameter="{Binding ElementName=staffPage}">
-                        <Button.Background>
-                        </Button.Background>
-                    </Button>-->
+                    <Button x:Name="OpenMenuBtn"
+                            Cursor="Hand"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            Background="{DynamicResource MainColorCF}"
+                            BorderBrush="{x:Null}"
+                            Command="{Binding openWindowAddEmployeeIC}">
+                           <materialDesign:PackIcon Kind="PlusBold" 
+                                                    Foreground="{DynamicResource BackgroundCF}"/>
+                    </Button>
                 </StackPanel>
 
             </Grid>
@@ -153,8 +115,18 @@
                         CornerRadius="20">
                     <DataGrid x:Name="dataGrid"
                               Margin="15"
-                              Style="{DynamicResource dtgStyle}"
-                              ItemsSource="{Binding ListEmployee, Mode=TwoWay}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              AutoGenerateColumns="False"
+                              Background="{DynamicResource BackgroundCF}"
+                              CanUserReorderColumns="False"
+                              CanUserResizeColumns="False"
+                              CanUserSortColumns="True"
+                              ColumnWidth="SizeToCells"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow"
+                              ItemsSource="{Binding EmployeeList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding SelectedItem}"
                               d:ItemsSource="{d:SampleData ItemCount=5}">
                         <DataGrid.CellStyle>
@@ -174,7 +146,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="HoTen">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource FullName}" SortMemberPath="HoTen">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -183,7 +155,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Trạng thái" SortMemberPath="CCCD_CMND">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource IDCard}" SortMemberPath="CCCD_CMND">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -192,7 +164,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Số điện thoại" SortMemberPath="SoDienThoai">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource NumberPhone}" SortMemberPath="SoDienThoai">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -201,7 +173,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="Email">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource Email}" SortMemberPath="Email">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -210,7 +182,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Giới tính" SortMemberPath="GioiTinh">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource Gender}" SortMemberPath="GioiTinh">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -219,7 +191,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Ngày sinh" SortMemberPath="NgaySinh">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource Birthday}" SortMemberPath="NgaySinh">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -228,7 +200,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Ngày bắt đầu" SortMemberPath="NgayLam">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource WorkingDay}" SortMemberPath="NgayLam">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -237,16 +209,16 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Chức vụ" SortMemberPath="VaiTro">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource Position}" SortMemberPath="VaiTro">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
-                                                   Text="{Binding VaiTro}" />
+                                                   Text="{Binding TenChucVu}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Lương" SortMemberPath="Luong">
+                            <DataGridTemplateColumn Width="auto" Header="{DynamicResource Wage}" SortMemberPath="Luong">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{DynamicResource txblInDtg}"
@@ -283,6 +255,17 @@
                 </Border>
 
             </Border>
+        </Grid>
+
+        <!--Mặt nạ mờ khi đang load-->
+        <Grid Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask"
+              Height="800"
+              Width="1400"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center">
         </Grid>
     </Grid>
 </Page>

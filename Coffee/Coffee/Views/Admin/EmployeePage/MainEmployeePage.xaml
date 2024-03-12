@@ -261,14 +261,16 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Button Style="{DynamicResource btnInDtg}"
-                                                    Background="#512da8"  BorderBrush="#4a148c"
+                                                    Background="#8295B9" BorderBrush="#41AAE2"
                                                     Margin="35 0 0 0">
                                                 <materialDesign:PackIcon Kind="EditOutline" Width="15" Height="15"/>
                                             </Button>
 
                                             <Button Style="{StaticResource btnInDtg}"
-                                                    Background="#d32f2f"  BorderBrush="#b71c1c"
+                                                    Background="#AD7270"
+                                                    BorderBrush="#A20F27"
                                                     Margin="25 0 0 0">
+
                                                 <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                             </Button>
                                         </StackPanel>

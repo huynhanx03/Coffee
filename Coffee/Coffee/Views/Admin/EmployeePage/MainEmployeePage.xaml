@@ -127,7 +127,7 @@
                               SelectionMode="Single"
                               SelectionUnit="FullRow"
                               ItemsSource="{Binding EmployeeList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedItem}"
+                              SelectedItem="{Binding SelectedEmployee}"
                               d:ItemsSource="{d:SampleData ItemCount=5}">
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -234,14 +234,16 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Button Style="{DynamicResource btnInDtg}"
                                                     Background="#8295B9" BorderBrush="#41AAE2"
-                                                    Margin="35 0 0 0">
+                                                    Margin="35 0 0 0"
+                                                    Click="Edit_Click">
                                                 <materialDesign:PackIcon Kind="EditOutline" Width="15" Height="15"/>
                                             </Button>
 
                                             <Button Style="{StaticResource btnInDtg}"
                                                     Background="#AD7270"
                                                     BorderBrush="#A20F27"
-                                                    Margin="25 0 0 0">
+                                                    Margin="25 0 0 0"
+                                                    Click="Delete_Click">
 
                                                 <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                             </Button>

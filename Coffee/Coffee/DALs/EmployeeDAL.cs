@@ -52,7 +52,33 @@ namespace Coffee.DALs
                 return (ex.Message, null);
             }
         }
-        
+
+        /// <summary>
+        /// Cập nhật nhân viên
+        /// INPUT: employee: Nhân viên
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: Nhân viên
+        /// </returns>
+        public async Task<(string, EmployeeDTO)> updateEmpoloyee(EmployeeDTO employee)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.UpdateTaskAsync("NhanVien/" + employee.MaNhanVien, employee);
+
+                    return ("Cập nhật nhân viên thành công", employee);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -140,6 +166,32 @@ namespace Coffee.DALs
             catch (Exception ex)
             {
                 return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// Xoá nhân viên
+        /// INPUT:
+        ///     EmployeeID: mã nhân viên
+        /// </summary>
+        /// <param name="EmployeeID"></param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> DeleteEmployee(string EmployeeID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.DeleteTaskAsync("NhanVien/" + EmployeeID);
+                    return ("Xoá nhân viên thành công", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, false);
             }
         }
     }

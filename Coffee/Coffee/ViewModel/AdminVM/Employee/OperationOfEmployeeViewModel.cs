@@ -3,12 +3,15 @@ using Coffee.Services;
 using Coffee.Utils;
 using Coffee.Utils.Helper;
 using Coffee.Views.MessageBox;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Coffee.ViewModel.AdminVM.Employee
@@ -21,13 +24,6 @@ namespace Coffee.ViewModel.AdminVM.Employee
         {
             get { return _FullName; }
             set { _FullName = value; OnPropertyChanged(); }
-        }
-
-        public string _Gender { get; set; }
-        public string Gender
-        {
-            get { return _Gender; }
-            set { _Gender = value; OnPropertyChanged(); }
         }
 
         public string _Email { get; set; }
@@ -93,11 +89,11 @@ namespace Coffee.ViewModel.AdminVM.Employee
             set { _ListPosition = value; OnPropertyChanged(); }
         }
 
-        public string _SelectedPositionID { get; set; }
-        public string SelectedPositionID
+        public string _SelectedPositionName { get; set; }
+        public string SelectedPositionName
         {
-            get { return _SelectedPositionID; }
-            set { _SelectedPositionID = value; OnPropertyChanged(); }
+            get { return _SelectedPositionName; }
+            set { _SelectedPositionName = value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<string> _ListGender { get; set; }
@@ -136,6 +132,14 @@ namespace Coffee.ViewModel.AdminVM.Employee
         }
 
         public int TypeOperation { get; set; }
+        public string OriginImage { get; set; }
+
+        public EmployeeDTO _SelectedEmployee { get; set; }
+        public EmployeeDTO SelectedEmployee
+        {
+            get { return _SelectedEmployee; }
+            set { _SelectedEmployee = value; OnPropertyChanged(); }
+        }
 
         #endregion
 
@@ -191,9 +195,12 @@ namespace Coffee.ViewModel.AdminVM.Employee
                 return;
             }
 
-            PositionDTO positionDTO = (ListPosition.First(p => p.TenChucVu == SelectedPositionID) as PositionDTO);
+            PositionDTO positionDTO = (ListPosition.First(p => p.TenChucVu == SelectedPositionName) as PositionDTO);
 
-            string newImage = await CloudService.Ins.UploadImage(Image);
+            string newImage = Image;
+
+            if (OriginImage != Image)
+                newImage = await CloudService.Ins.UploadImage(Image);
 
             EmployeeDTO employee = new EmployeeDTO
             {
@@ -209,28 +216,68 @@ namespace Coffee.ViewModel.AdminVM.Employee
                 NgaySinh = Birthday.ToString("dd/MM/yyyy"),
                 HinhAnh = newImage,
                 TaiKhoan = Username,
-                MatKhau = Password
+                MatKhau = Password,
+                TenChucVu = SelectedPositionName
             };
 
-            (string label, EmployeeDTO NewEmployee) = await EmployeeService.Ins.createEmpoloyee(employee);
-
-            if (NewEmployee != null)
+            switch (TypeOperation)
             {
-                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
-                ms.ShowDialog();
+                case 1:
+                    (string label, EmployeeDTO NewEmployee) = await EmployeeService.Ins.createEmpoloyee(employee);
+
+                    if (NewEmployee != null)
+                    {
+                        MessageBoxCF ms = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
+                        ms.ShowDialog();
+                        resetEmployee();
+
+                        EmployeeList.Add(NewEmployee);
+                    }
+                    else
+                    {
+                        // Xoá ảnh
+                        string labelClound = await CloudService.Ins.DeleteImage(newImage);
+
+                        // Xoá user
+
+
+                        // Xoá employee
+
+                        MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                        ms.ShowDialog();
+                    }
+                    break;
+                case 2:
+                    employee.MaNhanVien = SelectedEmployee.MaNhanVien;
+
+                    (string labelEdit, EmployeeDTO NewEmployeeEdit) = await EmployeeService.Ins.updateEmpoloyee(employee);
+
+                    if (NewEmployeeEdit != null)
+                    {
+                        MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Accept, MessageButtons.OK);
+                        ms.ShowDialog();
+                        loadEmployeeList();
+                    }
+                    else
+                    {
+                        // Xoá ảnh
+                        if (OriginImage != Image) 
+                            await CloudService.Ins.DeleteImage(newImage);
+
+                        // Xoá user
+
+
+                        // Xoá employee
+
+                        MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Error, MessageButtons.OK);
+                        ms.ShowDialog();
+                    }
+
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                // Xoá ảnh
-                string labelClound = await CloudService.Ins.DeleteImage(newImage);
-
-                // Xoá user
-
-                // Xoá employee
-
-                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
-                ms.ShowDialog();
-            }
+                
         }
         #endregion
     }

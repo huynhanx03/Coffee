@@ -41,6 +41,20 @@ namespace Coffee.Services
         }
 
         /// <summary>
+        /// Cập nhật người dùng
+        /// INPUT: user: Người dùng
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>
+        ///     1: Lỗi khi thêm dữ liệu
+        ///     2: Người dùng
+        /// </returns>
+        public async Task<(string, UserDTO)> updateUser(UserDTO user)
+        {
+            return await UserDAL.Ins.updateUser(user);
+        }
+
+        /// <summary>
         /// Kiểm tra email đã tồn tại chưa
         /// </summary>
         /// <param name="user"></param>
@@ -90,6 +104,21 @@ namespace Coffee.Services
         public async Task<bool> checkUsername(UserDTO user)
         {
             return await UserDAL.Ins.checkUsername(user);
+        }
+
+        /// <summary>
+        /// Xoá người dùng
+        /// INPUT:
+        ///     UserID: mã người dùng
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> DeleteUser(string UserID)
+        {
+           return await UserDAL.Ins.DeleteUser(UserID);
         }
     }
 }

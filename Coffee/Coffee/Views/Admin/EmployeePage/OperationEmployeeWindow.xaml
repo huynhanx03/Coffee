@@ -105,9 +105,10 @@
                                   Margin="0 10 0 0"
                                   SelectedIndex="0"
                                   ItemsSource="{Binding ListPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  Text="{Binding SelectedPositionID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Text="{Binding SelectedPositionName, Mode=TwoWay}"
                                   DisplayMemberPath="TenChucVu"
-                                  SelectedValuePath="MaChucVu">
+                                  SelectedValue="TenChucVu"      
+                                  >
                             <materialDesign:HintAssist.Hint>
                                 <TextBlock Foreground="{DynamicResource MainColorCF}"
                                            Text="{DynamicResource Position}"/>

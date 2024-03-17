@@ -53,6 +53,32 @@ namespace Coffee.DALs
         }
 
         /// <summary>
+        /// Cập nhật người dùng
+        /// INPUT: user: Người dùng
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>
+        ///     1: Lỗi khi thêm dữ liệu
+        ///     2: Người dùng
+        /// </returns>
+        public async Task<(string, UserDTO)> updateUser(UserDTO user)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.UpdateTaskAsync("NguoiDung/" + user.MaNguoiDung, user);
+
+                    return ("Cập nhật người dùng thành công", user);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
         /// Kiểm tra email đã tồn tại chưa
         /// </summary>
         /// <param name="user"></param>
@@ -194,6 +220,32 @@ namespace Coffee.DALs
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Xoá người dùng
+        /// INPUT:
+        ///     UserID: mã người dùng
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> DeleteUser(string UserID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.DeleteTaskAsync("NguoiDung/" + UserID);
+                    return ("Xoá người dùng thành công", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, false);
             }
         }
     }

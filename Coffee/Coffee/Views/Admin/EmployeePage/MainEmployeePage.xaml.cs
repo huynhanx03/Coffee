@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee.ViewModel.AdminVM.Employee;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace Coffee.Views.Admin.EmployeePage
         public MainEmployeePage()
         {
             InitializeComponent();
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as EmployeeViewModel).openWindowEditEmployee();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as EmployeeViewModel).deleteEmployee();
         }
     }
 }

@@ -97,7 +97,19 @@
                 <Setter Property="FontStyle" Value="Normal" />
                 <Setter Property="FontSize" Value="13.5" />
             </Style>
-            
+
+            <!--PasswordBox-->
+            <Style x:Key="pwbStyle" TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="SelectionBrush" Value="{DynamicResource MainColorCF}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MainColorCF}" />
+                <Setter Property="CaretBrush" Value="{DynamicResource HoverColorCF}" />
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}" />
+                <Setter Property="FontStyle" Value="Normal" />
+                <Setter Property="FontSize" Value="13.5" />
+            </Style>
+
             <!--Combobox-->
             <Style x:Key="cbStyle" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
                 <Setter Property="Width" Value="300"/>

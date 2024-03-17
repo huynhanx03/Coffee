@@ -143,6 +143,7 @@
     <Compile Include="Utils\ConverterValue\RoleConverter.cs" />
     <Compile Include="Utils\Firebase.cs" />
     <Compile Include="Utils\Helper\Helper.cs" />
+    <Compile Include="Utils\Memory.cs" />
     <Compile Include="ViewModel\AdminVM\Employee\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Employee\OperationOfEmployeeViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
@@ -160,6 +161,9 @@
     </Compile>
     <Compile Include="Views\Admin\MenuBar\MenuBarCF.xaml.cs">
       <DependentUpon>MenuBarCF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -212,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\MenuBar\MenuBarCF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

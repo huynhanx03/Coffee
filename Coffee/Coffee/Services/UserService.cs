@@ -120,5 +120,19 @@ namespace Coffee.Services
         {
            return await UserDAL.Ins.DeleteUser(UserID);
         }
+
+        /// <summary>
+        /// Tìm kiếm người dùng
+        /// </summary>
+        /// <param name="username">Tài khoản</param>
+        /// <param name="password">Mật khẩu</param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: Người dùng
+        /// </returns>
+        public async Task<(string, UserDTO)> findUser(string username, string password)
+        {
+            return await UserDAL.Ins.findUser(username, password);
+        }
     }
 }

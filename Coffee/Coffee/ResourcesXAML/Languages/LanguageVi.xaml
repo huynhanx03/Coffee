@@ -31,4 +31,5 @@
     <system:String x:Key="Other">Khác</system:String>
     <system:String x:Key="Yes">Có</system:String>
     <system:String x:Key="No">Không</system:String>
+    <system:String x:Key="Login">Đăng nhập</system:String>
 </ResourceDictionary>

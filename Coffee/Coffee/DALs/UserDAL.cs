@@ -248,5 +248,39 @@ namespace Coffee.DALs
                 return (ex.Message, false);
             }
         }
+
+        /// <summary>
+        /// Tìm kiếm người dùng
+        /// </summary>
+        /// <param name="username">Tài khoản</param>
+        /// <param name="password">Mật khẩu</param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: Người dùng
+        /// </returns>
+        public async Task<(string, UserDTO)> findUser(string username, string password)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse response = await context.Client.GetTaskAsync("NguoiDung");
+                    if (response.Body != null && response.Body != "null")
+                    {
+                        Dictionary<string, UserDTO> data = response.ResultAs<Dictionary<string, UserDTO>>();
+
+                        UserDTO _user = data.Values.FirstOrDefault(u => u.TaiKhoan == username && u.MatKhau == password);
+
+                        return ("Tìm thấy tài khoản thành công", _user);
+                    }
+
+                    return ("Tìm tài khoản thất bại", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
     }
 }

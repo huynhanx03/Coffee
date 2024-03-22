@@ -1,5 +1,6 @@
 ﻿using Coffee.Properties;
 using Coffee.Views.Admin.EmployeePage;
+using Coffee.Views.Admin.IngredientPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +63,7 @@ namespace Coffee.ViewModel.AdminVM
 
             loadIngredientsPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
+                p.Content = new MainIngredientPage();
                 optionName = "Nguyên liệu";
             });
 

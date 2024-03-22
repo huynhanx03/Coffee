@@ -3,9 +3,11 @@
                     xmlns:viewmodelUserControl="clr-namespace:Coffee.ViewModel.UserControlVM"
                     xmlns:viewmodelLogin="clr-namespace:Coffee.ViewModel.LoginVM"
                     xmlns:viewmodelMainAdmin="clr-namespace:Coffee.ViewModel.AdminVM"
-                    xmlns:viewmodelEmployyAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Employee">
+                    xmlns:viewmodelEmployyAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Employee"
+                    xmlns:viewmodelIngredientAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Ingredient">
     <viewmodelUserControl:ControlbarViewModel x:Key="ControlbarVM"/>
     <viewmodelMainAdmin:MainAdminViewModel x:Key="AdminVM"/>
     <viewmodelEmployyAdmin:EmployeeViewModel x:Key="EmployeeVM"/>
     <viewmodelLogin:LoginViewModel x:Key="LoginVM"/>
+    <viewmodelIngredientAdmin:IngredientViewModel x:Key="IngredientVM"/>
 </ResourceDictionary>

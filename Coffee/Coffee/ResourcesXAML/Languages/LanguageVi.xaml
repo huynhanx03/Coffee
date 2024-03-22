@@ -32,4 +32,10 @@
     <system:String x:Key="Yes">Có</system:String>
     <system:String x:Key="No">Không</system:String>
     <system:String x:Key="Login">Đăng nhập</system:String>
+    <system:String x:Key="Search">Tìm kiếm</system:String>
+    <system:String x:Key="IngredientName">Tên nguyên liệu</system:String>
+    <system:String x:Key="Quantity">Số lượng</system:String>
+    <system:String x:Key="Unit">Đơn vị</system:String>
+    <system:String x:Key="Price">Giá</system:String>
+    <system:String x:Key="AddIngredien">Thêm nguyên liệu</system:String>
 </ResourceDictionary>

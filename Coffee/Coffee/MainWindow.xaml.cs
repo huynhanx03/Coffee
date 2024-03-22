@@ -1,6 +1,7 @@
 ﻿using Coffee.DTOs;
 using Coffee.Services;
 using Coffee.Utils;
+using Coffee.Utils.Helper;
 using Coffee.Views.MessageBox;
 using FireSharp.Config;
 using FireSharp.Interfaces;
@@ -39,13 +40,14 @@ namespace Coffee
                 {
                     if (context.Client != null)
                     {
-                        PositionDTO cd = new PositionDTO
+                        IngredientDTO cd = new IngredientDTO
                         {
-                            MaChucVu = "CD0003",
-                            TenChucVu = "Nhân viên phục vụ",
+                            MaNguyenLieu = "NL0001",
+                            TenNguyenLieu = "Muối",
+                            MaDonVi = "DV0001"
                         };
 
-                        await context.Client.SetTaskAsync("ChucDanh/" + cd.MaChucVu, cd);
+                        await context.Client.SetTaskAsync("NguyenLieu/" + cd.MaNguyenLieu, cd);
                     }
                         
                 }
@@ -80,6 +82,11 @@ namespace Coffee
         {
             MessageBoxCF ms = new MessageBoxCF("test", MessageType.Error, MessageButtons.OK);
             ms.ShowDialog();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

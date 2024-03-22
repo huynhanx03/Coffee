@@ -75,7 +75,7 @@
                                      Width="300"
                                      HorizontalContentAlignment="Left"
                                      VerticalContentAlignment="Center"
-                                     materialDesign:HintAssist.Hint="Tìm kiếm"
+                                     materialDesign:HintAssist.Hint="{DynamicResource Search}"
                                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                      Background="Transparent"
                                      BorderThickness="0"

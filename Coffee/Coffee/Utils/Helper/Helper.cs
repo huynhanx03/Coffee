@@ -76,5 +76,89 @@ namespace Coffee.Utils.Helper
             }
             return strBuilder.ToString();
         }
+
+        public static object converntUnit(string IngredientID, double quantity, int type)
+        {
+            // Kg -> 1000g
+
+            // l -> 1000ml
+
+            if (IngredientID == "NL0001" || IngredientID == "NL0003")
+            {
+                if (quantity >= 1)
+                {
+                    switch (type)
+                    {
+                        case 1:
+                            return IngredientID;
+
+                        case 2:
+                            return quantity;
+                    }
+
+                    return null;
+                }
+                else
+                {
+                    switch(type)
+                    {
+                        case 1:
+                            switch (IngredientID)
+                            {
+                                case "NL0001":
+                                    return "NL0002";
+
+                                case "NL0003":
+                                    return "NL0004";
+
+                            }
+                            break;
+
+                        case 2:
+                            return quantity * 1000;
+                    }
+
+                    return null;
+                }
+            }
+            else
+            {
+                if (quantity < 1000)
+                {
+                    switch (type)
+                    {
+                        case 1:
+                            return IngredientID;
+
+                        case 2:
+                            return quantity;
+                    }
+
+                    return null;
+                }
+                else
+                {
+                    switch (type)
+                    {
+                        case 1:
+                            switch (IngredientID)
+                            {
+                                case "NL0002":
+                                    return "NL0001";
+
+                                case "NL0004":
+                                    return "NL0003";
+
+                            }
+                            break;
+
+                        case 2:
+                            return quantity / 1000;
+                    }
+
+                    return null;
+                }
+            }
+        }
     }
 }

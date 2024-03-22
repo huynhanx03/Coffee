@@ -126,14 +126,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DALs\BillImportDAL.cs" />
     <Compile Include="DALs\EmployeeDAL.cs" />
+    <Compile Include="DALs\IngredientDAL.cs" />
     <Compile Include="DALs\PositionDAL.cs" />
+    <Compile Include="DALs\UnitDAL.cs" />
     <Compile Include="DALs\UserDAL.cs" />
+    <Compile Include="DTOs\DetailImportDTO.cs" />
     <Compile Include="DTOs\EmployeeDTO.cs" />
+    <Compile Include="DTOs\ImportDTO.cs" />
+    <Compile Include="DTOs\IngredientDTO.cs" />
     <Compile Include="DTOs\PositionDTO.cs" />
+    <Compile Include="DTOs\UnitDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\IngredientService.cs" />
     <Compile Include="Services\PositionService.cs" />
+    <Compile Include="Services\UnitService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UserControls\ControlbarUC.xaml.cs">
@@ -146,6 +155,9 @@
     <Compile Include="Utils\Memory.cs" />
     <Compile Include="ViewModel\AdminVM\Employee\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Employee\OperationOfEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Ingredient\ImportViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Ingredient\IngredientViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Ingredient\OperationOfIngredientViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
@@ -155,6 +167,12 @@
     </Compile>
     <Compile Include="Views\Admin\EmployeePage\OperationEmployeeWindow.xaml.cs">
       <DependentUpon>OperationEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\IngredientPage\MainIngredientPage.xaml.cs">
+      <DependentUpon>MainIngredientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\IngredientPage\OperationIngredientWindow.xaml.cs">
+      <DependentUpon>OperationIngredientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
@@ -208,6 +226,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\EmployeePage\OperationEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\IngredientPage\MainIngredientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\IngredientPage\OperationIngredientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

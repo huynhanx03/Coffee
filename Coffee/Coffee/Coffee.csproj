@@ -132,11 +132,17 @@
     <Compile Include="DALs\PositionDAL.cs" />
     <Compile Include="DALs\UnitDAL.cs" />
     <Compile Include="DALs\UserDAL.cs" />
+    <Compile Include="DTOs\BillDTO.cs" />
+    <Compile Include="DTOs\DetailBillDTO.cs" />
     <Compile Include="DTOs\DetailImportDTO.cs" />
+    <Compile Include="DTOs\DetailProductSizeDTO.cs" />
     <Compile Include="DTOs\EmployeeDTO.cs" />
     <Compile Include="DTOs\ImportDTO.cs" />
     <Compile Include="DTOs\IngredientDTO.cs" />
     <Compile Include="DTOs\PositionDTO.cs" />
+    <Compile Include="DTOs\ProductDTO.cs" />
+    <Compile Include="DTOs\ProductSizeDTO.cs" />
+    <Compile Include="DTOs\TableDTO.cs" />
     <Compile Include="DTOs\UnitDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Services\EmployeeService.cs" />

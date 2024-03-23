@@ -13,14 +13,14 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
     {
 
         #region variable
-        public string _IngredientName { get; set; }
+        public string _IngredientName;
         public string IngredientName
         { 
             get {  return _IngredientName; }
             set { _IngredientName = value; OnPropertyChanged(); }
         }
 
-        public string _SelectedUnitName { get; set; }
+        public string _SelectedUnitName;
         public string SelectedUnitName
         {
             get { return _SelectedUnitName; }

@@ -93,5 +93,53 @@ namespace Coffee.Services
         {
             return await IngredientDAL.Ins.DeleteIngredient(IngredientID);
         }
+
+        /// <summary>
+        /// Lấy nguyên liệu theo mã nguyên liệu
+        /// </summary>
+        /// <param name="IngredientID"></param>
+        /// <returns></returns>
+        public async Task<(string, IngredientDTO)> GetIngredient(string IngredientID)
+        {
+            return await IngredientDAL.Ins.GetIngredient(IngredientID);
+        }
+
+        /// <summary>
+        /// Tăng số lượng nguyên liệu
+        /// </summary>
+        /// <param name="IngredientID"> Mã nguyên liệu </param>
+        /// <param name="Quantity"> Số lượng </param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu update thành công, False nếu update thất bại
+        /// </returns>
+        public async Task<(string, bool)> updateIngredientQuantity(string IngredientID, double Quantity, string UnitID)
+        {
+            (string labelGetIngredient, IngredientDTO ingredient) = await this.GetIngredient(IngredientID);
+
+            // Nếu lấy được nguyên liệu thì update số lượng
+            if (ingredient != null)
+            {
+                if (ingredient.MaDonVi == UnitID)
+                    ingredient.SoLuong += Quantity;
+                else
+                {
+                    if (ingredient.MaDonVi == "DV0001" || ingredient.MaDonVi == "DV0003")
+                        ingredient.SoLuong += (Quantity / 1000);
+                    else
+                        ingredient.SoLuong += (Quantity * 1000);
+                }
+
+                (string labelUpdate, IngredientDTO ingredientUpdate) = await this.updateIngredient(ingredient);
+
+                // Update thành công
+                if (ingredientUpdate != null)
+                    return ("Tăng số lượng nguyên liệu thành công", true);
+                else
+                    return (labelUpdate, false);
+            }
+
+            return ("Không tìm được nguyên liệu", false);
+        }
     }
 }

@@ -38,4 +38,7 @@
     <system:String x:Key="Unit">Đơn vị</system:String>
     <system:String x:Key="Price">Giá</system:String>
     <system:String x:Key="AddIngredien">Thêm nguyên liệu</system:String>
+    <system:String x:Key="BillImport">Phiếu nhập kho</system:String>
+    <system:String x:Key="InvoiceDate">Ngày lập hoá đơn</system:String>
+    <system:String x:Key="InvoiceValue">Trị giá</system:String>
 </ResourceDictionary>

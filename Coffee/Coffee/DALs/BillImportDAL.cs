@@ -87,12 +87,14 @@ namespace Coffee.DALs
         /// <summary>
         /// Tạo chi tiết phiếu nhập kho mới
         /// </summary>
+        /// <param name="importID"> Mã của phiếu nhập kho </param>
         /// <param name="detailImportList"> List chi tiết phiếu nhập kho</param>
         /// <returns>
         ///     1. Thông báo
         ///     2. True khi tạo thành công
         /// </returns>
-        public async Task<(string, bool)> createDetailBillImport(ObservableCollection<DetailImportDTO> detailImportList)
+        ///
+        public async Task<(string, bool)> createDetailBillImport(string importID, ObservableCollection<DetailImportDTO> detailImportList)
         {
             try
             {
@@ -100,10 +102,34 @@ namespace Coffee.DALs
                 {
                     foreach (var detailImport in detailImportList)
                     {
-                        await context.Client.SetTaskAsync("PhieuNhapKho/" + detailImport.MaPhieuNhapKho, detailImport);
+                        await context.Client.SetTaskAsync("PhieuNhapKho/" + importID + "/ChiTietPhieuNhapKho/" + detailImport.MaNguyenLieu, detailImport);
                     }
 
                     return ("Thêm phiếu nhập kho thành công", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, false);
+            }
+        }
+
+        /// <summary>
+        /// Xoá phiếu nhập kho
+        /// </summary>
+        /// <param name="importID"></param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> DeleteBillImport(string importID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.DeleteTaskAsync("PhieuNhapKho/" + importID);
+                    return ("Xoá phiếu nhập kho thành công", true);
                 }
             }
             catch (Exception ex)

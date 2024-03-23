@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Coffee.Views.Admin.IngredientPage"
         mc:Ignorable="d"
         Title="OperationIngredientWindow"
-        x:Name="OperationEmployeeWindowCF"
+        x:Name="OperationIngredientWindowCF"
         xmlns:uc="clr-namespace:Coffee.UserControls"
         xmlns:cv="clr-namespace:Coffee.Utils.ConverterValue"
         xmlns:i = "http://schemas.microsoft.com/xaml/behaviors"
@@ -78,13 +78,13 @@
                         Orientation="Horizontal">
                     <Button Style="{DynamicResource btnStyle}"
                         Margin="0,0,20,0"
-                        Command="{Binding confirmOperationEmployeeIC}"
+                        Command="{Binding confirmImportIC}"
                         Content="{DynamicResource Confirm}"/>
 
                     <Button Style="{DynamicResource btnStyle}"
                         Margin="0,0,50,0"
-                        Command="{Binding closeOperationEmployeeWindowIC}"
-                        CommandParameter="{Binding ElementName=OperationEmployeeWindowCF}"
+                        Command="{Binding closeOperationIngredientWindowIC}"
+                        CommandParameter="{Binding ElementName=OperationIngredientWindowCF}"
                         Content="{DynamicResource Cancel}" />
                 </StackPanel>
             </Grid>

@@ -83,7 +83,7 @@ namespace Coffee.Utils.Helper
 
             // l -> 1000ml
 
-            if (IngredientID == "NL0001" || IngredientID == "NL0003")
+            if (IngredientID == "DV0001" || IngredientID == "DV0003")
             {
                 if (quantity >= 1)
                 {
@@ -105,11 +105,11 @@ namespace Coffee.Utils.Helper
                         case 1:
                             switch (IngredientID)
                             {
-                                case "NL0001":
-                                    return "NL0002";
+                                case "DV0001":
+                                    return "DV0002";
 
-                                case "NL0003":
-                                    return "NL0004";
+                                case "DV0003":
+                                    return "DV0004";
 
                             }
                             break;
@@ -143,11 +143,11 @@ namespace Coffee.Utils.Helper
                         case 1:
                             switch (IngredientID)
                             {
-                                case "NL0002":
-                                    return "NL0001";
+                                case "DV0002":
+                                    return "DV0001";
 
-                                case "NL0004":
-                                    return "NL0003";
+                                case "DV0004":
+                                    return "DV0003";
 
                             }
                             break;

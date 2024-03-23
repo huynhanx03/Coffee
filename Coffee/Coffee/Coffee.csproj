@@ -145,6 +145,7 @@
     <Compile Include="DTOs\TableDTO.cs" />
     <Compile Include="DTOs\UnitDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
+    <Compile Include="Services\BillImportService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IngredientService.cs" />
     <Compile Include="Services\PositionService.cs" />
@@ -173,6 +174,9 @@
     </Compile>
     <Compile Include="Views\Admin\EmployeePage\OperationEmployeeWindow.xaml.cs">
       <DependentUpon>OperationEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\IngredientPage\BillImportWindow.xaml.cs">
+      <DependentUpon>BillImportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\IngredientPage\MainIngredientPage.xaml.cs">
       <DependentUpon>MainIngredientPage.xaml</DependentUpon>
@@ -232,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\EmployeePage\OperationEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\IngredientPage\BillImportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

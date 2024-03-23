@@ -139,7 +139,7 @@
                                   SelectionMode="Single"
                                   SelectionUnit="FullRow"
                                   ItemsSource="{Binding IngredientList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding SelectedEmployee}"
+                                  SelectedItem="{Binding SelectedIngredient}"
                                   d:ItemsSource="{d:SampleData ItemCount=5}">
                             <DataGrid.CellStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -278,13 +278,13 @@
                             </StackPanel>
                         </Border>
 
-                        <!--  Button Thêm  -->
+                        <!--  Button nhập kho  -->
                         <Button 
                                 Cursor="Hand"
                                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 Background="{DynamicResource MainColorCF}"
                                 BorderBrush="{x:Null}"
-                                Command="{Binding importIC}">
+                                Command="{Binding openBillImportWindowIC}">
                             <materialDesign:PackIcon Kind="PlusBold" 
                                 Foreground="{DynamicResource BackgroundCF}"/>
                         </Button>
@@ -384,7 +384,7 @@
                                                 <Button Style="{StaticResource btnInDtg}"
                                                         Background="#AD7270"
                                                         BorderBrush="#A20F27"
-                                                        Margin="25 0 0 0"
+                                                        Margin="15 0 0 0"
                                                         Click="Delete_Click">
                                                     <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                                 </Button>

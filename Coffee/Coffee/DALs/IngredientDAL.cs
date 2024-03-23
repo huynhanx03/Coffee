@@ -172,5 +172,29 @@ namespace Coffee.DALs
                 return (ex.Message, false);
             }
         }
+
+        /// <summary>
+        /// Lấy nguyên liệu theo mã nguyên liệu
+        /// </summary>
+        /// <param name="IngredientID"></param>
+        /// <returns></returns>
+        public async Task<(string, IngredientDTO)> GetIngredient(string IngredientID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse response = await context.Client.GetTaskAsync("NguyenLieu/" + IngredientID);
+
+                    IngredientDTO ingredient = response.ResultAs<IngredientDTO>();
+
+                    return ("Lấy nguyên liệu thành công", ingredient);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
     }
 }

@@ -1,4 +1,8 @@
 ﻿using Coffee.DTOs;
+using Coffee.Services;
+using Coffee.Utils;
+using Coffee.Views.Admin.IngredientPage;
+using Coffee.Views.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +17,7 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
     public partial class IngredientViewModel: BaseViewModel
     {
         #region variable
-        private ObservableCollection<DetailImportDTO> _DetailImportList;
+        private ObservableCollection<DetailImportDTO> _DetailImportList = new ObservableCollection<DetailImportDTO>();
 
         public ObservableCollection<DetailImportDTO> DetailImportList
         {
@@ -21,16 +25,95 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             set { _DetailImportList = value; OnPropertyChanged(); }
         }
 
+        private string _EmployeeName;
+        public string EmployeeName
+        {
+            get { return _EmployeeName; }
+            set { _EmployeeName = value; OnPropertyChanged(); }
+        }
+
+        private string _InvoiceDate;
+        public string InvoiceDate
+        {
+            get { return _InvoiceDate; }
+            set { _InvoiceDate = value; OnPropertyChanged(); }
+        }
+
+        private decimal _InvoiceValue;
+        public decimal InvoiceValue
+        {
+            get { return _InvoiceValue; }
+            set { _InvoiceValue = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #region ICommand
-        public ICommand importIC { get; set; }
+        public ICommand confirmImportIC { get; set; }
+        public ICommand closeBillImportWindowIC { get; set; }
 
         #endregion
 
-        private void import()
+        /// <summary>
+        /// Xác nhận nhập kho
+        /// </summary>
+        private async void confirmImport(Window w)
         {
-            MessageBox.Show(DetailImportList[0].TenNguyenLieu);
+            // Xác định phiếu nhập kho
+            ImportDTO import = new ImportDTO
+            {
+                MaNhanVien = Memory.user.MaNguoiDung,
+                NgayTaoPhieu = InvoiceDate,
+                TongTien = InvoiceValue
+            };
+
+            foreach (DetailImportDTO detail in DetailImportList)
+            {
+                // Chỉnh sửa lại mã đơn vị
+                UnitDTO unit = UnitList.First(u => u.TenDonVi == detail.TenDonVi);
+
+                // Kiểm tra mã đơn vị mới có thích hợp không
+                if (detail.MaDonVi == "DV0001" || detail.MaDonVi == "DV0002")
+                {
+                    if (unit.MaDonVi != "DV0001" && unit.MaDonVi != "DV0002")
+                    {
+                        MessageBoxCF ms = new MessageBoxCF("Đơn vị không phù hợp tại nguyên liệu " + detail.TenNguyenLieu, MessageType.Error, MessageButtons.OK);
+                        w.Close();
+                        ms.ShowDialog();
+                        return;
+                    }
+                }
+                else
+                {
+                    if (unit.MaDonVi != "DV0003" && unit.MaDonVi != "DV0004")
+                    {
+                        MessageBoxCF ms = new MessageBoxCF("Đơn vị không phù hợp tại nguyên liệu " + detail.TenNguyenLieu, MessageType.Error, MessageButtons.OK);
+                        w.Close();
+                        ms.ShowDialog();
+                        return;
+                    }
+                }
+
+                detail.MaDonVi = unit.MaDonVi;
+            }
+
+            (string label, bool isCreate) = await BillImportService.Ins.createBillImport(import, DetailImportList);
+
+            if (isCreate)
+            {
+                DetailImportList = new ObservableCollection<DetailImportDTO>();
+                this.loadIngredientList();
+
+                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
+                ms.ShowDialog();
+
+                w.Close();
+            }
+            else
+            {
+                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
+            }
         }
     }
 }

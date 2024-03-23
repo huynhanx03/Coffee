@@ -1,4 +1,5 @@
 ﻿using Coffee.ViewModel.AdminVM.Employee;
+using Coffee.ViewModel.AdminVM.Ingredient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace Coffee.Views.Admin.IngredientPage
         
         private void Import_Click(object sender, RoutedEventArgs e)
         {
-            //(DataContext as EmployeeViewModel).deleteEmployee();
+            (DataContext as IngredientViewModel).addIngredientToImport();
         }
     }
 }

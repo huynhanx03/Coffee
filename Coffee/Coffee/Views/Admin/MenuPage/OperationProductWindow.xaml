@@ -83,16 +83,6 @@
                                            Text="{DynamicResource ProductType}"/>
                             </materialDesign:HintAssist.Hint>
                         </ComboBox>
-
-                        <TextBox Style="{DynamicResource txbStyle}"
-                                 BorderBrush="{DynamicResource MainColorCF}"
-                                 Margin="0 10 0 0"
-                                 Text="{Binding Price}">
-                            <materialDesign:HintAssist.Hint>
-                                <TextBlock Foreground="{DynamicResource MainColorCF}"
-                                           Text="{DynamicResource Price}"/>
-                            </materialDesign:HintAssist.Hint>
-                        </TextBox>
                     </StackPanel>
 
                     <Border Grid.Column="1"

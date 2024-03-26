@@ -14,6 +14,5 @@ namespace Coffee.DTOs
         public string MaLoaiSanPham { get; set; }
         public string HinhAnh { get; set; }
         public int SoLuong { get; set; }
-        public decimal Gia { get; set; }
     }
 }

@@ -130,6 +130,11 @@
     <Compile Include="DALs\EmployeeDAL.cs" />
     <Compile Include="DALs\IngredientDAL.cs" />
     <Compile Include="DALs\PositionDAL.cs" />
+    <Compile Include="DALs\ProductDAL.cs" />
+    <Compile Include="DALs\ProductRecipeDAL.cs" />
+    <Compile Include="DALs\ProductSizeDAL.cs" />
+    <Compile Include="DALs\ProductSizeDetailDAL.cs" />
+    <Compile Include="DALs\ProductTypeDAL.cs" />
     <Compile Include="DALs\UnitDAL.cs" />
     <Compile Include="DALs\UserDAL.cs" />
     <Compile Include="DTOs\BillDTO.cs" />
@@ -141,7 +146,10 @@
     <Compile Include="DTOs\IngredientDTO.cs" />
     <Compile Include="DTOs\PositionDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
+    <Compile Include="DTOs\ProductRecipeDTO.cs" />
+    <Compile Include="DTOs\ProductSizeDetailDTO.cs" />
     <Compile Include="DTOs\ProductSizeDTO.cs" />
+    <Compile Include="DTOs\ProductTypeDTO.cs" />
     <Compile Include="DTOs\TableDTO.cs" />
     <Compile Include="DTOs\UnitDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
@@ -149,6 +157,11 @@
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IngredientService.cs" />
     <Compile Include="Services\PositionService.cs" />
+    <Compile Include="Services\ProductRecipeService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\ProductSizeDetailService.cs" />
+    <Compile Include="Services\ProductSizeService.cs" />
+    <Compile Include="Services\ProductTypeService.cs" />
     <Compile Include="Services\UnitService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Settings.cs" />
@@ -166,6 +179,8 @@
     <Compile Include="ViewModel\AdminVM\Ingredient\IngredientViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Ingredient\OperationOfIngredientViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Menu\MenuViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Menu\OperationOfEmployeeViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\UserControlVM\ControlbarViewModel.cs" />
@@ -189,6 +204,12 @@
     </Compile>
     <Compile Include="Views\Admin\MenuBar\MenuBarCF.xaml.cs">
       <DependentUpon>MenuBarCF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\MenuPage\MainMenuPage.xaml.cs">
+      <DependentUpon>MainMenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\MenuPage\OperationProductWindow.xaml.cs">
+      <DependentUpon>OperationProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -256,6 +277,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\MenuBar\MenuBarCF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\MenuPage\MainMenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\MenuPage\OperationProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

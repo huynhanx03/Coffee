@@ -25,6 +25,8 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             set { _DetailImportList = value; OnPropertyChanged(); }
         }
 
+        private List<DetailImportDTO> __DetailImportList = new List<DetailImportDTO>();
+
         private string _EmployeeName;
         public string EmployeeName
         {
@@ -45,6 +47,16 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             get { return _InvoiceValue; }
             set { _InvoiceValue = value; OnPropertyChanged(); }
         }
+
+        private DetailImportDTO _SelectDetailImport;
+
+        public DetailImportDTO SelectDetailImport
+        {
+            get { return _SelectDetailImport; }
+            set { _SelectDetailImport = value; OnPropertyChanged(); }
+        }
+
+        private bool isSearchImport = false;
 
         #endregion
 
@@ -113,6 +125,37 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             {
                 MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
                 ms.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Xoá nguyên liệu khỏi nhập kho
+        /// </summary>
+        public void removeIngredient()
+        {
+            DetailImportList.Remove(SelectDetailImport);
+
+            DetailImportList = new ObservableCollection<DetailImportDTO>(DetailImportList);
+        }
+
+        public void searchDetailImport(string text)
+        {
+            if (text != null)
+            {
+                // rỗng
+                if (string.IsNullOrEmpty(text))
+                {
+                    isSearchImport = true;
+                    DetailImportList = new ObservableCollection<DetailImportDTO>(__DetailImportList);
+                }
+                else
+                {
+                    if (!isSearchImport)
+                        __DetailImportList = new List<DetailImportDTO>(DetailImportList);
+
+                    isSearchImport = true;
+                    DetailImportList = new ObservableCollection<DetailImportDTO>(__DetailImportList.FindAll(x => x.TenNguyenLieu.ToLower().Contains(text.ToLower())));
+                }
             }
         }
     }

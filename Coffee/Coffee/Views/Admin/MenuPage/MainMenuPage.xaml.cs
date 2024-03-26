@@ -1,5 +1,4 @@
 ﻿using Coffee.ViewModel.AdminVM.Employee;
-using Coffee.ViewModel.AdminVM.Ingredient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Coffee.Views.Admin.IngredientPage
+namespace Coffee.Views.Admin.MenuPage
 {
     /// <summary>
-    /// Interaction logic for MainIngredientPage.xaml
+    /// Interaction logic for MainMenuPage.xaml
     /// </summary>
-    public partial class MainIngredientPage : Page
+    public partial class MainMenuPage : Page
     {
-        public MainIngredientPage()
+        public MainMenuPage()
         {
             InitializeComponent();
         }
@@ -35,16 +34,6 @@ namespace Coffee.Views.Admin.IngredientPage
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             //(DataContext as EmployeeViewModel).deleteEmployee();
-        }
-        
-        private void Import_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as IngredientViewModel).addIngredientToImport();
-        }
-
-        private void Remove_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as IngredientViewModel).removeIngredient();
         }
     }
 }

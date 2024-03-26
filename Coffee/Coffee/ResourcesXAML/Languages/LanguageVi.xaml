@@ -41,4 +41,9 @@
     <system:String x:Key="BillImport">Phiếu nhập kho</system:String>
     <system:String x:Key="InvoiceDate">Ngày lập hoá đơn</system:String>
     <system:String x:Key="InvoiceValue">Trị giá</system:String>
+    <system:String x:Key="ProductName">Tên sản phẩm</system:String>
+    <system:String x:Key="ProductType">Loại sản phẩm</system:String>
+    <system:String x:Key="AddProduct">Thêm sản phẩm</system:String>
+    <system:String x:Key="ProductRecipe">Công thức sản phẩm</system:String>
+    <system:String x:Key="Size">Kích thước</system:String>
 </ResourceDictionary>

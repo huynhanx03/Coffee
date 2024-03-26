@@ -254,6 +254,8 @@ namespace Coffee.ViewModel.AdminVM.Employee
 
                     if (NewEmployeeEdit != null)
                     {
+                        await CloudService.Ins.DeleteImage(OriginImage);
+
                         MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Accept, MessageButtons.OK);
                         ms.ShowDialog();
                         loadEmployeeList();

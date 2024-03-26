@@ -5,6 +5,7 @@ using Coffee.Utils.Helper;
 using Coffee.Views.MessageBox;
 using FireSharp.Config;
 using FireSharp.Interfaces;
+using FireSharp.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,18 +39,19 @@ namespace Coffee
             {
                 using (var context = new Firebase())
                 {
-                    if (context.Client != null)
-                    {
-                        IngredientDTO cd = new IngredientDTO
-                        {
-                            MaNguyenLieu = "NL0001",
-                            TenNguyenLieu = "Muối",
-                            MaDonVi = "DV0001"
-                        };
+                    FirebaseResponse response = await context.Client.GetTaskAsync("KichThuocSanPham");
 
-                        await context.Client.SetTaskAsync("NguyenLieu/" + cd.MaNguyenLieu, cd);
+                    if (response.Body != null && response.Body != "null")
+                    {
+                        Dictionary<string, ProductSizeDetailDTO> data = response.ResultAs<Dictionary<string, ProductSizeDetailDTO>>();
+
+                        // Chuyển đổi từ điển thành danh sách
+                        List<ProductSizeDetailDTO> ListProductSize = data.Values.ToList();
+
                     }
-                        
+                    else
+                    {
+                    }
                 }
             }
             catch (Exception ex)

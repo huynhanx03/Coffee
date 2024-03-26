@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Coffee.Utils
 {
@@ -78,6 +79,7 @@ namespace Coffee.Utils
                 {
                     ResourceType = ResourceType.Image
                 };
+
                 var result = await cloudinary.DestroyAsync(deleteParams);
                 return "Đã xóa thành công!";
             }

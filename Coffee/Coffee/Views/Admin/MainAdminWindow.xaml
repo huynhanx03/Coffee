@@ -171,7 +171,7 @@
                                Background="{DynamicResource Background2CF}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
-                                    <i:InvokeCommandAction Command="{Binding loadIngredientsPageIC}"
+                                    <i:InvokeCommandAction Command="{Binding loadMenuPageIC}"
                                                            CommandParameter="{Binding ElementName=mainFrame}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
@@ -250,7 +250,7 @@
                         <RadioButton Style="{StaticResource MenuButtonMain}"
                                      Name="ItemsBtn"
                                      GroupName="mainOptions"
-                                     Command="{Binding loadItemsPageIC}"
+                                     Command="{Binding loadMenuPageIC}"
                                      CommandParameter="{Binding ElementName=mainFrame}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ListBox"

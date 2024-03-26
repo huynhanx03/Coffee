@@ -258,20 +258,20 @@
                          Margin="10 0 0 0"/>
 
                                 <TextBox
-         x:Name="searchBoxX"
-         Width="300"
-         HorizontalContentAlignment="Left"
-         VerticalContentAlignment="Center"
-         materialDesign:HintAssist.Hint="{DynamicResource Search}"
-         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-         Background="Transparent"
-         BorderThickness="0"
-         FontSize="14"
-         TextAlignment="Left">
+                                         x:Name="searchBoxImport"
+                                         Width="300"
+                                         HorizontalContentAlignment="Left"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:HintAssist.Hint="{DynamicResource Search}"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         FontSize="14"
+                                         TextAlignment="Left">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding searchEmployeeIC}" 
-                                   CommandParameter="{Binding ElementName=searchBox}" />
+                                            <i:InvokeCommandAction Command="{Binding searchDetailImportIC}" 
+                                                                   CommandParameter="{Binding ElementName=searchBoxImport}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
@@ -314,7 +314,7 @@
                                   SelectionMode="Single"
                                   SelectionUnit="FullRow"
                                   ItemsSource="{Binding DetailImportList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding SelectedEmployee}"
+                                  SelectedItem="{Binding SelectDetailImport}"
                                   d:ItemsSource="{d:SampleData ItemCount=5}">
                             <DataGrid.CellStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -376,7 +376,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <!--  Button chỉnh sửa, xóa cho mỗi nguyên liệu  -->
+                                <!--  Button xoá nguyên liệu khỏi nhập kho -->
                                 <DataGridTemplateColumn Width="auto" Header="">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -385,7 +385,7 @@
                                                         Background="#AD7270"
                                                         BorderBrush="#A20F27"
                                                         Margin="15 0 0 0"
-                                                        Click="Delete_Click">
+                                                        Click="Remove_Click">
                                                     <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                                 </Button>
                                             </StackPanel>

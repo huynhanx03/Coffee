@@ -46,9 +46,8 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             get { return _SelectedIngredient; }
             set { _SelectedIngredient = value; OnPropertyChanged(); }
         }
-
-
-
+        
+       
         #endregion
 
         #region ICommand
@@ -58,6 +57,7 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
         public ICommand loadUnitListIC { get; set; }
         public ICommand addIngredientToImportIC { get; set; }
         public ICommand openBillImportWindowIC { get; set; }
+        public ICommand searchDetailImportIC { get; set; }
         #endregion
 
         public IngredientViewModel()
@@ -96,6 +96,11 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             closeBillImportWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 p.Close();
+            });
+
+            searchDetailImportIC = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                searchDetailImport(p.Text);
             });
 
             #endregion

@@ -1,6 +1,7 @@
 ﻿using Coffee.Properties;
 using Coffee.Views.Admin.EmployeePage;
 using Coffee.Views.Admin.IngredientPage;
+using Coffee.Views.Admin.MenuPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Coffee.ViewModel.AdminVM
 
         public ICommand loadDashboardPageIC { get; set; }
         public ICommand loadTablesPageIC { get; set; }
-        public ICommand loadItemsPageIC { get; set; }
+        public ICommand loadMenuPageIC { get; set; }
         public ICommand loadIngredientsPageIC { get; set; }
         public ICommand loadBillsPageIC { get; set; }
         public ICommand loadEmployeePageIC { get; set; }
@@ -41,41 +42,42 @@ namespace Coffee.ViewModel.AdminVM
 
         public MainAdminViewModel()
         {
-            loadRoleIC = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            loadRoleIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 role = 1;
             });
 
             loadDashboardPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                optionName = "Trang chủ";
+                //optionName = "Trang chủ";
             });
 
             loadTablesPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                optionName = "Bàn";
+                //optionName = "Bàn";
             });
 
-            loadItemsPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            loadMenuPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                optionName = "Thực đơn";
+                p.Content = new MainMenuPage();
+                //optionName = "Thực đơn";
             });
 
             loadIngredientsPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new MainIngredientPage();
-                optionName = "Nguyên liệu";
+                //optionName = "Nguyên liệu";
             });
 
             loadBillsPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                optionName = "Hoá đơn";
+                //optionName = "Hoá đơn";
             });
 
             loadEmployeePageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new MainEmployeePage();
-                optionName = "Nhân viên";
+                //optionName = "Nhân viên";
             });
 
             loadSettingPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>

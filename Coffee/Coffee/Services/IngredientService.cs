@@ -84,14 +84,22 @@ namespace Coffee.Services
         /// <summary>
         /// Xoá nguyên liệu 
         /// </summary>
-        /// <param name="IngredientID"></param>
+        /// <param name="ingredient">Nguyên Liệu</param>
         /// <returns>
         ///     1: Thông báo
         ///     2: True nếu xoá thành công, False xoá thất bại
         /// </returns>
-        public async Task<(string, bool)> DeleteIngredient(string IngredientID)
+        public async Task<(string, bool)> DeleteIngredient(IngredientDTO Ingredient)
         {
-            return await IngredientDAL.Ins.DeleteIngredient(IngredientID);
+            (string labelIngredient, bool isDeleteIngredient) = await IngredientDAL.Ins.DeleteIngredient(Ingredient.MaNguyenLieu);
+            if (isDeleteIngredient)
+            {
+                return (labelIngredient, true);
+            }
+            else
+            {
+                return (labelIngredient, false);
+            }
         }
 
         /// <summary>

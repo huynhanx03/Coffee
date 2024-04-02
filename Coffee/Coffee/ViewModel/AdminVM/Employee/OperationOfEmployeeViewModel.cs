@@ -162,11 +162,6 @@ namespace Coffee.ViewModel.AdminVM.Employee
             {
                 ListPosition = new ObservableCollection<PositionDTO>(listPosition);
             }
-            else
-            {
-                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
-                ms.ShowDialog();
-            }
         }
 
         /// <summary>

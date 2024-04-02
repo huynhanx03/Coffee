@@ -214,7 +214,6 @@ namespace Coffee.ViewModel.AdminVM.Menu
                 TenSanPham = ProductName,
                 LoaiSanPham = productType.LoaiSanPham,
                 MaLoaiSanPham = productType.MaLoaiSanPham,
-                Gia = Price,
                 HinhAnh = newImage
             };
 

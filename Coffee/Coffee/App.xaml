@@ -16,6 +16,42 @@
                 <ResourceDictionary Source="/ResourcesXAML/Languages/LanguageVi.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <Style x:Key="MenuTableMain" TargetType="RadioButton">
+                <!--Normal button style-->
+                <Setter Property="Height" Value="60"/>
+                <Setter Property="Background" Value="{DynamicResource HoverColorCF}"/>
+                <Setter Property="Foreground" Value="{DynamicResource BackgroundCF}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource HoverColorCF}"/>
+                <Setter Property="Width" Value="130"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    CornerRadius="16">
+                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <!--Button Style on hover-->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource BackgroundCF}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource MainColorCF}"/>
+                        <!--<Setter Property="BorderBrush" Value=""/>-->
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Trigger>
+
+                    <!--Activated button style-->
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource BackgroundCF}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource MainColorCF}"/>
+                        <!--<Setter Property="BorderBrush" Value=""/>-->
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="MenuButtonMain" TargetType="RadioButton">
                 <!--Normal button style-->
                 <Setter Property="Height" Value="50"/>
@@ -83,6 +119,12 @@
             <Style x:Key="Header2" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="25"/>
                 <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}"/>
+            </Style>
+
+            <!--Header 2-->
+            <Style x:Key="txblNormarl" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13.5"/>
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundCF}"/>
             </Style>
 

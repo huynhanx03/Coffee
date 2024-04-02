@@ -19,22 +19,45 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="none"
         AllowsTransparency="True"
-        Width="1400" Height="800">
+        Width="1400" Height="800"
+        >
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <uc:ControlbarUC></uc:ControlbarUC>
-        </Grid>
-        <StackPanel Grid.Row="1">
-            <Button Click="Button_Click">Thêm dữ liệu</Button>
-            <Button Click="Button_Click_1">Truy xuất dữ liệu</Button>
-            <Button Click="Button_Click_2">OK</Button>
-            <Button Click="Button_Click_3">YESNO</Button>
-            <Button Click="Button_Click_4">YESNO</Button>
-            <Button Click="Button_Click_5">Test</Button>
-        </StackPanel>
+        <ScrollViewer x:Name="ScrollViewer"
+                      VerticalScrollBarVisibility="Auto"
+                      VerticalAlignment="Top"
+                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+            <ItemsControl x:Name="itemsource"
+                          ItemsSource="{Binding myObjects}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="200"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Grid.Row" Value="{Binding Row}"/>
+                        <Setter Property="Grid.Column" Value="{Binding Column}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Content}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
     </Grid>
 </Window>

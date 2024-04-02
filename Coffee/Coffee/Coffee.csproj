@@ -135,6 +135,8 @@
     <Compile Include="DALs\ProductSizeDAL.cs" />
     <Compile Include="DALs\ProductSizeDetailDAL.cs" />
     <Compile Include="DALs\ProductTypeDAL.cs" />
+    <Compile Include="DALs\TableDAL.cs" />
+    <Compile Include="DALs\TableTypeDAL.cs" />
     <Compile Include="DALs\UnitDAL.cs" />
     <Compile Include="DALs\UserDAL.cs" />
     <Compile Include="DTOs\BillDTO.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="DTOs\ProductSizeDTO.cs" />
     <Compile Include="DTOs\ProductTypeDTO.cs" />
     <Compile Include="DTOs\TableDTO.cs" />
+    <Compile Include="DTOs\TableTypeDTO.cs" />
     <Compile Include="DTOs\UnitDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Services\BillImportService.cs" />
@@ -162,14 +165,24 @@
     <Compile Include="Services\ProductSizeDetailService.cs" />
     <Compile Include="Services\ProductSizeService.cs" />
     <Compile Include="Services\ProductTypeService.cs" />
+    <Compile Include="Services\TableService.cs" />
+    <Compile Include="Services\TableTypeService.cs" />
     <Compile Include="Services\UnitService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UserControls\ControlbarUC.xaml.cs">
       <DependentUpon>ControlbarUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MenuUC.xaml.cs">
+      <DependentUpon>MenuUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TableUC.xaml.cs">
+      <DependentUpon>TableUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\CloudService.cs" />
+    <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\ConverterValue\RoleConverter.cs" />
+    <Compile Include="Utils\ConverterValue\TableCoverter.cs" />
     <Compile Include="Utils\Firebase.cs" />
     <Compile Include="Utils\Helper\Helper.cs" />
     <Compile Include="Utils\Memory.cs" />
@@ -180,7 +193,11 @@
     <Compile Include="ViewModel\AdminVM\Ingredient\OperationOfIngredientViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Menu\MenuViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\Menu\OperationOfEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Menu\OperationOfMenuViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Table\MainTableViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Table\MenuViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Table\OperationOfTableViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Table\TableViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\UserControlVM\ControlbarViewModel.cs" />
@@ -210,6 +227,21 @@
     </Compile>
     <Compile Include="Views\Admin\MenuPage\OperationProductWindow.xaml.cs">
       <DependentUpon>OperationProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Table\MainTablePage.xaml.cs">
+      <DependentUpon>MainTablePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Table\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Table\OperationOfTableWindow.xaml.cs">
+      <DependentUpon>OperationOfTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Table\SalesPage.xaml.cs">
+      <DependentUpon>SalesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Table\TablePage.xaml.cs">
+      <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -252,6 +284,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\MenuUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TableUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\EmployeePage\MainEmployeePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -285,6 +325,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\MenuPage\OperationProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Table\MainTablePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Table\MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Table\OperationOfTableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Table\SalesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Table\TablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -346,6 +406,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\BackgroundLogin.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Table.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

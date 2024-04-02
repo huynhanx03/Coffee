@@ -5,11 +5,13 @@
                     xmlns:viewmodelMainAdmin="clr-namespace:Coffee.ViewModel.AdminVM"
                     xmlns:viewmodelEmployyAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Employee"
                     xmlns:viewmodelIngredientAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Ingredient"
-                    xmlns:viewmodelMenuAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Menu">
+                    xmlns:viewmodelMenuAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Menu"
+                    xmlns:viewmodelTableAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Table">
     <viewmodelUserControl:ControlbarViewModel x:Key="ControlbarVM"/>
     <viewmodelMainAdmin:MainAdminViewModel x:Key="AdminVM"/>
     <viewmodelEmployyAdmin:EmployeeViewModel x:Key="EmployeeVM"/>
     <viewmodelLogin:LoginViewModel x:Key="LoginVM"/>
     <viewmodelIngredientAdmin:IngredientViewModel x:Key="IngredientVM"/>
     <viewmodelMenuAdmin:MenuViewModel x:Key="MenuVM"/>
+    <viewmodelTableAdmin:MainTableViewModel x:Key="TableVM"/>
 </ResourceDictionary>

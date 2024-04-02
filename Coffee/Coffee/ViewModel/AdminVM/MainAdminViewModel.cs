@@ -2,6 +2,7 @@
 using Coffee.Views.Admin.EmployeePage;
 using Coffee.Views.Admin.IngredientPage;
 using Coffee.Views.Admin.MenuPage;
+using Coffee.Views.Admin.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,7 @@ namespace Coffee.ViewModel.AdminVM
 
             loadTablesPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
+                p.Content = new MainTablePage();
                 //optionName = "Bàn";
             });
 

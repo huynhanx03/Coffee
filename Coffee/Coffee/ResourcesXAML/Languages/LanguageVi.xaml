@@ -46,4 +46,13 @@
     <system:String x:Key="AddProduct">Thêm sản phẩm</system:String>
     <system:String x:Key="ProductRecipe">Công thức sản phẩm</system:String>
     <system:String x:Key="Size">Kích thước</system:String>
+    <system:String x:Key="IntoMoney">Thành tiền</system:String>
+    <system:String x:Key="CreatedDate">Ngày tạo</system:String>
+    <system:String x:Key="Booking">Đặt chỗ</system:String>
+    <system:String x:Key="Pay">Thanh toán</system:String>
+    <system:String x:Key="AddTable">Thêm bàn</system:String>
+    <system:String x:Key="TableName">Tên bàn</system:String>
+    <system:String x:Key="TableType">Loài bàn</system:String>
+    <system:String x:Key="Row">Hàng</system:String>
+    <system:String x:Key="Column">Cột</system:String>
 </ResourceDictionary>

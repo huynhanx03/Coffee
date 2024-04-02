@@ -1,6 +1,7 @@
 ﻿using Coffee.DTOs;
 using Coffee.Utils;
 using FireSharp.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,57 +114,34 @@ namespace Coffee.DALs
         /// <returns>
         ///     Danh sách sản phẩm
         /// </returns>
-        //public async Task<(string, List<ProductDTO>)> getListProduct()
-        //{
-        //    try
-        //    {
-        //        using (var context = new Firebase())
-        //        {
-        //            // Lấy dữ liệu từ nút "Employees" trong Firebase
-        //            FirebaseResponse employeesResponse = await context.Client.GetTaskAsync("NhanVien");
-        //            Dictionary<string, EmployeeDTO> employeesData = employeesResponse.ResultAs<Dictionary<string, EmployeeDTO>>();
+        public async Task<(string, List<ProductDTO>)> getListProduct()
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    // Lấy dữ liệu từ nút "Product" trong Firebase
+                    FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham");
+                    Dictionary<string, ProductDTO> productData = productResponse.ResultAs<Dictionary<string, ProductDTO>>();
 
-        //            // Lấy dữ liệu từ nút "Users" trong Firebase
-        //            FirebaseResponse usersResponse = await context.Client.GetTaskAsync("NguoiDung");
-        //            Dictionary<string, UserDTO> usersData = usersResponse.ResultAs<Dictionary<string, UserDTO>>();
+                    var result = (from product in productData.Values
+                                  select new ProductDTO
+                                  {
+                                      MaSanPham = product.MaSanPham,
+                                      TenSanPham = product.TenSanPham,
+                                      MaLoaiSanPham = product.MaLoaiSanPham,
+                                      HinhAnh = product.HinhAnh,
+                                      SoLuong = product.SoLuong
+                                  }).ToList();
 
-        //            // Lấy dữ liệu từ nút "Position" trong Firebase
-        //            FirebaseResponse positionResponse = await context.Client.GetTaskAsync("ChucDanh");
-        //            Dictionary<string, PositionDTO> positionData = positionResponse.ResultAs<Dictionary<string, PositionDTO>>();
-
-
-        //            var result = (from employee in employeesData.Values
-        //                          join user in usersData.Values
-        //                          on employee.MaNhanVien equals user.MaNguoiDung
-        //                          join position in positionData.Values
-        //                          on employee.MaChucVu equals position.MaChucVu
-        //                          select new EmployeeDTO
-        //                          {
-        //                              HoTen = user.HoTen,
-        //                              CCCD_CMND = user.CCCD_CMND,
-        //                              DiaChi = user.DiaChi,
-        //                              Email = user.Email,
-        //                              GioiTinh = user.GioiTinh,
-        //                              HinhAnh = user.HinhAnh,
-        //                              Luong = employee.Luong,
-        //                              SoDienThoai = user.SoDienThoai,
-        //                              MaNhanVien = employee.MaNhanVien,
-        //                              MatKhau = user.MatKhau,
-        //                              NgaySinh = user.NgaySinh,
-        //                              NgayLam = user.NgayTao,
-        //                              TaiKhoan = user.TaiKhoan,
-        //                              MaChucVu = employee.MaChucVu,
-        //                              TenChucVu = position.TenChucVu
-        //                          }).ToList();
-
-        //            return ("Lấy danh sách nhân viên thành công", result);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return (ex.Message, null);
-        //    }
-        //}
+                    return ("Lấy danh sách nhân viên thành công", result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
 
         /// <summary>
         /// Xoá sản phẩm

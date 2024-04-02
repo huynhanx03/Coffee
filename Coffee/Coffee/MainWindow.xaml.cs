@@ -28,67 +28,34 @@ namespace Coffee
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<MyObject> myObjects = new List<MyObject>();
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
+            myObjects = new List<MyObject>
             {
-                using (var context = new Firebase())
-                {
-                    FirebaseResponse response = await context.Client.GetTaskAsync("KichThuocSanPham");
-
-                    if (response.Body != null && response.Body != "null")
-                    {
-                        Dictionary<string, ProductSizeDetailDTO> data = response.ResultAs<Dictionary<string, ProductSizeDetailDTO>>();
-
-                        // Chuyển đổi từ điển thành danh sách
-                        List<ProductSizeDetailDTO> ListProductSize = data.Values.ToList();
-
-                    }
-                    else
-                    {
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
+                new MyObject { Row = 0, Column = 0, Content = "Button 1" },
+                new MyObject { Row = 0, Column = 1, Content = "Button 2" },
+                new MyObject { Row = 1, Column = 0, Content = "Button 3" },
+                new MyObject { Row = 1, Column = 1, Content = "Button 4" },
+                new MyObject { Row = 4, Column = 1, Content = "Button 5" },
+            };
+            itemsource.ItemsSource = myObjects;
+            this.DataContext = this;
         }
 
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        public class MyObject
         {
-            (string label, List<PositionDTO> list) = await PositionService.Ins.getAllPosition();
-
-            MessageBox.Show(label);
+            public int Row { get; set; }
+            public int Column { get; set; }
+            public string Content { get; set; }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            MessageBoxCF ms = new MessageBoxCF("test", MessageType.Accept, MessageButtons.YesNo);
-            ms.ShowDialog();
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            MessageBoxCF ms = new MessageBoxCF("test", MessageType.Waitting, MessageButtons.OK);
-            ms.ShowDialog();
-        }
-
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            MessageBoxCF ms = new MessageBoxCF("test", MessageType.Error, MessageButtons.OK);
-            ms.ShowDialog();
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-
+            ScrollViewer.ScrollToVerticalOffset(ScrollViewer.VerticalOffset - e.Delta);
+            e.Handled = true;   
         }
     }
 }

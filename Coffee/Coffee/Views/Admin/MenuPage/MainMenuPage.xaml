@@ -113,7 +113,7 @@
                 <Border Margin="18"
                         Background="{DynamicResource BackgroundCF}"
                         CornerRadius="20">
-                    <DataGrid x:Name="dataGrid"
+                    <DataGrid 
                               Margin="15"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top"

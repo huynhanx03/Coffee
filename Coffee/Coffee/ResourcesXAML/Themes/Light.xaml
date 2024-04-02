@@ -9,4 +9,5 @@
     <SolidColorBrush Color="#E6E6E9" x:Key="Background3CF"/>
     <SolidColorBrush Color="Black" x:Key="ForegroundCF"/>
     <SolidColorBrush Color="Red" x:Key="RedCF"/>
+    <SolidColorBrush Color="Green" x:Key="GreenCF"/>
 </ResourceDictionary>

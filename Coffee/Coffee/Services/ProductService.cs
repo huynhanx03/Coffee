@@ -97,10 +97,10 @@ namespace Coffee.Services
         /// <returns>
         ///     Danh sách sản phẩm
         /// </returns>
-        //public async Task<(string, List<ProductDTO>)> getListProduct()
-        //{
-
-        //}
+        public async Task<(string, List<ProductDTO>)> getListProduct()
+        {
+            return await ProductDAL.Ins.getListProduct();
+        }
 
         /// <summary>
         /// Xoá sản phẩm

@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Coffee.DALs
 {
-    public class ProductTypeDAL
+    public class TableTypeDAL
     {
-        private static ProductTypeDAL _ins;
-        public static ProductTypeDAL Ins
+        private static TableTypeDAL _ins;
+        public static TableTypeDAL Ins
         {
             get
             {
                 if (_ins == null)
                 {
-                    _ins = new ProductTypeDAL();
+                    _ins = new TableTypeDAL();
                 }
                 return _ins;
             }
@@ -30,26 +30,26 @@ namespace Coffee.DALs
         /// <returns>
         ///     Trả về danh sách loại sản phẩm
         /// </returns>
-        public async Task<(string, List<ProductTypeDTO>)> getAllProductType()
+        public async Task<(string, List<TableTypeDTO>)> getAllTableType()
         {
             try
             {
                 using (var context = new Firebase())
                 {
-                    FirebaseResponse response = await context.Client.GetTaskAsync("LoaiSanPham");
+                    FirebaseResponse response = await context.Client.GetTaskAsync("LoaiBan");
 
                     if (response.Body != null && response.Body != "null")
                     {
-                        Dictionary<string, ProductTypeDTO> data = response.ResultAs<Dictionary<string, ProductTypeDTO>>();
+                        Dictionary<string, TableTypeDTO> data = response.ResultAs<Dictionary<string, TableTypeDTO>>();
 
                         // Chuyển đổi từ điển thành danh sách
-                        List<ProductTypeDTO> ListProductType = data.Values.ToList();
+                        List<TableTypeDTO> ListTableType = data.Values.ToList();
 
-                        return ("Lấy danh sách loại sản phẩm thành công", ListProductType);
+                        return ("Lấy danh sách loại bàn thành công", ListTableType);
                     }
                     else
                     {
-                        return ("Lấy danh sách loại sản phẩm thành công", new List<ProductTypeDTO>());
+                        return ("Lấy danh sách loại bàn thành công", new List<TableTypeDTO>());
                     }
                 }
             }

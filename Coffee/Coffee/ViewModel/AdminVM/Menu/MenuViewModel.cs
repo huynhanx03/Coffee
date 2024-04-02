@@ -192,6 +192,9 @@ namespace Coffee.ViewModel.AdminVM.Menu
             }
         }
 
+        /// <summary>
+        /// Mở cửa sổ thêm sản phẩm
+        /// </summary>
         public void openWindowAddProduct()
         {
             MaskName.Visibility = Visibility.Visible;

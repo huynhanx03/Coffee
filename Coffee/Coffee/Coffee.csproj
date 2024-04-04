@@ -197,6 +197,7 @@
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Menu\MenuViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Menu\OperationOfMenuViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Setting\SettingViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Statistic\StatisticViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\MainTableViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\MenuViewModel.cs" />
@@ -232,6 +233,9 @@
     </Compile>
     <Compile Include="Views\Admin\MenuPage\OperationProductWindow.xaml.cs">
       <DependentUpon>OperationProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Setting\MainSettingPage.xaml.cs">
+      <DependentUpon>MainSettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\StatisticPage\MainStatisticPage.xaml.cs">
       <DependentUpon>MainStatisticPage.xaml</DependentUpon>
@@ -336,6 +340,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\MenuPage\OperationProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Setting\MainSettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

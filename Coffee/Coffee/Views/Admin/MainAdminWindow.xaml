@@ -59,9 +59,6 @@
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenuBtn">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
         </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="DashboardBtn">
-            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
-        </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="TablesBtn">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
         </EventTrigger>
@@ -214,21 +211,6 @@
 
                 <!-- Các chức năng -->
                 <StackPanel Grid.Row="1">
-                    <!--Button dashboard-->
-                    <RadioButton Style="{StaticResource MenuButtonMain}"
-                                 IsEnabled="{Binding role, Converter={StaticResource RoleConverter}}"
-                                 Name="DashboardBtn"
-                                 GroupName="mainOptions"
-                                 Command="{Binding loadDashboardPageIC}"
-                                 CommandParameter="{Binding ElementName=mainFrame}">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Finance"
-                                 VerticalAlignment="Center"
-                                 Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="{DynamicResource Dashboard}" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-
                     <!-- Button quản lý bàn-->
                     <Border CornerRadius="5">
                         <RadioButton Style="{StaticResource MenuButtonMain}"
@@ -275,17 +257,17 @@
                         </RadioButton>
                     </Border>
 
-                    <!-- Button quản lý hoá đơn -->
+                    <!-- Button thống kê -->
                     <Border CornerRadius="5">
                         <RadioButton Style="{StaticResource MenuButtonMain}"
                                      Name="BillsBtn"
                                      GroupName="mainOptions"
-                                     Command="{Binding loadBillsPageIC}"
+                                     Command="{Binding loadStatisticPageIC}"
                                      CommandParameter="{Binding ElementName=mainFrame}">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="ReceiptText"
+                                <materialDesign:PackIcon Kind="Finance"
                                          Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="{DynamicResource Bill}" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="{DynamicResource Statistic}" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </Border>

@@ -194,6 +194,14 @@ namespace Coffee.ViewModel.AdminVM.Table
         
             if (isCreate)
             {
+                // Thành công:
+
+                // Chuyển sang bàn có khách
+                currentTable.TrangThai = Constants.StatusTable.BOOKED;
+
+                (string labelTable, TableDTO table) = await TableService.Ins.updateTable(currentTable);
+                loadTableList();
+
                 MessageBoxCF ms = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
                 ms.ShowDialog();
             }

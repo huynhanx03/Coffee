@@ -14,5 +14,6 @@ namespace Coffee.DTOs
         public string NgayTao { get; set; }
         public decimal TongTien { get; set; }
         public string TrangThai { get; set; }
+        public Dictionary<string, DetailBillDTO> ChiTietHoaDon { get; set; }
     }
 }

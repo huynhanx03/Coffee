@@ -2,6 +2,8 @@
 using Coffee.Views.Admin.EmployeePage;
 using Coffee.Views.Admin.IngredientPage;
 using Coffee.Views.Admin.MenuPage;
+using Coffee.Views.Admin.Setting;
+using Coffee.Views.Admin.StatisticPage;
 using Coffee.Views.Admin.Table;
 using System;
 using System.Collections.Generic;
@@ -28,7 +30,7 @@ namespace Coffee.ViewModel.AdminVM
         public ICommand loadTablesPageIC { get; set; }
         public ICommand loadMenuPageIC { get; set; }
         public ICommand loadIngredientsPageIC { get; set; }
-        public ICommand loadBillsPageIC { get; set; }
+        public ICommand loadStatisticPageIC { get; set; }
         public ICommand loadEmployeePageIC { get; set; }
         public ICommand loadSettingPageIC { get; set; }
         public ICommand loadRoleIC { get; set; }
@@ -71,8 +73,9 @@ namespace Coffee.ViewModel.AdminVM
                 //optionName = "Nguyên liệu";
             });
 
-            loadBillsPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            loadStatisticPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
+                p.Content = new MainStatisticPage();
                 //optionName = "Hoá đơn";
             });
 
@@ -84,7 +87,8 @@ namespace Coffee.ViewModel.AdminVM
 
             loadSettingPageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                optionName = (string)Application.Current.Resources["Setting"];
+                p.Content = new MainSettingPage();
+                //optionName = (string)Application.Current.Resources["Setting"];
             });
 
             changeLanguageIC = new RelayCommand<Button>((p) => { return true; }, (p) =>

@@ -7,7 +7,8 @@
                     xmlns:viewmodelIngredientAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Ingredient"
                     xmlns:viewmodelMenuAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Menu"
                     xmlns:viewmodelTableAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Table"
-                    xmlns:viewmodelStatistic="clr-namespace:Coffee.ViewModel.AdminVM.Statistic">
+                    xmlns:viewmodelStatisticAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Statistic"
+                    xmlns:viewmodelSettingAdmin="clr-namespace:Coffee.ViewModel.AdminVM.Setting">
     <viewmodelUserControl:ControlbarViewModel x:Key="ControlbarVM"/>
     <viewmodelMainAdmin:MainAdminViewModel x:Key="AdminVM"/>
     <viewmodelEmployyAdmin:EmployeeViewModel x:Key="EmployeeVM"/>
@@ -15,5 +16,6 @@
     <viewmodelIngredientAdmin:IngredientViewModel x:Key="IngredientVM"/>
     <viewmodelMenuAdmin:MenuViewModel x:Key="MenuVM"/>
     <viewmodelTableAdmin:MainTableViewModel x:Key="TableVM"/>
-    <viewmodelStatistic:StatisticViewModel x:Key="StatisticVM"/>
+    <viewmodelStatisticAdmin:StatisticViewModel x:Key="StatisticVM"/>
+    <viewmodelSettingAdmin:SettingViewModel x:Key="SettingVM"/>
 </ResourceDictionary>

@@ -58,4 +58,5 @@
     <system:String x:Key="SalesHistory">Lịch sử bán</system:String>
     <system:String x:Key="ImportHistory">Lịch sử nhập kho</system:String>
     <system:String x:Key="Revenue">Doanh thu</system:String>
+    <system:String x:Key="Statistic">Thống kê</system:String>
 </ResourceDictionary>

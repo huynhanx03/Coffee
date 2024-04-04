@@ -22,7 +22,7 @@
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="MainMenuPageCF"
+                    <DoubleAnimation Storyboard.TargetName="MainStatisticPageCF"
                                  Storyboard.TargetProperty="Opacity"
                                  From="0"
                                  To="1"

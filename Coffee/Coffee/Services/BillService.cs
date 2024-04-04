@@ -123,5 +123,29 @@ namespace Coffee.Services
         {
             return await BillDAL.Ins.DeleteBill(BillID);
         }
+
+        /// <summary>
+        /// Tìm kiếm hoá đơn của bàn đặt chỗ (chưa thanh toán)
+        /// </summary>
+        /// <param name="tableID">
+        /// 
+        /// </param>
+        /// <returns></returns>
+        public async Task<(string, BillDTO, List<DetailBillDTO>)> findBillByTableBooking(string tableID)
+        {
+            (string label, BillDTO bill) = await BillDAL.Ins.findBillByTableBooking(tableID);
+
+            if (bill != null)
+            {
+                (string labelDetailBIll, List<DetailBillDTO> detailBillDTOList) = await BillDAL.Ins.getDetailBillById(bill.MaHoaDon);
+
+                if (detailBillDTOList != null)
+                    return ("Tìm thành công", bill, detailBillDTOList);
+                else
+                    return (labelDetailBIll, null, null);
+            }
+            else
+                return (label, null, null);
+        }
     }
 }

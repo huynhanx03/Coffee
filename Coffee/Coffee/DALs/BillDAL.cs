@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
@@ -103,7 +104,7 @@ namespace Coffee.DALs
                 {
                     foreach (var detail in detailList)
                     {
-                        await context.Client.SetTaskAsync("HoaDon/" + BillID + "/ChiTietHoaDon/" + detail.MaSanPham + detail.MaKichThuoc, detail);
+                        await context.Client.SetTaskAsync("HoaDon/" + BillID + "/ChiTietHoaDon/" + detail.MaSanPham + "-" + detail.MaKichThuoc, detail);
                     }
 
                     return ("Thêm hoá đơn thành công", true);
@@ -136,6 +137,77 @@ namespace Coffee.DALs
             catch (Exception ex)
             {
                 return (ex.Message, false);
+            }
+        }
+
+
+        /// <summary>
+        /// Tìm kiếm hoá đơn với bàn đã được đặt (chưa thanh toán)
+        /// </summary>
+        /// <param name="tableID">mã bàn</param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Hoá đơn
+        /// </returns>
+        public async Task<(string, BillDTO)> findBillByTableBooking(string tableID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse billResponse = await context.Client.GetTaskAsync("HoaDon");
+                    Dictionary<string, BillDTO> billData = billResponse.ResultAs<Dictionary<string, BillDTO>>();
+                    BillDTO bill = billData.Values.FirstOrDefault(x => x.MaBan == tableID && x.TrangThai == Constants.StatusBill.UNPAID);
+
+                    if (bill != null)
+                        return ("Tìm thành công", bill);
+                    else
+                        return ("Không tồn tại",  null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// lấy chi tiết hoá đơn với mã hoá đơn
+        /// </summary>
+        /// <param name="billID">chi tiết hoá đơn</param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Chi tiết hoá đơn (danh sách)
+        /// </returns>
+        public async Task<(string, List<DetailBillDTO>)> getDetailBillById(string billID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse billResponse = await context.Client.GetTaskAsync("HoaDon/" + billID);
+                    BillDTO bill = billResponse.ResultAs<BillDTO>();
+                    List<DetailBillDTO> listDetailBill = bill.ChiTietHoaDon.Values.ToList();
+
+                    // Lấy dữ liệu từ nút "Product" trong Firebase
+                    FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham");
+                    Dictionary<string, ProductDTO> productData = productResponse.ResultAs<Dictionary<string, ProductDTO>>();
+
+                    foreach(DetailBillDTO detailBill in listDetailBill)
+                    {
+                        ProductDTO product = productData.Values.First(x => x.MaSanPham == detailBill.MaSanPham);
+
+                        detailBill.TenSanPham = product.TenSanPham;
+                        detailBill.DanhSachChiTietKichThuocSanPham = new ObservableCollection<ProductSizeDetailDTO>(product.ChiTietKichThuocSanPham.Values);
+                        detailBill.SelectedProductSize = detailBill.DanhSachChiTietKichThuocSanPham.First(x => x.MaKichThuoc == detailBill.MaKichThuoc);
+                    }
+
+                    return ("Lấy danh sách chi tiết hoá đơn thành công", listDetailBill);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
             }
         }
     }

@@ -77,12 +77,25 @@ namespace Coffee.ViewModel.AdminVM.Table
             }
         }
 
-        private void clickTable()
+        private async void clickTable()
         {
             // Load thông tin bàn
             btnMenu.IsChecked = true;
             TableNameSale = SelectedTable.TenBan;
             currentTable = SelectedTable;
+
+            // Nếu bàn đó chưa thanh toán thì load thực đơn để thanh toán
+            if (currentTable.TrangThai == Constants.StatusTable.BOOKED)
+            {
+                (string label, BillDTO bill, List<DetailBillDTO> listDetailBill) = await BillService.Ins.findBillByTableBooking(currentTable.MaBan);
+
+                if (listDetailBill != null)
+                {
+                    DetailBillList = new ObservableCollection<DetailBillDTO>(listDetailBill);
+
+                    TotalBill = bill.TongTien;
+                }
+            }
         }
     }
 }

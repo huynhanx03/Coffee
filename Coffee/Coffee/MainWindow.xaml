@@ -22,42 +22,7 @@
         Width="1400" Height="800"
         >
     <Grid>
-        <ScrollViewer x:Name="ScrollViewer"
-                      VerticalScrollBarVisibility="Auto"
-                      VerticalAlignment="Top"
-                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
-            <ItemsControl x:Name="itemsource"
-                          ItemsSource="{Binding myObjects}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="200"/>
-                                <RowDefinition Height="200"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="Grid.Row" Value="{Binding Row}"/>
-                        <Setter Property="Grid.Column" Value="{Binding Column}"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Content}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <Button Click="Button_Click"></Button>
         
     </Grid>
 </Window>

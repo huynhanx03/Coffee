@@ -1,13 +1,17 @@
-﻿using Coffee.DALs;
+﻿using CloudinaryDotNet.Actions;
+using Coffee.DALs;
 using Coffee.DTOs;
 using Coffee.Services;
 using Coffee.Utils;
+using Coffee.Views.Admin.EmployeePage;
 using Coffee.Views.Admin.IngredientPage;
 using Coffee.Views.MessageBox;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -57,6 +61,7 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
         public ICommand loadUnitListIC { get; set; }
         public ICommand addIngredientToImportIC { get; set; }
         public ICommand openBillImportWindowIC { get; set; }
+        public ICommand searchDetailIngredientIC { get; set; }
         public ICommand searchDetailImportIC { get; set; }
         #endregion
 
@@ -79,14 +84,21 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
 
             openWindowAddIngredientIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                
+                MaskName.Visibility = Visibility.Visible;
+                resetEmployee();
+                OperationIngredientWindow w = new OperationIngredientWindow();
+                w.ShowDialog();
+                MaskName.Visibility = Visibility.Collapsed;
             });
 
             openBillImportWindowIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 openBillImportWindow();
             });
-
+            closeOperationIngredientWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Close();
+            });
             #region import
             confirmImportIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -102,7 +114,10 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             {
                 searchDetailImport(p.Text);
             });
-
+            searchDetailIngredientIC = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                searchDetailIngredient(p.Text);
+            });
             #endregion
         }
 
@@ -130,7 +145,47 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             if (units != null)
                 UnitList = new ObservableCollection<UnitDTO>(units);
         }
+        /// <summary>
+        /// Xóa nguyên liệu 
+        /// </summary>
+        public async void deleteIngredient()
+        {
+            MessageBoxCF ms = new MessageBoxCF("Xác nhận xoá nguyên liệu?", MessageType.Error, MessageButtons.YesNo);
 
+            if (ms.ShowDialog() == true)
+            {
+                (string label, bool isDeleteIngredientList) = await IngredientService.Ins.DeleteIngredient(SelectedIngredient);
+
+                if (isDeleteIngredientList)
+                {
+                    MessageBoxCF msn = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
+                    loadIngredientList();
+                    msn.ShowDialog();
+                }
+                else
+                {
+                    MessageBoxCF msn = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                    msn.ShowDialog();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sửa nguyên liệu 
+        /// </summary>
+        public void openWindowEditIngredient()
+        {
+            MaskName.Visibility = Visibility.Visible;
+            OperationIngredientWindow w = new OperationIngredientWindow();
+            loadIngredient(SelectedIngredient);
+            w.ShowDialog();
+            MaskName.Visibility = Visibility.Collapsed;
+        }
+        private void loadIngredient(IngredientDTO ingredient)
+        {
+            IngredientName = ingredient.TenNguyenLieu;
+            SelectedUnitName = ingredient.TenDonVi;
+        }
         /// <summary>
         /// Thêm nguyên liệu vào phiếu nhập kho
         /// </summary>
@@ -160,6 +215,15 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             });
         }
 
+        /// <summary>
+        /// Reset dữ liệu nguyện liệu trên cửa sổ thao tác
+        /// </summary>
+        private void resetEmployee()
+        {
+            IngredientName = "";
+            SelectedUnitName = "";
+
+        }
         private void openBillImportWindow()
         {
             // Chưa có sản phẩm để nhập thì không mở
@@ -186,6 +250,29 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             w.ShowDialog();
 
             MaskName.Visibility = Visibility.Collapsed;
+        }
+        /// <summary>
+        /// Tìm kiếm nguyên liệu
+        /// </summary>
+        public void searchDetailIngredient(string text)
+        {
+            if (text != null)
+            {
+                // rỗng
+                if (string.IsNullOrEmpty(text))
+                {
+                    isSearchImport = true;
+                    IngredientList = new ObservableCollection<IngredientDTO>(__IngredientList);
+                }
+                else
+                {
+                    if (!isSearchImport)
+                        __IngredientList = new List<IngredientDTO>(IngredientList);
+
+                    isSearchImport = true;
+                    IngredientList = new ObservableCollection<IngredientDTO>(__IngredientList.FindAll(x => x.TenNguyenLieu.ToLower().Contains(text.ToLower())));
+                }
+            }
         }
     }
 }

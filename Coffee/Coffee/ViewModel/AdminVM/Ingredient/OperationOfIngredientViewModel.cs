@@ -30,7 +30,8 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
         #endregion
 
         #region ICommand
-
+        public ICommand closeOperationIngredientWindowIC {  get; set; }
         #endregion
+
     }
 }

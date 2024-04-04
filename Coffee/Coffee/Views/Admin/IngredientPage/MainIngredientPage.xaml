@@ -95,8 +95,8 @@
                                          TextAlignment="Left">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding searchEmployeeIC}" 
-                                                   CommandParameter="{Binding ElementName=searchBox}" />
+                                            <i:InvokeCommandAction Command="{Binding searchDetailIngredientIC}" 
+                                                   CommandParameter="{Binding ElementName=searchBoxIngredient}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>

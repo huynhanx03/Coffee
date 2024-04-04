@@ -78,16 +78,17 @@ namespace Coffee.ViewModel.AdminVM.Menu
             });
 
             #region operation
-            confirmOperationEmployeeIC = new RelayCommand<object>((p) =>
+            confirmOperationProductIC = new RelayCommand<object>((p) =>
             {
-                return true;
+                return !(string.IsNullOrEmpty(ProductName) || string.IsNullOrEmpty(SelectedProdcutTypeName)
+                   || string.IsNullOrEmpty(Image));
             },
             (p) =>
             {
-                confirmOperationEmployee();
+                confirmOperationProduct();
             });
 
-            closeOperationEmployeeWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            closeOperationProductWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 p.Close();
             });
@@ -119,13 +120,13 @@ namespace Coffee.ViewModel.AdminVM.Menu
         /// </summary>
         private async void loadProductList()
         {
-            //(string label, List<ProductDTO> pr) = await ProductService.Ins.get();
+            (string label, List<ProductDTO> pr) = await ProductService.Ins.getListProduct();
 
-            //if (employees != null)
-            //{
-            //    EmployeeList = new ObservableCollection<EmployeeDTO>(employees);
-            //    __ProductList = new List<ProductDTO>(employees);
-            //}
+            if (pr != null)
+            {
+                ProductList = new ObservableCollection<ProductDTO>(pr);
+                __ProductList = new List<ProductDTO>(pr);
+            }
         }
 
         /// <summary>
@@ -164,6 +165,7 @@ namespace Coffee.ViewModel.AdminVM.Menu
             Price = 0;
             loadProductSizeDetail();
             ProductRecipeList = new ObservableCollection<ProductRecipeDTO>();
+            Description = "";
             Image = "";
         }
 

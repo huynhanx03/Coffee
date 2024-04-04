@@ -14,10 +14,11 @@ namespace Coffee.DTOs
         public string MaLoaiSanPham { get; set; }
         public string HinhAnh { get; set; }
         public int SoLuong { get; set; }
-
+        public string Mota { get; set; }
         public Dictionary<string, ProductSizeDetailDTO> ChiTietKichThuocSanPham { get; set; }
         public Dictionary<string, ProductRecipeDTO> CongThuc { get; set; }
         public List<ProductSizeDetailDTO> DanhSachChiTietKichThuocSanPham { get; set; }
         public List<ProductRecipeDTO> DanhSachCongThuc { get; set; }
+        
     }
 }

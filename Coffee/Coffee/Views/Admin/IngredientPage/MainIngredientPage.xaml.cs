@@ -29,12 +29,12 @@ namespace Coffee.Views.Admin.IngredientPage
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            //(DataContext as EmployeeViewModel).openWindowEditEmployee();
+            (DataContext as IngredientViewModel).openWindowEditIngredient();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            //(DataContext as EmployeeViewModel).deleteEmployee();
+            (DataContext as IngredientViewModel).deleteIngredient();
         }
         
         private void Import_Click(object sender, RoutedEventArgs e)

@@ -63,7 +63,7 @@
                                 HorizontalAlignment="Left"
                                 Orientation="Horizontal">
                         <RadioButton GroupName="MainLeftFrame"
-                                     Style="{DynamicResource MenuTableMain}"
+                                     Style="{DynamicResource MenuHorizontalMain}"
                                      IsChecked="True"
                                      Command="{Binding loadTablePageIC}">
                             <TextBlock Text="{DynamicResource Table}"
@@ -75,7 +75,7 @@
                         </RadioButton>
 
                         <RadioButton GroupName="MainLeftFrame"
-                                     Style="{DynamicResource MenuTableMain}"
+                                     Style="{DynamicResource MenuHorizontalMain}"
                                      Margin="10 0 0 0"
                                      Command="{Binding loadMenuIC}"
                                      Name="btnMenu">
@@ -92,7 +92,7 @@
                     <Grid  Grid.Row="1"
                            Background="{DynamicResource Background3CF}">
                         <Frame x:Name="leftFrame"
-                       NavigationUIVisibility="Hidden">
+                               NavigationUIVisibility="Hidden">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Loaded">
                                     <i:InvokeCommandAction Command="{Binding loadTablePageIC}"
@@ -107,7 +107,7 @@
             <Grid Grid.Column="1"
                   Margin="10 0 0 0">
                 <Frame x:Name="rightFrame"
-               NavigationUIVisibility="Hidden">
+                        NavigationUIVisibility="Hidden">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding loadSellPageIC}"

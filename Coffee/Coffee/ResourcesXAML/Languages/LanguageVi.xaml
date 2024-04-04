@@ -55,4 +55,7 @@
     <system:String x:Key="TableType">Loài bàn</system:String>
     <system:String x:Key="Row">Hàng</system:String>
     <system:String x:Key="Column">Cột</system:String>
+    <system:String x:Key="SalesHistory">Lịch sử bán</system:String>
+    <system:String x:Key="ImportHistory">Lịch sử nhập kho</system:String>
+    <system:String x:Key="Revenue">Doanh thu</system:String>
 </ResourceDictionary>

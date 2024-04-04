@@ -197,6 +197,7 @@
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Menu\MenuViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Menu\OperationOfMenuViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Statistic\StatisticViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\MainTableViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\MenuViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\OperationOfTableViewModel.cs" />
@@ -231,6 +232,12 @@
     </Compile>
     <Compile Include="Views\Admin\MenuPage\OperationProductWindow.xaml.cs">
       <DependentUpon>OperationProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticPage\MainStatisticPage.xaml.cs">
+      <DependentUpon>MainStatisticPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticPage\SaleHistoryPage.xaml.cs">
+      <DependentUpon>SaleHistoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\Table\MainTablePage.xaml.cs">
       <DependentUpon>MainTablePage.xaml</DependentUpon>
@@ -329,6 +336,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\MenuPage\OperationProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticPage\MainStatisticPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticPage\SaleHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

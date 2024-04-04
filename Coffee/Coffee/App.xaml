@@ -16,7 +16,7 @@
                 <ResourceDictionary Source="/ResourcesXAML/Languages/LanguageVi.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <Style x:Key="MenuTableMain" TargetType="RadioButton">
+            <Style x:Key="MenuHorizontalMain" TargetType="RadioButton">
                 <!--Normal button style-->
                 <Setter Property="Height" Value="60"/>
                 <Setter Property="Background" Value="{DynamicResource HoverColorCF}"/>

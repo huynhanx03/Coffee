@@ -37,7 +37,7 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding loadShadowMaskIC}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
-            <i:InvokeCommandAction Command="{Binding loadEmployeeListIC}" />
+            <i:InvokeCommandAction Command="{Binding loadProductListIC}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

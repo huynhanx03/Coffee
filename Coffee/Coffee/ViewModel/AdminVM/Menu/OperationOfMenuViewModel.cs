@@ -110,6 +110,14 @@ namespace Coffee.ViewModel.AdminVM.Menu
             set { _Image = value; OnPropertyChanged(); }
         }
 
+        private string _Description;
+
+        public string Description
+        {
+            get { return _Description; }
+            set { _Description = value; OnPropertyChanged(); }
+        }
+
         private ObservableCollection<IngredientDTO> _IngredientList;
 
         public ObservableCollection<IngredientDTO> IngredientList
@@ -138,8 +146,8 @@ namespace Coffee.ViewModel.AdminVM.Menu
         #endregion
 
         #region ICommand
-        public ICommand confirmOperationEmployeeIC { get; set; }
-        public ICommand closeOperationEmployeeWindowIC { get; set; }
+        public ICommand confirmOperationProductIC { get; set; }
+        public ICommand closeOperationProductWindowIC { get; set; }
 
         #endregion
 
@@ -201,7 +209,7 @@ namespace Coffee.ViewModel.AdminVM.Menu
         /// <summary>
         /// Xác nhận thao tác sản phẩm
         /// </summary>
-        public async void confirmOperationEmployee()
+        public async void confirmOperationProduct()
         {
             ProductTypeDTO productType = (ListProductType.First(p => p.LoaiSanPham == SelectedProdcutTypeName) as ProductTypeDTO);
             string newImage = Image;
@@ -214,7 +222,8 @@ namespace Coffee.ViewModel.AdminVM.Menu
                 TenSanPham = ProductName,
                 LoaiSanPham = productType.LoaiSanPham,
                 MaLoaiSanPham = productType.MaLoaiSanPham,
-                HinhAnh = newImage
+                HinhAnh = newImage,
+                Mota = Description
             };
 
             switch (TypeOperation)
@@ -227,6 +236,8 @@ namespace Coffee.ViewModel.AdminVM.Menu
                         MessageBoxCF ms = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
                         ms.ShowDialog();
                         resetProduct();
+
+                        ProductList.Add(NewProduct);
                     }
                     else
                     {
@@ -238,30 +249,30 @@ namespace Coffee.ViewModel.AdminVM.Menu
                     }
                     break;
                 case 2:
-                    //employee.MaNhanVien = SelectedEmployee.MaNhanVien;
+                    product.MaSanPham = SelectedProduct.MaSanPham;
 
-                    //(string labelEdit, EmployeeDTO NewEmployeeEdit) = await EmployeeService.Ins.updateEmpoloyee(employee);
+                    (string labelEdit, ProductDTO NewProductEdit) = await ProductService.Ins.updateProduct(product);
 
-                    //if (NewEmployeeEdit != null)
-                    //{
-                    //    MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Accept, MessageButtons.OK);
-                    //    ms.ShowDialog();
-                    //    loadEmployeeList();
-                    //}
-                    //else
-                    //{
-                    //    // Xoá ảnh
-                    //    if (OriginImage != Image)
-                    //        await CloudService.Ins.DeleteImage(newImage);
+                    if (NewProductEdit != null)
+                    {
+                        MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Accept, MessageButtons.OK);
+                        ms.ShowDialog();
+                        loadProductList();
+                    }
+                    else
+                    {
+                        // Xoá ảnh
+                        if (OriginImage != Image)
+                            await CloudService.Ins.DeleteImage(newImage);
 
-                    //    // Xoá user
+                        // Xoá user
 
 
-                    //    // Xoá employee
+                        // Xoá product
 
-                    //    MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Error, MessageButtons.OK);
-                    //    ms.ShowDialog();
-                    //}
+                        MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Error, MessageButtons.OK);
+                        ms.ShowDialog();
+                    }
 
                     break;
                 default:

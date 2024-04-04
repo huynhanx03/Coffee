@@ -91,15 +91,7 @@ namespace Coffee.Services
         /// </returns>
         public async Task<(string, bool)> DeleteIngredient(IngredientDTO Ingredient)
         {
-            (string labelIngredient, bool isDeleteIngredient) = await IngredientDAL.Ins.DeleteIngredient(Ingredient.MaNguyenLieu);
-            if (isDeleteIngredient)
-            {
-                return (labelIngredient, true);
-            }
-            else
-            {
-                return (labelIngredient, false);
-            }
+            return await IngredientDAL.Ins.DeleteIngredient(Ingredient.MaNguyenLieu);
         }
 
         /// <summary>

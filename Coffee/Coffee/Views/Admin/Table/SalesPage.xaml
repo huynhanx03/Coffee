@@ -33,6 +33,12 @@
         </EventTrigger>
     </Page.Triggers>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding loadDateSalesIC}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Background="{DynamicResource Background3CF}"
           Margin="0 0 0 0">
         <Grid.RowDefinitions>
@@ -79,7 +85,7 @@
                            FontSize="14"
                            FontWeight="Bold"/>
                     <Label Grid.Column="1"
-                           Content="{Binding EmployeeName}" 
+                           Content="{Binding TableNameSale}" 
                            Foreground="{DynamicResource ForegroundCF}"
                            FontSize="14"/>
                 </Grid>
@@ -113,13 +119,13 @@
                            FontSize="14"
                            FontWeight="Bold"/>
                     <Label Grid.Column="1"
-                           Content="{Binding CreatedDate}" 
+                           Content="{Binding Created}" 
                            Foreground="{DynamicResource ForegroundCF}"
                            FontSize="14"/>
                 </Grid>
             </StackPanel>
 
-            <StackPanel Grid.Column="1"
+            <!--<StackPanel Grid.Column="1"
                         Margin="30 8 15 0">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -171,7 +177,7 @@
                            Foreground="{DynamicResource ForegroundCF}"
                            FontSize="14"/>
                 </Grid>
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
 
         <Grid  Grid.Row="2"
@@ -213,8 +219,8 @@
                                           IsReadOnly="True"
                                           SelectionMode="Single"
                                           SelectionUnit="FullRow"
-                                          ItemsSource="{Binding ProductList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          SelectedItem="{Binding SelectedProduct}"
+                                          ItemsSource="{Binding DetailBillList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedItem="{Binding SelectedDetailBill}"
                                           d:ItemsSource="{d:SampleData ItemCount=5}">
                                     <DataGrid.CellStyle>
                                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -229,30 +235,62 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Style="{DynamicResource txblInDtg}"
-                                                   Text="{Binding TenSanPham}" />
+                                                               Text="{Binding TenSanPham}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
 
+                                        <DataGridTemplateColumn Width="auto" Header="{DynamicResource Size}" SortMemberPath="TenDonVi">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ComboBox ItemsSource="{Binding DanhSachChiTietKichThuocSanPham, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                              SelectedItem="{Binding SelectedProductSize, UpdateSourceTrigger=PropertyChanged}"
+                                                              SelectedValue="TenKichThuoc"
+                                                              DisplayMemberPath="TenKichThuoc"
+                                                              BorderBrush="{DynamicResource ForegroundCF}"
+                                                              Foreground="{DynamicResource ForegroundCF}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="SelectionChanged">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.changeSizeProductIC, RelativeSource={RelativeSource AncestorType=DataGrid}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                                       CommandParameter="{Binding}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </ComboBox>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
 
                                         <DataGridTemplateColumn Width="auto" Header="{DynamicResource Quantity}" SortMemberPath="SoLuong">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Style="{DynamicResource txblInDtg}"
-                                                   Text="{Binding SoLuong}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
+                                                    <StackPanel 
+                                                                HorizontalAlignment="Center"
+                                                                Orientation="Horizontal">
+                                                        <Button
+                                                                Command="{Binding DataContext.subQuantityBillIC, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                CommandParameter="{Binding}"
+                                                                Padding="0 0 5 0"
+                                                                BorderBrush="{x:Null}"
+                                                                Background="{x:Null}"
+                                                                Foreground="{DynamicResource ForegroundCF}"
+                                                                Content="-">
+                                                        </Button>
 
-                                        <DataGridTemplateColumn Width="auto" Header="{DynamicResource Unit}" SortMemberPath="TenDonVi">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <ComboBox ItemsSource="{Binding DataContext.UnitList, RelativeSource={RelativeSource AncestorType=DataGrid}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                              DisplayMemberPath="TenDonVi"
-                                                              SelectedValue="TenDonVi"
-                                                              BorderBrush="{DynamicResource ForegroundCF}"
-                                                              Foreground="{DynamicResource ForegroundCF}">
-                                                    </ComboBox>
+                                                        <TextBlock Style="{DynamicResource txblInDtg}"
+                                                                   Text="{Binding SoLuong}" />
+
+                                                        <Button
+                                                                Command="{Binding DataContext.plusQuantityBillIC, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                CommandParameter="{Binding}"
+                                                                Padding="5 0 0 0"
+                                                                BorderBrush="{x:Null}"
+                                                                Background="{x:Null}"
+                                                                Foreground="{DynamicResource ForegroundCF}"
+                                                                Content="+">
+                                                        </Button>
+                                                    </StackPanel>
+                                                    
+                                                    
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -261,7 +299,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Style="{DynamicResource txblInDtg}"
-                                                   Text="{Binding Gia, StringFormat={}{0:N0}}" />
+                                                               Text="{Binding SelectedProductSize.Gia, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat={}{0:N0}}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -270,7 +308,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Style="{DynamicResource txblInDtg}"
-                                                   Text="{Binding IntoMoney, StringFormat={}{0:N0}}" />
+                                                               Text="{Binding ThanhTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -281,9 +319,10 @@
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Button Style="{StaticResource btnInDtg}"
-                                                    Background="#AD7270"
-                                                    BorderBrush="#A20F27"
-                                                    Margin="25 0 0 0">
+                                                                Background="#AD7270"
+                                                                BorderBrush="#A20F27"
+                                                                Margin="5 0 0 0"
+                                                                Command="{Binding DataContext.removeBillIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                             <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                                         </Button>
                                                     </StackPanel>
@@ -304,8 +343,8 @@
                                     Text="Tổng:" 
                                     Margin="0 0 15 0 "/>
                         <TextBlock Style="{DynamicResource txblNormarl}"
-                                    Margin="0 0 5 0"
-                                    />
+                                   Margin="0 0 5 0"
+                                   Text="{Binding TotalBill, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat={}{0:N0}}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2"
                                 Margin="0 0 20 0"
@@ -313,7 +352,8 @@
                                 HorizontalAlignment="Right">
                         <Button Style="{DynamicResource btnStyle}"
                                 Margin="0 0 10 0"
-                                Content="{DynamicResource Booking}"/>
+                                Content="{DynamicResource Booking}"
+                                Command="{Binding bookingIC}"/>
                         <Button Style="{DynamicResource btnStyle}"
                                 Content="{DynamicResource Pay}"/>
                     </StackPanel>

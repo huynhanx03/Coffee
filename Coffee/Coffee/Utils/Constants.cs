@@ -13,5 +13,11 @@ namespace Coffee.Utils
             public static readonly string FREE = "Trống";
             public static readonly string BOOKED = "Đã đặt";
         }
+
+        public class StatusBill
+        {
+            public static readonly string UNPAID = "Chưa thanh toán";
+            public static readonly string PAID = "Đã thanh toán";
+        }
     }
 }

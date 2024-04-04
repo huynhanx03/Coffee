@@ -35,6 +35,7 @@ namespace Coffee.ViewModel.AdminVM.Table
         public ICommand loadTableListIC { get; set; }
         public ICommand openEditTableIC { get; set; }
         public ICommand openDeleteTableIC { get; set; }
+        public ICommand clickTableIC { get; set; }
 
         #endregion
         
@@ -74,6 +75,14 @@ namespace Coffee.ViewModel.AdminVM.Table
                     msn.ShowDialog();
                 }
             }
+        }
+
+        private void clickTable()
+        {
+            // Load thông tin bàn
+            btnMenu.IsChecked = true;
+            TableNameSale = SelectedTable.TenBan;
+            currentTable = SelectedTable;
         }
     }
 }

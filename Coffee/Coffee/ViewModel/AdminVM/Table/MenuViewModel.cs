@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Coffee.ViewModel.AdminVM.Table
@@ -51,9 +52,13 @@ namespace Coffee.ViewModel.AdminVM.Table
         public ICommand selectedTypeProductIC { get; set; }
         public ICommand loadProductTypeListIC { get; set; }
         public ICommand searchProductIC { get; set; }
+        public ICommand addProductToBillIC { get; set; }
 
         #endregion
 
+        /// <summary>
+        /// load danh sách menu
+        /// </summary>
         private async void loadMenuList()
         {
             (string label, List<ProductDTO> listProduct) = await ProductService.Ins.getListProduct();
@@ -66,6 +71,9 @@ namespace Coffee.ViewModel.AdminVM.Table
             }
         }
 
+        /// <summary>
+        /// Chọn loại sản phẩm
+        /// </summary>
         private void selectedTypeProduct()
         {
             if (SelectedProductType != null) 
@@ -75,6 +83,9 @@ namespace Coffee.ViewModel.AdminVM.Table
                     ProductList = new ObservableCollection<ProductDTO>(__ProductSearchList.FindAll(p => p.MaLoaiSanPham == SelectedProductType.MaLoaiSanPham));
         }
 
+        /// <summary>
+        /// load loại sản phẩm
+        /// </summary>
         private async void loadProductTypeList()
         {
             (string label, List<ProductTypeDTO> listProductType) = await ProductTypeService.Ins.getAllProductType();
@@ -88,6 +99,52 @@ namespace Coffee.ViewModel.AdminVM.Table
                     LoaiSanPham = "Toàn bộ",
                 });
             }
+        }
+
+        /// <summary>
+        /// Thêm sản phẩm vào hoá đơn
+        /// </summary>
+        private void addProductToBill()
+        {
+            List<DetailBillDTO> listFind = DetailBillList.Where(x => x.MaSanPham == SelectedProduct.MaSanPham).ToList();
+
+            if (listFind.Count > 0)
+            {
+                // List size trước đó
+                List<ProductSizeDetailDTO> listProductSizeDetail = listFind.Select(item => item.SelectedProductSize).ToList();
+
+                // Add size khác
+                List<ProductSizeDetailDTO> listSize = SelectedProduct.DanhSachChiTietKichThuocSanPham.Except(listProductSizeDetail).ToList();
+            
+                if (listSize.Count > 0)
+                {
+                    DetailBillList.Add(new DetailBillDTO
+                    {
+                        MaSanPham = SelectedProduct.MaSanPham,
+                        TenSanPham = SelectedProduct.TenSanPham,
+                        SoLuong = 1,
+                        DanhSachChiTietKichThuocSanPham = new ObservableCollection<ProductSizeDetailDTO>(SelectedProduct.DanhSachChiTietKichThuocSanPham),
+                        SelectedProductSize = listSize[0],
+                        ThanhTien = listSize[0].Gia
+                    });
+                }
+            }
+            else
+            {
+                // Thêm vào danh sách bill mặc định sẽ là size[0]
+
+                DetailBillList.Add(new DetailBillDTO
+                {
+                    MaSanPham = SelectedProduct.MaSanPham,
+                    TenSanPham = SelectedProduct.TenSanPham,
+                    SoLuong = 1,
+                    DanhSachChiTietKichThuocSanPham = new ObservableCollection<ProductSizeDetailDTO>(SelectedProduct.DanhSachChiTietKichThuocSanPham),
+                    SelectedProductSize = SelectedProduct.DanhSachChiTietKichThuocSanPham[0],
+                    ThanhTien = SelectedProduct.DanhSachChiTietKichThuocSanPham[0].Gia
+                });
+            }
+
+            CalculateTotalBill();
         }
     }
 }

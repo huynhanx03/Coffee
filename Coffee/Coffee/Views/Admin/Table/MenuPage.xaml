@@ -135,8 +135,8 @@
                   VerticalAlignment="Top"
                   PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
             <ListView ItemsSource="{Binding ProductList, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
-                  d:ItemsSource="{d:SampleData ItemCount=10}">
+                      SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
+                      d:ItemsSource="{d:SampleData ItemCount=10}">
                 
                 <ListView.ItemContainerStyle>
                     <Style BasedOn="{StaticResource MaterialDesignListBoxItem}"
@@ -196,6 +196,12 @@
                                                    VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </StackPanel>
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.addProductToBillIC, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </Border>
                         </Grid>
                     </DataTemplate>

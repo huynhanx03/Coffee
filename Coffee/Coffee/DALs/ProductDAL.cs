@@ -131,7 +131,9 @@ namespace Coffee.DALs
                                       TenSanPham = product.TenSanPham,
                                       MaLoaiSanPham = product.MaLoaiSanPham,
                                       HinhAnh = product.HinhAnh,
-                                      SoLuong = product.SoLuong
+                                      SoLuong = product.SoLuong,
+                                      DanhSachCongThuc = product.CongThuc.Values.ToList(),
+                                      DanhSachChiTietKichThuocSanPham = product.ChiTietKichThuocSanPham.Values.ToList(),
                                   }).ToList();
 
                     return ("Lấy danh sách nhân viên thành công", result);

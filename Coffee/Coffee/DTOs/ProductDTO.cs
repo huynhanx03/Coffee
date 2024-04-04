@@ -15,7 +15,9 @@ namespace Coffee.DTOs
         public string HinhAnh { get; set; }
         public int SoLuong { get; set; }
 
-        //public Dictionary<string, ProductRecipeDTO> dictionaryProductuctRecipe { get; set; }
-        //public Dictionary<string, ProductSizeDetailDTO> dictionaryProductuctSizeDetai { get; set; }
+        public Dictionary<string, ProductSizeDetailDTO> ChiTietKichThuocSanPham { get; set; }
+        public Dictionary<string, ProductRecipeDTO> CongThuc { get; set; }
+        public List<ProductSizeDetailDTO> DanhSachChiTietKichThuocSanPham { get; set; }
+        public List<ProductRecipeDTO> DanhSachCongThuc { get; set; }
     }
 }

@@ -126,6 +126,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DALs\BillDAL.cs" />
     <Compile Include="DALs\BillImportDAL.cs" />
     <Compile Include="DALs\EmployeeDAL.cs" />
     <Compile Include="DALs\IngredientDAL.cs" />
@@ -156,7 +157,9 @@
     <Compile Include="DTOs\TableTypeDTO.cs" />
     <Compile Include="DTOs\UnitDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
+    <Compile Include="Models\DetailBillModel.cs" />
     <Compile Include="Services\BillImportService.cs" />
+    <Compile Include="Services\BillService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\IngredientService.cs" />
     <Compile Include="Services\PositionService.cs" />
@@ -197,6 +200,7 @@
     <Compile Include="ViewModel\AdminVM\Table\MainTableViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\MenuViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\OperationOfTableViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Table\SalesViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\TableViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
@@ -388,9 +392,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\cup-of-coffee-avatar.jpg" />
     <Resource Include="Resources\Images\LogoEPSRO.ico" />

@@ -18,6 +18,7 @@ namespace Coffee.ViewModel.AdminVM.Table
         #region variable
         public Grid MaskName { get; set; }
         public Frame LeftFrame { get; set; }
+        public RadioButton btnMenu { get; set; }
 
         #endregion
 
@@ -28,6 +29,7 @@ namespace Coffee.ViewModel.AdminVM.Table
         public ICommand openWindowAddTableIC { get; set; }
         public ICommand loadMenuIC { get; set; }
         public ICommand loadLeftFrameIC { get; set; }
+        public ICommand loadBtnMenuIC { get; set; }
 
         #endregion
 
@@ -43,6 +45,11 @@ namespace Coffee.ViewModel.AdminVM.Table
                 LeftFrame = p;
             });
 
+            loadBtnMenuIC = new RelayCommand<RadioButton>((p) => { return true; }, (p) =>
+            {
+                btnMenu = p;
+            });
+
             loadTablePageIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 LeftFrame.Content = new TablePage();
@@ -56,6 +63,11 @@ namespace Coffee.ViewModel.AdminVM.Table
             loadMenuIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 LeftFrame.Content = new MenuPage();
+            });
+
+            clickTableIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                clickTable();
             });
 
             openWindowAddTableIC = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -119,6 +131,43 @@ namespace Coffee.ViewModel.AdminVM.Table
             loadMenuListIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 loadMenuList();
+            });
+
+            addProductToBillIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                addProductToBill();
+            });
+            #endregion
+
+            #region sales
+            changeSizeProductIC = new RelayCommand<DetailBillDTO>((p) => { return true; }, (p) =>
+            {
+                changeSizeProduct(p);
+            });
+
+            subQuantityBillIC = new RelayCommand<DetailBillDTO>((p) => { return true; }, (p) =>
+            {
+                subQuantityBill();
+            });
+
+            plusQuantityBillIC = new RelayCommand<DetailBillDTO>((p) => { return true; }, (p) =>
+            {
+                plusQuantityBill();
+            });
+
+            removeBillIC = new RelayCommand<DetailBillDTO>((p) => { return true; }, (p) =>
+            {
+                removeBill();
+            });
+
+            loadDateSalesIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                loadDateSales();
+            });
+
+            bookingIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                booking();
             });
             #endregion
         }

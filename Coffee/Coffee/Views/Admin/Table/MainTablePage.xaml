@@ -38,6 +38,8 @@
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
             <i:InvokeCommandAction Command="{Binding loadLeftFrameIC}"
                                    CommandParameter="{Binding ElementName=leftFrame}" />
+            <i:InvokeCommandAction Command="{Binding loadBtnMenuIC}"
+                                   CommandParameter="{Binding ElementName=btnMenu}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -75,7 +77,8 @@
                         <RadioButton GroupName="MainLeftFrame"
                                      Style="{DynamicResource MenuTableMain}"
                                      Margin="10 0 0 0"
-                                     Command="{Binding loadMenuIC}">
+                                     Command="{Binding loadMenuIC}"
+                                     Name="btnMenu">
                             <TextBlock Text="{DynamicResource Item}"
                                        Style="{StaticResource menuButtonText}"
                                        FontSize="17"

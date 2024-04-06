@@ -162,7 +162,53 @@ namespace Coffee.DALs
                     if (bill != null)
                         return ("Tìm thành công", bill);
                     else
-                        return ("Không tồn tại",  null);
+                        return ("Không tồn tại", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        ///     Danh sách hóa đơn
+        /// </returns>
+        public async Task<(string, List<BillDTO>)> getListBill()
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    // Lấy dữ liệu từ nút "Bills" trong Firebase
+                    FirebaseResponse billResponse = await context.Client.GetTaskAsync("HoaDon");
+                    Dictionary<string, BillDTO> billData = billResponse.ResultAs<Dictionary<string, BillDTO>>();
+
+                    // Lấy dữ liệu từ nút "Employees" trong Firebase
+                    FirebaseResponse employeeResponse = await context.Client.GetTaskAsync("NhanVien");
+                    Dictionary<string, EmployeeDTO> employeeData = employeeResponse.ResultAs<Dictionary<string, EmployeeDTO>>();
+
+                    // Lấy dữ liệu từ nút "Tables" trong Firebase
+                    FirebaseResponse tableResponse = await context.Client.GetTaskAsync("Ban");
+                    Dictionary<string, TableDTO> tableData = tableResponse.ResultAs<Dictionary<string, TableDTO>>();
+
+                    var result = (from bill in billData.Values
+                                  join employee in employeeData.Values on bill.MaNhanVien equals employee.MaNhanVien
+                                  join table in tableData.Values on bill.MaBan equals table.MaBan
+                                  select new BillDTO
+                                  {
+                                      MaBan = bill.MaBan,
+                                      MaHoaDon = bill.MaHoaDon,
+                                      MaNhanVien = bill.MaNhanVien,
+                                      NgayTao = bill.NgayTao,
+                                      TongTien = bill.TongTien,
+                                      TrangThai = bill.TrangThai
+                                  }).ToList();
+
+                    return ("Lấy danh sách hóa đơn thành công", result);
                 }
             }
             catch (Exception ex)
@@ -179,6 +225,7 @@ namespace Coffee.DALs
         ///     1. Thông báo
         ///     2. Chi tiết hoá đơn (danh sách)
         /// </returns>
+        /// 
         public async Task<(string, List<DetailBillDTO>)> getDetailBillById(string billID)
         {
             try
@@ -193,7 +240,7 @@ namespace Coffee.DALs
                     FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham");
                     Dictionary<string, ProductDTO> productData = productResponse.ResultAs<Dictionary<string, ProductDTO>>();
 
-                    foreach(DetailBillDTO detailBill in listDetailBill)
+                    foreach (DetailBillDTO detailBill in listDetailBill)
                     {
                         ProductDTO product = productData.Values.First(x => x.MaSanPham == detailBill.MaSanPham);
 

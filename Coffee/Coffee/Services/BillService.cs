@@ -50,7 +50,7 @@ namespace Coffee.Services
             {
                 // Nếu tạo hoá đơn thành công thì tạo các chi tiết hoá đơn
                 List<DetailBillModel> listDetailBill = new List<DetailBillModel>();
-                
+
                 foreach (DetailBillDTO detail in detailBillList)
                 {
                     listDetailBill.Add(new DetailBillModel
@@ -68,7 +68,7 @@ namespace Coffee.Services
                 if (isCreateDetailBillImprot)
                 {
                     // Trừ số lượng vào món ăn
-                    
+
 
                     return (labelCreateBill, isCreateBill);
                 }
@@ -122,6 +122,18 @@ namespace Coffee.Services
         public async Task<(string, bool)> DeleteBill(string BillID)
         {
             return await BillDAL.Ins.DeleteBill(BillID);
+        }
+
+        /// <summary>
+        /// Danh sách hóa đơn
+        /// </summary>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, List<BillDTO>)> getListBill()
+        {
+            return await BillDAL.Ins.getListBill();
         }
 
         /// <summary>

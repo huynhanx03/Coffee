@@ -36,9 +36,11 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding loadShadowMaskIC}"
                                CommandParameter="{Binding ElementName=ShadowMask}" />
+            <i:InvokeCommandAction Command="{Binding loadMainFrame}"
+                   CommandParameter="{Binding ElementName=mainFrame}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Grid>
         <Grid Background="{DynamicResource Background3CF}"
        Margin="0 0 0 0">
@@ -54,7 +56,7 @@
                 <RadioButton GroupName="MenuStatistic"
                           Style="{DynamicResource MenuHorizontalMain}"
                           IsChecked="True"
-                          Command="{Binding loadTablePageIC}">
+                          Command="{Binding loadSaleHistoryIC}">
                     <TextBlock Text="{DynamicResource SalesHistory}"
                         Style="{StaticResource menuButtonText}"
                         FontSize="17"
@@ -67,7 +69,7 @@
                               Style="{DynamicResource MenuHorizontalMain}"
                               Margin="10 0 0 0"
                              Width="150"
-                              Command="{Binding loadMenuIC}">
+                              Command="{Binding loadImportHistoryIC}">
                     <TextBlock Text="{DynamicResource ImportHistory}"
                                 Style="{StaticResource menuButtonText}"
                                 FontSize="17"
@@ -79,7 +81,7 @@
                 <RadioButton GroupName="MenuStatistic"
                               Style="{DynamicResource MenuHorizontalMain}"
                               Margin="10 0 0 0"
-                              Command="{Binding loadMenuIC}">
+                              Command="{Binding loadStatisticIC}">
                     <TextBlock Text="{DynamicResource Revenue}"
                             Style="{StaticResource menuButtonText}"
                             FontSize="17"
@@ -91,15 +93,30 @@
 
             <Grid  Grid.Row="1"
                    Background="{DynamicResource Background3CF}">
-                <Frame x:Name="mainFrame"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0"
+                        Margin="20"
+                         Background="{DynamicResource MainColorCF}"
+                         CornerRadius="35">
+                    <Border Margin="18"
+        Background="{DynamicResource BackgroundCF}"
+        CornerRadius="20">
+                        <Frame x:Name="mainFrame"
+                               Margin="10"
                        NavigationUIVisibility="Hidden">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Loaded">
-                            <i:InvokeCommandAction Command="{Binding loadTablePageIC}"
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <i:InvokeCommandAction Command="{Binding loadSaleHistoryIC}"
                                     CommandParameter="{Binding ElementName=mainFrame}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Frame>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Frame>
+                    </Border>
+                </Border>
+
             </Grid>
         </Grid>
 

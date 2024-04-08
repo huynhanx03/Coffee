@@ -285,9 +285,6 @@
     <Compile Include="Views\Admin\SettingPage\MainSettingPage.xaml.cs">
       <DependentUpon>MainSettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\Setting\MainSettingPage.xaml.cs">
-      <DependentUpon>MainSettingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Admin\StatisticPage\ImportHistoryPage.xaml.cs">
       <DependentUpon>ImportHistoryPage.xaml</DependentUpon>
     </Compile>
@@ -319,21 +316,6 @@
       <DependentUpon>SalesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\TablePage\TablePage.xaml.cs">
-      <DependentUpon>TablePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\Table\MainTablePage.xaml.cs">
-      <DependentUpon>MainTablePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\Table\MenuPage.xaml.cs">
-      <DependentUpon>MenuPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\Table\OperationOfTableWindow.xaml.cs">
-      <DependentUpon>OperationOfTableWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\Table\SalesPage.xaml.cs">
-      <DependentUpon>SalesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\Table\TablePage.xaml.cs">
       <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginPage.xaml.cs">
@@ -425,10 +407,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\Setting\MainSettingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Admin\StatisticPage\ImportHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -472,26 +450,6 @@
     <Page Include="Views\Admin\TablePage\TablePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\Table\MainTablePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\Table\MenuPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\Table\OperationOfTableWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\Table\SalesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\Table\TablePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login\LoginPage.xaml">
       <SubType>Designer</SubType>

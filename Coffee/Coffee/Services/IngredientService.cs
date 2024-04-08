@@ -141,5 +141,80 @@ namespace Coffee.Services
 
             return ("Không tìm được nguyên liệu", false);
         }
+
+        /// <summary>
+        /// Tìm giá trị nguyên liệu tối đa để tạo là sản phẩm
+        /// </summary>
+        /// <param name="listProductRecipe"></param>
+        /// <returns></returns>
+        public async Task<(string, int)> getMaxIngredientQuantity(List<ProductRecipeDTO> listProductRecipe)
+        {
+            (string label, List<IngredientDTO> listIngredient) = await this.getListIngredient();
+
+            int maxQuantity = int.MaxValue;
+
+            foreach (ProductRecipeDTO item in listProductRecipe)
+            {
+                IngredientDTO findIngredient = listIngredient.FirstOrDefault(x => x.MaNguyenLieu == item.MaNguyenLieu);
+
+                if (findIngredient != null)
+                {
+                    int quantity = -1;
+
+                    // xử lý tính toán đơn vị
+                    if (item.MaDonVi == findIngredient.MaDonVi)
+                       quantity = (int) (findIngredient.SoLuong / item.SoLuong);
+                    else
+                    {
+                        if (findIngredient.MaDonVi == "DV0001" || findIngredient.MaDonVi == "DV0003")
+                            quantity = (int) (findIngredient.SoLuong * 1000 / item.SoLuong);
+                        else
+                            quantity = (int) (findIngredient.SoLuong / 1000 / item.SoLuong);
+                    }
+
+                    maxQuantity = Math.Min(maxQuantity, quantity);
+                }
+                else
+                    return ("Nguyên liệu trong công thức không tồn tại nữa", -1);
+            }
+
+            return ("Tìm giá trị thành công", maxQuantity);
+        }
+
+        /// <summary>
+        /// Giảm số lượng nguyên liệu
+        /// </summary>
+        /// <param name="listProductRecipe"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        public async Task<(string, bool)> reduceIngredientQuantity(List<ProductRecipeDTO> listProductRecipe, int quantity)
+        {
+            (string label, List<IngredientDTO> listIngredient) = await this.getListIngredient();
+
+            foreach (ProductRecipeDTO item in listProductRecipe)
+            {
+                IngredientDTO findIngredient = listIngredient.FirstOrDefault(x => x.MaNguyenLieu == item.MaNguyenLieu);
+
+                if (findIngredient != null)
+                {
+                    // xử lý tính toán đơn vị
+                    if (item.MaDonVi == findIngredient.MaDonVi)
+                        findIngredient.SoLuong -= quantity * item.SoLuong;
+                    else
+                    {
+                        if (findIngredient.MaDonVi == "DV0001" || findIngredient.MaDonVi == "DV0003")
+                            findIngredient.SoLuong -= (quantity * item.SoLuong / 1000);
+                        else
+                            findIngredient.SoLuong -= (quantity * item.SoLuong * 1000);
+                    }
+
+                    // Update Nguyên liệu
+
+                    await this.updateIngredient(findIngredient);
+                }
+            }
+
+            return ("Giảm số lượng nguyên liệu thành công", true);
+        }
     }
 }

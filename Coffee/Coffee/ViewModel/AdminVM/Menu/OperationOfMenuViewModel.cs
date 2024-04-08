@@ -265,9 +265,6 @@ namespace Coffee.ViewModel.AdminVM.Menu
                         if (OriginImage != Image)
                             await CloudService.Ins.DeleteImage(newImage);
 
-                        // Xoá user
-
-
                         // Xoá product
 
                         MessageBoxCF ms = new MessageBoxCF(labelEdit, MessageType.Error, MessageButtons.OK);

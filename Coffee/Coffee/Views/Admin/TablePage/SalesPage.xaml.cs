@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Coffee.Views.Admin.Table
+namespace Coffee.Views.Admin.TablePage
 {
     /// <summary>
-    /// Interaction logic for TablePage.xaml
+    /// Interaction logic for SalesPage.xaml
     /// </summary>
-    public partial class TablePage : Page
+    public partial class SalesPage : Page
     {
-        public TablePage()
+        public SalesPage()
         {
             InitializeComponent();
-        }
-
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            ScrollViewer.ScrollToVerticalOffset(ScrollViewer.VerticalOffset - e.Delta);
-            e.Handled = true;
         }
     }
 }

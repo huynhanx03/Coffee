@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Coffee.Views.Admin.Table
+namespace Coffee.Views.Admin.TablePage
 {
     /// <summary>
     /// Interaction logic for OperationOfTableWindow.xaml

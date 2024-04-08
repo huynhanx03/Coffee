@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Coffee.Views.Admin.Setting
+namespace Coffee.Views.Admin.TablePage
 {
     /// <summary>
-    /// Interaction logic for MainSettingPage.xaml
+    /// Interaction logic for MergeTableWindow.xaml
     /// </summary>
-    public partial class MainSettingPage : Page
+    public partial class MergeTableWindow : Window
     {
-        public MainSettingPage()
+        public MergeTableWindow()
         {
             InitializeComponent();
         }

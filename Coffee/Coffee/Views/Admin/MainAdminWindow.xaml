@@ -233,7 +233,8 @@
                                      Name="ItemsBtn"
                                      GroupName="mainOptions"
                                      Command="{Binding loadMenuPageIC}"
-                                     CommandParameter="{Binding ElementName=mainFrame}">
+                                     CommandParameter="{Binding ElementName=mainFrame}"
+                                     Visibility="{Binding role, Converter={StaticResource RoleConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ListBox"
                                                          Style="{StaticResource menuButtonIcon}"/>
@@ -248,7 +249,8 @@
                                      Name="IngredientsBtn"
                                      GroupName="mainOptions"
                                      Command="{Binding loadIngredientsPageIC}"
-                                     CommandParameter="{Binding ElementName=mainFrame}">
+                                     CommandParameter="{Binding ElementName=mainFrame}"
+                                     Visibility="{Binding role, Converter={StaticResource RoleConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Food"
                                          Style="{StaticResource menuButtonIcon}"/>
@@ -278,7 +280,8 @@
                                      Name="EmployeeBtn"
                                      GroupName="mainOptions"
                                      Command="{Binding loadEmployeePageIC}"
-                                     CommandParameter="{Binding ElementName=mainFrame}">
+                                     CommandParameter="{Binding ElementName=mainFrame}"
+                                     Visibility="{Binding role, Converter={StaticResource RoleConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountGroup"
                                          Style="{StaticResource menuButtonIcon}"/>

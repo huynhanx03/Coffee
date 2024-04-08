@@ -38,7 +38,7 @@ namespace Coffee.Services
         ///     1. Thông báo
         ///     2. True khi tạo thành công
         /// </returns>
-        public async Task<(string, bool)> createBill(BillDTO bill, ObservableCollection<DetailBillDTO> detailBillList)
+        public async Task<(string, bool)> createBill(BillModel bill, ObservableCollection<DetailBillDTO> detailBillList)
         {
             // Tìm mã hoá đơn
             string MaHoaDonMax = await this.getMaxMaHoaDon();
@@ -143,9 +143,9 @@ namespace Coffee.Services
         /// 
         /// </param>
         /// <returns></returns>
-        public async Task<(string, BillDTO, List<DetailBillDTO>)> findBillByTableBooking(string tableID)
+        public async Task<(string, BillModel, List<DetailBillDTO>)> findBillByTableBooking(string tableID)
         {
-            (string label, BillDTO bill) = await BillDAL.Ins.findBillByTableBooking(tableID);
+            (string label, BillModel bill) = await BillDAL.Ins.findBillByTableBooking(tableID);
 
             if (bill != null)
             {
@@ -158,6 +158,142 @@ namespace Coffee.Services
             }
             else
                 return (label, null, null);
+        }
+
+        /// <summary>
+        /// Cập nhật hoá đơn
+        /// </summary>
+        /// <param name="bill"> hoá đơn </param>
+        /// <param name="detailBillList"> danh sách chi tiết hoá đơn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Hoá đơn
+        /// </returns>
+        public async Task<(string, BillModel)> updateBill(BillModel bill, ObservableCollection<DetailBillDTO> detailBillList)
+        {
+            List<DetailBillModel> listDetailBill = new List<DetailBillModel>();
+
+            foreach (DetailBillDTO detail in detailBillList)
+            {
+                listDetailBill.Add(new DetailBillModel
+                {
+                    MaHoaDon = bill.MaHoaDon,
+                    MaSanPham = detail.MaSanPham,
+                    MaKichThuoc = detail.SelectedProductSize.MaKichThuoc,
+                    SoLuong = detail.SoLuong,
+                    ThanhTien = detail.ThanhTien
+                });
+            }
+
+            (string label, bool isCreate) = await BillDAL.Ins.updateDetailBill(bill.MaHoaDon, listDetailBill);
+
+            return await BillDAL.Ins.updateBill(bill);
+        }
+
+        /// <summary>
+        /// Cập nhật hoá đơn
+        /// </summary>
+        /// <param name="bill"> hoá đơn </param>
+        /// <param name="detailBillList"> danh sách chi tiết hoá đơn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Hoá đơn
+        /// </returns>
+        public async Task<(string, BillModel)> updateBill(BillModel bill, List<DetailBillModel> detailBillList)
+        {
+            (string label, bool isCreate) = await BillDAL.Ins.updateDetailBill(bill.MaHoaDon, detailBillList);
+
+            return await BillDAL.Ins.updateBill(bill);
+        }
+
+        /// <summary>
+        /// Cập nhật hoá đơn theo bàn
+        /// </summary>
+        /// <param name="tableID"></param>
+        /// <param name="tableIDNew"></param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> updateBillByTableID(string tableID, string tableIDNew)
+        {
+            (string labelFindBill, BillModel bill) = await BillDAL.Ins.findBillByTableBooking(tableID);
+
+            if (bill != null)
+            {
+                (string labelUpdate, bool isUpdate) = await BillDAL.Ins.updateTableIDInBill(bill.MaHoaDon, tableIDNew);
+            
+                if (isUpdate)
+                    return (labelFindBill, true);
+                else
+                    return (labelUpdate, false);
+            }
+            else
+                return (labelFindBill, false);
+        }
+
+        /// <summary>
+        /// Gộp hoá đơn theo bàn
+        /// </summary>
+        /// <param name="tableID1"></param>
+        /// <param name="tableID2"></param>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> mergeBillByTableID(string tableID1, string tableID2)
+        {
+            (string labelFindBill1, BillModel bill1) = await BillDAL.Ins.findBillByTableBooking(tableID1);
+            (string labelFindBill2, BillModel bill2) = await BillDAL.Ins.findBillByTableBooking(tableID2);
+
+            if (bill1 != null && bill2 != null)
+            {
+                bill2.TongTien += bill1.TongTien;
+
+                (string labelGet1, List<DetailBillModel> detailBillList1) = await BillDAL.Ins.getDetailBill(bill1.MaHoaDon);
+                (string labelGet2, List<DetailBillModel> detailBillList2) = await BillDAL.Ins.getDetailBill(bill2.MaHoaDon);
+
+                List<DetailBillModel> list = new List<DetailBillModel>();
+
+                foreach (DetailBillModel detailBill1 in detailBillList1)
+                {
+                    bool isFind = false;
+
+                    foreach (DetailBillModel detailBill2 in detailBillList2)
+                    {
+                        if (detailBill2.MaSanPham == detailBill1.MaSanPham && detailBill2.MaKichThuoc == detailBill1.MaKichThuoc)
+                        {
+                            detailBill2.SoLuong += detailBill1.SoLuong;
+                            detailBill2.ThanhTien += detailBill1.ThanhTien;
+                            
+                            isFind = true;
+
+                            break;
+                        }
+                    }
+
+                    if (isFind == false) list.Add(detailBill1);
+                }
+
+                detailBillList2.AddRange(list);
+
+                (string labelUpdate, BillModel bill) = await this.updateBill(bill2, detailBillList2);
+
+                if (bill != null)
+                {
+                    // Xoá bill1
+                    (string labelDelete, bool isDelete) = await this.DeleteBill(bill1.MaHoaDon);
+
+                    return ("Gộp bàn thành công", true);
+                }
+                else
+                    return (labelUpdate, false);
+            }
+            else
+                if (bill1 != null)
+                    return (labelFindBill2, false);
+                else
+                    return (labelFindBill1, false);
         }
     }
 }

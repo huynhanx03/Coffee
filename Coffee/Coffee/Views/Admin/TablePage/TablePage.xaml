@@ -1,9 +1,9 @@
-﻿<Page x:Class="Coffee.Views.Admin.Table.TablePage"
+﻿<Page x:Class="Coffee.Views.Admin.TablePage.TablePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Coffee.Views.Admin.Table"
+      xmlns:local="clr-namespace:Coffee.Views.Admin.TablePage"
       xmlns:cv="clr-namespace:Coffee.Utils.ConverterValue"
       mc:Ignorable="d" 
       Title="TablePage"
@@ -21,6 +21,7 @@
 
     <Page.Resources>
         <cv:TableCoverter x:Key="TableConverter"/>
+        <cv:RoleConverter x:Key="RoleConverter"/>
     </Page.Resources>
 
     <!--Sự kiện chuyển trang-->
@@ -52,16 +53,43 @@
         <StackPanel Margin="4"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
-            <Button x:Name="OpenMenuBtn"
+            <Button 
+                    Cursor="Hand"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    Background="{DynamicResource MainColorCF}"
+                    BorderBrush="{x:Null}"
+                    Command="{Binding openWindowChangeTableIC}"
+                    ToolTip="{DynamicResource ChangeTable}"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 10 0">
+                <materialDesign:PackIcon Kind="TableRowHeight" 
+                                         Foreground="{DynamicResource BackgroundCF}"/>
+            </Button>
+
+            <Button 
+                    Cursor="Hand"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    Background="{DynamicResource MainColorCF}"
+                    BorderBrush="{x:Null}"
+                    Command="{Binding openWindowMergeTableIC}"
+                    ToolTip="{DynamicResource MergeTable}"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 10 0">
+                <materialDesign:PackIcon Kind="TableMergeCells" 
+                    Foreground="{DynamicResource BackgroundCF}"/>
+            </Button>
+
+            <Button 
                     Cursor="Hand"
                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                     Background="{DynamicResource MainColorCF}"
                     BorderBrush="{x:Null}"
                     Command="{Binding openWindowAddTableIC}"
                     ToolTip="{DynamicResource AddTable}"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right"
+                    Visibility="{Binding role, Converter={StaticResource RoleConverter}}">
                 <materialDesign:PackIcon Kind="PlusBold" 
-                                Foreground="{DynamicResource BackgroundCF}"/>
+                                         Foreground="{DynamicResource BackgroundCF}"/>
             </Button>
         </StackPanel>
         <ScrollViewer x:Name="ScrollViewer"
@@ -163,7 +191,8 @@
                                                 BorderBrush="#A20F27"
                                                 Margin="30 0 0 0"
                                                 Command="{Binding DataContext.openDeleteTableIC, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                CommandParameter="{Binding}">
+                                                CommandParameter="{Binding}"
+                                                Visibility="{Binding DataContext.role, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource RoleConverter}}">
                                             <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                         </Button>
                                     </Grid>

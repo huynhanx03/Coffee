@@ -1,9 +1,9 @@
-﻿<Page x:Class="Coffee.Views.Admin.Table.MenuPage"
+﻿<Page x:Class="Coffee.Views.Admin.TablePage.MenuPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Coffee.Views.Admin.Table"
+      xmlns:local="clr-namespace:Coffee.Views.Admin.TablePage"
       mc:Ignorable="d" 
       Title="MenuPage"
       Name="MenuPageCF"
@@ -94,7 +94,7 @@
                                  Margin="10 0 0 0"/>
                     <TextBox
                              x:Name="searchBox"
-                             Width="400"
+                             Width="450"
                              HorizontalContentAlignment="Left"
                              VerticalContentAlignment="Center"
                              materialDesign:HintAssist.Hint="{DynamicResource Search}"
@@ -112,20 +112,7 @@
                     </TextBox>
                 </StackPanel>
             </Border>
-
-            <Border Margin="10,0,7,0" Height="30" BorderThickness="1,0,0,0" BorderBrush="Black"></Border>
-
-            <Button x:Name="OpenMenuBtn"
-                Cursor="Hand"
-                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                Background="{DynamicResource MainColorCF}"
-                BorderBrush="{x:Null}"
-                Command="{Binding openWindowAddTableIC}"
-                ToolTip="{DynamicResource AddTable}"
-                HorizontalAlignment="Right">
-                <materialDesign:PackIcon Kind="PlusBold" 
-                                Foreground="{DynamicResource BackgroundCF}"/>
-            </Button>
+            
         </StackPanel>
         <ScrollViewer x:Name="ScrollViewer"
                   Grid.Row="1"

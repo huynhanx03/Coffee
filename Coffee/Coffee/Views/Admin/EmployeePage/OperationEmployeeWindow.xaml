@@ -78,6 +78,13 @@
                                 <TextBlock Foreground="{DynamicResource MainColorCF}"
                                            Text="{DynamicResource IDCard}"/>
                             </materialDesign:HintAssist.Hint>
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewTextInput">
+                                    <i:CallMethodAction TargetObject="{Binding}"
+                                                        MethodName="NumberValidationTextBox"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </TextBox>
 
                         <TextBox Style="{DynamicResource txbStyle}"
@@ -98,6 +105,13 @@
                                 <TextBlock Foreground="{DynamicResource MainColorCF}"
                                            Text="{DynamicResource NumberPhone}"/>
                             </materialDesign:HintAssist.Hint>
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewTextInput">
+                                    <i:CallMethodAction TargetObject="{Binding}"
+                                                        MethodName="NumberValidationTextBox"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </TextBox>
 
                         <ComboBox Style="{DynamicResource cbStyle}"
@@ -169,6 +183,13 @@
                                 <TextBlock Foreground="{DynamicResource MainColorCF}"
                                            Text="{DynamicResource Wage}"/>
                             </materialDesign:HintAssist.Hint>
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewTextInput">
+                                    <i:CallMethodAction TargetObject="{Binding}"
+                                                        MethodName="NumberValidationTextBox"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </TextBox>
                     </StackPanel>
                 </Grid>

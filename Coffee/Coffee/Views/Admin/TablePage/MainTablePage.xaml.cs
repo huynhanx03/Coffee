@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Coffee.Views.Admin.Table
+namespace Coffee.Views.Admin.TablePage
 {
     /// <summary>
-    /// Interaction logic for SalesPage.xaml
+    /// Interaction logic for MainTablePage.xaml
     /// </summary>
-    public partial class SalesPage : Page
+    public partial class MainTablePage : Page
     {
-        public SalesPage()
+        public MainTablePage()
         {
             InitializeComponent();
         }

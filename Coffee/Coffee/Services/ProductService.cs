@@ -112,7 +112,53 @@ namespace Coffee.Services
         /// </returns>
         public async Task<(string, bool)> DeleteProduct(ProductDTO product)
         {
-            return await ProductDAL.Ins.DeleteProduct(product.MaSanPham);
+            await CloudService.Ins.DeleteImage(product.HinhAnh);
+
+            return await ProductDAL.Ins.deleteProduct(product.MaSanPham);
+        }
+
+        /// <summary>
+        /// Tăng số lượng sản phẩm
+        /// </summary>
+        /// <param name="productID"> mã sản phẩm </param>
+        /// <param name="quantity"> số lượng </param>
+        /// <returns>\
+        ///     1. Thông báo
+        ///     2. True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> increaseQuantityProduct(string productID, int quantity)
+        {
+            (string label, ProductDTO product) = await ProductDAL.Ins.findProduct(productID);
+
+            if (product != null)
+            {
+                product.SoLuong += quantity;
+                return await ProductDAL.Ins.updateQuantityProduct(productID, product.SoLuong);
+            }
+            else
+                return (label, false);
+        }
+
+        /// <summary>
+        /// Tăng số lượng sản phẩm
+        /// </summary>
+        /// <param name="productID"> mã sản phẩm </param>
+        /// <param name="quantity"> số lượng </param>
+        /// <returns>\
+        ///     1. Thông báo
+        ///     2. True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> reduceQuantityProduct(string productID, int quantity)
+        {
+            (string label, ProductDTO product) = await ProductDAL.Ins.findProduct(productID);
+
+            if (product != null)
+            {
+                product.SoLuong -= quantity;
+                return await ProductDAL.Ins.updateQuantityProduct(productID, product.SoLuong);
+            }
+            else
+                return (label, false);
         }
     }
 }

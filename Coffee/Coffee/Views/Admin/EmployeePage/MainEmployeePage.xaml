@@ -235,7 +235,7 @@
                                             <Button Style="{DynamicResource btnInDtg}"
                                                     Background="#8295B9" BorderBrush="#41AAE2"
                                                     Margin="35 0 0 0"
-                                                    Click="Edit_Click">
+                                                    Command="{Binding DataContext.openWindowEditEmployeeIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                 <materialDesign:PackIcon Kind="EditOutline" Width="15" Height="15"/>
                                             </Button>
 
@@ -243,7 +243,7 @@
                                                     Background="#AD7270"
                                                     BorderBrush="#A20F27"
                                                     Margin="25 0 0 0"
-                                                    Click="Delete_Click">
+                                                    Command="{Binding DataContext.deleteEmployeeIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
 
                                                 <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                             </Button>

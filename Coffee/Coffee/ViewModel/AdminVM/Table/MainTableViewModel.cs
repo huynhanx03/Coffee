@@ -1,6 +1,7 @@
 ﻿using Coffee.DTOs;
+using Coffee.Utils;
 using Coffee.Views.Admin.MenuPage;
-using Coffee.Views.Admin.Table;
+using Coffee.Views.Admin.TablePage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,15 @@ namespace Coffee.ViewModel.AdminVM.Table
         public Grid MaskName { get; set; }
         public Frame LeftFrame { get; set; }
         public RadioButton btnMenu { get; set; }
+
+        private int _role;
+
+        public int role
+        {
+            get { return _role; }
+            set { _role = value; OnPropertyChanged(); }
+        }
+
 
         #endregion
 
@@ -81,25 +91,34 @@ namespace Coffee.ViewModel.AdminVM.Table
                 loadTableList();
             });
 
-            selectedTypeProductIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            openWindowChangeTableIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                selectedTypeProduct();
+                openWindowChangeTable();
             });
 
-            loadProductTypeListIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            confirmChangeTableIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                loadProductTypeList();
+                confirmChangeTable(p);
             });
 
-            searchProductIC = new RelayCommand<TextBox>(null, (p) =>
+            closeChangeTableWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                if (p.Text != null)
-                {
-                    if (__ProductList != null)
-                        __ProductSearchList = new List<ProductDTO>(__ProductList.FindAll(x => x.TenSanPham.ToLower().Contains(p.Text.ToLower())));
+                p.Close();
+            });
 
-                    selectedTypeProduct();
-                }
+            openWindowMergeTableIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                openWindowMergeTable();
+            });
+
+            confirmMergeTableIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                confirmMergeTable(p);
+            });
+
+            closeMergeTableWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Close();
             });
 
             #endregion
@@ -137,6 +156,27 @@ namespace Coffee.ViewModel.AdminVM.Table
             {
                 addProductToBill();
             });
+
+            selectedTypeProductIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                selectedTypeProduct();
+            });
+
+            loadProductTypeListIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                loadProductTypeList();
+            });
+
+            searchProductIC = new RelayCommand<TextBox>(null, (p) =>
+            {
+                if (p.Text != null)
+                {
+                    if (__ProductList != null)
+                        __ProductSearchList = new List<ProductDTO>(__ProductList.FindAll(x => x.TenSanPham.ToLower().Contains(p.Text.ToLower())));
+
+                    selectedTypeProduct();
+                }
+            });
             #endregion
 
             #region sales
@@ -165,9 +205,24 @@ namespace Coffee.ViewModel.AdminVM.Table
                 loadDateSales();
             });
 
-            bookingIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            bookingIC = new RelayCommand<object>((p) => 
+            { 
+                return (currentTable != null 
+                        && currentTable.TrangThai != Constants.StatusTable.BOOKED
+                        && DetailBillList.Count > 0); 
+            }, 
+            (p) =>
             {
                 booking();
+            });
+
+            payIC = new RelayCommand<object>((p) =>
+            { 
+                return DetailBillList.Count > 0; 
+            }, 
+            (p) =>
+            {
+                pay();
             });
             #endregion
         }

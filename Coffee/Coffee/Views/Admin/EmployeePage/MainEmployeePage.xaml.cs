@@ -25,15 +25,5 @@ namespace Coffee.Views.Admin.EmployeePage
         {
             InitializeComponent();
         }
-
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as EmployeeViewModel).openWindowEditEmployee();
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as EmployeeViewModel).deleteEmployee();
-        }
     }
 }

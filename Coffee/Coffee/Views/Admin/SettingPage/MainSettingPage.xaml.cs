@@ -1,6 +1,4 @@
-﻿using Coffee.ViewModel.AdminVM.Employee;
-using Coffee.ViewModel.AdminVM.Ingredient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Coffee.Views.Admin.IngredientPage
+namespace Coffee.Views.Admin.SettingPage
 {
     /// <summary>
-    /// Interaction logic for MainIngredientPage.xaml
+    /// Interaction logic for MainSettingPage.xaml
     /// </summary>
-    public partial class MainIngredientPage : Page
+    public partial class MainSettingPage : Page
     {
-        public MainIngredientPage()
+        public MainSettingPage()
         {
             InitializeComponent();
         }

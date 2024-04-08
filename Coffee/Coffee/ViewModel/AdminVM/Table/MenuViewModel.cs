@@ -1,5 +1,6 @@
 ﻿using Coffee.DTOs;
 using Coffee.Services;
+using Coffee.Views.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -107,6 +108,16 @@ namespace Coffee.ViewModel.AdminVM.Table
         private void addProductToBill()
         {
             List<DetailBillDTO> listFind = DetailBillList.Where(x => x.MaSanPham == SelectedProduct.MaSanPham).ToList();
+
+            int totalQuantity = listFind.Sum(x => x.SoLuong);
+
+            // Đã hết số lượng
+            if (totalQuantity == SelectedProduct.SoLuong)
+            {
+                MessageBoxCF ms = new MessageBoxCF("Sản phẩm đã hết hàng", MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
+                return;
+            }
 
             if (listFind.Count > 0)
             {

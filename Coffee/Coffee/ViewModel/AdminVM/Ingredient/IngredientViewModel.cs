@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +21,7 @@ using System.Windows.Input;
 
 namespace Coffee.ViewModel.AdminVM.Ingredient
 {
-    public partial class IngredientViewModel : BaseViewModel
+    public partial class IngredientViewModel : BaseViewModel, IConstraintViewModel
     {
         #region variable
         public Grid MaskName { get; set; }
@@ -60,6 +61,8 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
         public ICommand loadIngredientListIC { get; set; }
         public ICommand loadUnitListIC { get; set; }
         public ICommand addIngredientToImportIC { get; set; }
+        public ICommand openWindowEditIngredientIC { get; set; }
+        public ICommand deleteIngredientIC { get; set; }
         public ICommand openBillImportWindowIC { get; set; }
         public ICommand searchDetailIngredientIC { get; set; }
         public ICommand searchDetailImportIC { get; set; }
@@ -85,7 +88,8 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             openWindowAddIngredientIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 MaskName.Visibility = Visibility.Visible;
-                resetEmployee();
+                resetIngredient();
+                TypeOperation = 1;
                 OperationIngredientWindow w = new OperationIngredientWindow();
                 w.ShowDialog();
                 MaskName.Visibility = Visibility.Collapsed;
@@ -95,10 +99,34 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             {
                 openBillImportWindow();
             });
+
             closeOperationIngredientWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 p.Close();
             });
+
+            addIngredientToImportIC = new RelayCommand<ProductDTO>((p) => { return true; }, (p) =>
+            {
+                addIngredientToImport();
+            });
+
+            openWindowEditIngredientIC = new RelayCommand<ProductDTO>((p) => { return true; }, (p) =>
+            {
+                openWindowEditIngredient();
+            });
+
+            deleteIngredientIC = new RelayCommand<ProductDTO>((p) => { return true; }, (p) =>
+            {
+                deleteIngredient();
+            });
+
+            #region
+            confirmOperationIngredientIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                confirmOperationIngredient();
+            });
+            #endregion
+
             #region import
             confirmImportIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -117,6 +145,11 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             searchDetailIngredientIC = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
                 searchDetailIngredient(p.Text);
+            });
+
+            removeIngredientIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                removeIngredient();
             });
             #endregion
         }
@@ -177,6 +210,7 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
         {
             MaskName.Visibility = Visibility.Visible;
             OperationIngredientWindow w = new OperationIngredientWindow();
+            TypeOperation = 2;
             loadIngredient(SelectedIngredient);
             w.ShowDialog();
             MaskName.Visibility = Visibility.Collapsed;
@@ -186,6 +220,7 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             IngredientName = ingredient.TenNguyenLieu;
             SelectedUnitName = ingredient.TenDonVi;
         }
+
         /// <summary>
         /// Thêm nguyên liệu vào phiếu nhập kho
         /// </summary>
@@ -218,11 +253,9 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
         /// <summary>
         /// Reset dữ liệu nguyện liệu trên cửa sổ thao tác
         /// </summary>
-        private void resetEmployee()
+        private void resetIngredient()
         {
             IngredientName = "";
-            SelectedUnitName = "";
-
         }
         private void openBillImportWindow()
         {
@@ -273,6 +306,17 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
                     IngredientList = new ObservableCollection<IngredientDTO>(__IngredientList.FindAll(x => x.TenNguyenLieu.ToLower().Contains(text.ToLower())));
                 }
             }
+        }
+
+        /// <summary>
+        /// Kiểm tra chỉ được nhập số
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Coffee.Utils.ConverterValue
@@ -12,15 +13,15 @@ namespace Coffee.Utils.ConverterValue
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int _Value = (int)value;
+            int Role = Memory.user.VaiTro;
 
-            if (_Value == 1)
+            if (Role == 3)
             {
-                return true;
+                return Visibility.Collapsed;
             }
             else
             {
-                return false;
+                return Visibility.Visible;
             }
         }
 

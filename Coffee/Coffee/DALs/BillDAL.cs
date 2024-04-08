@@ -37,7 +37,7 @@ namespace Coffee.DALs
         ///     1. Thông báo
         ///     2. True khi tạo thành công
         /// </returns>
-        public async Task<(string, bool)> createBill(BillDTO bill)
+        public async Task<(string, bool)> createBill(BillModel bill)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Coffee.DALs
 
                     if (response.Body != null && response.Body != "null")
                     {
-                        Dictionary<string, BillDTO> data = response.ResultAs<Dictionary<string, BillDTO>>();
+                        Dictionary<string, BillModel> data = response.ResultAs<Dictionary<string, BillModel>>();
 
                         string MaxMaHoaDon = data.Values.Select(i => i.MaHoaDon).Max();
 
@@ -107,7 +107,7 @@ namespace Coffee.DALs
                         await context.Client.SetTaskAsync("HoaDon/" + BillID + "/ChiTietHoaDon/" + detail.MaSanPham + "-" + detail.MaKichThuoc, detail);
                     }
 
-                    return ("Thêm hoá đơn thành công", true);
+                    return ("Thêm chi tiết hoá đơn thành công", true);
                 }
             }
             catch (Exception ex)
@@ -149,15 +149,15 @@ namespace Coffee.DALs
         ///     1. Thông báo
         ///     2. Hoá đơn
         /// </returns>
-        public async Task<(string, BillDTO)> findBillByTableBooking(string tableID)
+        public async Task<(string, BillModel)> findBillByTableBooking(string tableID)
         {
             try
             {
                 using (var context = new Firebase())
                 {
                     FirebaseResponse billResponse = await context.Client.GetTaskAsync("HoaDon");
-                    Dictionary<string, BillDTO> billData = billResponse.ResultAs<Dictionary<string, BillDTO>>();
-                    BillDTO bill = billData.Values.FirstOrDefault(x => x.MaBan == tableID && x.TrangThai == Constants.StatusBill.UNPAID);
+                    Dictionary<string, BillModel> billData = billResponse.ResultAs<Dictionary<string, BillModel>>();
+                    BillModel bill = billData.Values.FirstOrDefault(x => x.MaBan == tableID && x.TrangThai == Constants.StatusBill.UNPAID);
 
                     if (bill != null)
                         return ("Tìm thành công", bill);
@@ -251,6 +251,114 @@ namespace Coffee.DALs
                     }
 
                     return ("Lấy danh sách chi tiết hoá đơn thành công", listDetailBill);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+
+        /// <summary>
+        /// Cập nhật hoá đơn
+        /// </summary>
+        /// <param name="bill"> hoá đơn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Hoá đơn
+        /// </returns>
+        public async Task<(string, BillModel)> updateBill(BillModel bill)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.UpdateTaskAsync("HoaDon/" + bill.MaHoaDon, bill);
+
+                    return ("Cập nhật hoá đơn thành công", bill);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật chi tiết hoá đơn
+        /// </summary>
+        /// <param name="billID"> mã hoá đơn </param>
+        /// <param name="detailBillList"> chi tiết hoá đơn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> updateDetailBill(string billID, List<DetailBillModel> detailBillList)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    foreach (var detail in detailBillList)
+                    {
+                        await context.Client.SetTaskAsync("HoaDon/" + billID + "/ChiTietHoaDon/" + detail.MaSanPham + "-" + detail.MaKichThuoc, detail);
+                    }
+
+                    return ("Cập nhật chi tiết hoá đơn thành công", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, false);
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật mã bàn trong hoá đơn
+        /// </summary>
+        /// <param name="billID"> mã hoá đơn </param>
+        /// <param name="tableID"> mã bàn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> updateTableIDInBill(string billID, string tableID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.UpdateTaskAsync("HoaDon/" + billID, new { MaBan = tableID });
+
+                    return ("Cập nhật hoá đơn thành công", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, false);
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách chi tiết hoá đơn
+        /// </summary>
+        /// <param name="billID"></param>
+        /// <returns></returns>
+        public async Task<(string, List<DetailBillModel>)> getDetailBill(string billID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse billResponse = await context.Client.GetTaskAsync("HoaDon/" + billID + "/ChiTietHoaDon");
+                    Dictionary<string, DetailBillModel> billData = billResponse.ResultAs<Dictionary<string, DetailBillModel>>();
+                    List<DetailBillModel> detailBillList = billData.Values.ToList();
+
+                    if (detailBillList != null)
+                        return ("Lấy danh sách chi tiết thành công", detailBillList);
+                    else
+                        return ("Lấy danh sách chi tiết thất bại", null);
                 }
             }
             catch (Exception ex)

@@ -63,6 +63,7 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
         #region ICommand
         public ICommand confirmImportIC { get; set; }
         public ICommand closeBillImportWindowIC { get; set; }
+        public ICommand removeIngredientIC { get; set; }
 
         #endregion
 
@@ -138,6 +139,10 @@ namespace Coffee.ViewModel.AdminVM.Ingredient
             DetailImportList = new ObservableCollection<DetailImportDTO>(DetailImportList);
         }
 
+        /// <summary>
+        /// Tìm kiếm nguyên liệu tại phiếu nhập
+        /// </summary>
+        /// <param name="text"></param>
         public void searchDetailImport(string text)
         {
             if (text != null)

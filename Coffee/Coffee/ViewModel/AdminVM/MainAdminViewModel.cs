@@ -2,9 +2,9 @@
 using Coffee.Views.Admin.EmployeePage;
 using Coffee.Views.Admin.IngredientPage;
 using Coffee.Views.Admin.MenuPage;
-using Coffee.Views.Admin.Setting;
+using Coffee.Views.Admin.SettingPage;
 using Coffee.Views.Admin.StatisticPage;
-using Coffee.Views.Admin.Table;
+using Coffee.Views.Admin.TablePage;
 using System;
 using System.Collections.Generic;
 using System.Linq;

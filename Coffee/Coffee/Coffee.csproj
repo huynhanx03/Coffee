@@ -199,7 +199,9 @@
     <Compile Include="DTOs\TableTypeDTO.cs" />
     <Compile Include="DTOs\UnitDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
+    <Compile Include="Models\BillModel.cs" />
     <Compile Include="Models\DetailBillModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Services\BillImportService.cs" />
     <Compile Include="Services\BillService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
@@ -250,6 +252,7 @@
     <Compile Include="ViewModel\AdminVM\Table\SalesViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\TableViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\IConstraintViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\UserControlVM\ControlbarViewModel.cs" />
     <Compile Include="Views\Admin\EmployeePage\MainEmployeePage.xaml.cs">
@@ -279,6 +282,9 @@
     <Compile Include="Views\Admin\MenuPage\OperationProductWindow.xaml.cs">
       <DependentUpon>OperationProductWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\SettingPage\MainSettingPage.xaml.cs">
+      <DependentUpon>MainSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\Setting\MainSettingPage.xaml.cs">
       <DependentUpon>MainSettingPage.xaml</DependentUpon>
     </Compile>
@@ -293,6 +299,27 @@
     </Compile>
     <Compile Include="Views\Admin\StatisticPage\StatisticPage.xaml.cs">
       <DependentUpon>StatisticPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\ChangeTableWindow.xaml.cs">
+      <DependentUpon>ChangeTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\MainTablePage.xaml.cs">
+      <DependentUpon>MainTablePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\MergeTableWindow.xaml.cs">
+      <DependentUpon>MergeTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\OperationOfTableWindow.xaml.cs">
+      <DependentUpon>OperationOfTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\SalesPage.xaml.cs">
+      <DependentUpon>SalesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\TablePage.xaml.cs">
+      <DependentUpon>TablePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\Table\MainTablePage.xaml.cs">
       <DependentUpon>MainTablePage.xaml</DependentUpon>
@@ -394,6 +421,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Admin\SettingPage\MainSettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Admin\Setting\MainSettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -413,6 +444,34 @@
     <Page Include="Views\Admin\StatisticPage\StatisticPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\TablePage\ChangeTableWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\TablePage\MainTablePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\TablePage\MenuPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\TablePage\MergeTableWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\TablePage\OperationOfTableWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\TablePage\SalesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\TablePage\TablePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\Table\MainTablePage.xaml">
       <SubType>Designer</SubType>

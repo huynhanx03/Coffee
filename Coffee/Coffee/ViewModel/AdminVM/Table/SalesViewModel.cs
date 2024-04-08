@@ -66,6 +66,7 @@ namespace Coffee.ViewModel.AdminVM.Table
         }
 
         private TableDTO currentTable { get; set; }
+        private BillModel billCurrent { get; set; }
 
         #endregion
 
@@ -76,6 +77,7 @@ namespace Coffee.ViewModel.AdminVM.Table
         public ICommand removeBillIC { get; set; }
         public ICommand loadDateSalesIC { get; set; }
         public ICommand bookingIC { get; set; }
+        public ICommand payIC { get; set; }
 
         #endregion
 
@@ -93,6 +95,7 @@ namespace Coffee.ViewModel.AdminVM.Table
             if (find != null)
             {
                 SelectedDetailBill.SoLuong += find.SoLuong;
+
                 SelectedDetailBill.ThanhTien = SelectedDetailBill.SoLuong * SelectedDetailBill.SelectedProductSize.Gia;
                 DetailBillList.Remove(find);
             }
@@ -110,14 +113,15 @@ namespace Coffee.ViewModel.AdminVM.Table
             {
                 SelectedDetailBill.SoLuong -= 1;
                 SelectedDetailBill.ThanhTien = SelectedDetailBill.SelectedProductSize.Gia * SelectedDetailBill.SoLuong;
+
+                DetailBillList = new ObservableCollection<DetailBillDTO>(DetailBillList);
+                CalculateTotalBill();
             }
             else
             {
-                //
+                // Xoá
+                removeBill();
             }
-
-            DetailBillList = new ObservableCollection<DetailBillDTO>(DetailBillList);
-            CalculateTotalBill();
         }
 
         /// <summary>
@@ -125,14 +129,21 @@ namespace Coffee.ViewModel.AdminVM.Table
         /// </summary>
         private void plusQuantityBill()
         {
-            if (SelectedDetailBill.SoLuong > -1)
+            ProductDTO product = ProductList.First(x => x.MaSanPham == SelectedDetailBill.MaSanPham);
+            List<DetailBillDTO> listFind = DetailBillList.Where(x => x.MaSanPham == SelectedDetailBill.MaSanPham).ToList();
+
+            int totalQuantity = listFind.Sum(x => x.SoLuong);
+            
+            // Kiếm tra số lượng
+            if (totalQuantity + 1 <= product.SoLuong)
             {
+
                 SelectedDetailBill.SoLuong += 1;
                 SelectedDetailBill.ThanhTien = SelectedDetailBill.SelectedProductSize.Gia * SelectedDetailBill.SoLuong;
             }
             else
             {
-                //
+                // 
             }
 
             DetailBillList = new ObservableCollection<DetailBillDTO>(DetailBillList);
@@ -181,7 +192,7 @@ namespace Coffee.ViewModel.AdminVM.Table
         private async void booking()
         {
             // Lưu thế thông tin chi tiết hoá đơn lên trên cơ sở dữ liệu
-            BillDTO bill = new BillDTO
+            BillModel bill = new BillModel
             {
                 MaBan = currentTable.MaBan,
                 MaNhanVien = Memory.user.MaNguoiDung,
@@ -194,7 +205,8 @@ namespace Coffee.ViewModel.AdminVM.Table
         
             if (isCreate)
             {
-                // Thành công:
+                // Thành công: Xoá số lượng sản phẩm
+                reduceProduct();
 
                 // Chuyển sang bàn có khách
                 currentTable.TrangThai = Constants.StatusTable.BOOKED;
@@ -202,7 +214,9 @@ namespace Coffee.ViewModel.AdminVM.Table
                 (string labelTable, TableDTO table) = await TableService.Ins.updateTable(currentTable);
                 loadTableList();
 
-                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
+                billCurrent = bill;
+
+                MessageBoxCF ms = new MessageBoxCF("Đặt món thành công", MessageType.Accept, MessageButtons.OK);
                 ms.ShowDialog();
             }
             else
@@ -210,6 +224,91 @@ namespace Coffee.ViewModel.AdminVM.Table
                 MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
                 ms.ShowDialog();
             }
+        }
+
+        // Thanh toán hoá đơn
+        private async void pay()
+        {
+            // Nếu chưa có bill trước
+            if (billCurrent == null)
+            {
+                //Thanh toán luôn
+                //Lưu thế thông tin chi tiết hoá đơn lên trên cơ sở dữ liệu
+                BillModel bill = new BillModel
+                {
+                   MaBan = null,
+                   MaNhanVien = Memory.user.MaNguoiDung,
+                   NgayTao = DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy"),
+                   TongTien = TotalBill,
+                   TrangThai = StatusBill.PAID
+                };
+
+                (string label, bool isCreate) = await BillService.Ins.createBill(bill, DetailBillList);
+
+                if (isCreate)
+                {
+                    // Giảm số lượng sản phẩm
+                    reduceProduct();
+
+                    // Thành công:
+                    MessageBoxCF ms = new MessageBoxCF("Thanh toán thành công", MessageType.Accept, MessageButtons.OK);
+                    ms.ShowDialog();
+
+                    DetailBillList.Clear();
+                }
+                else
+                {
+                    MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                    ms.ShowDialog();
+                }
+
+            }
+            else // Thanh toán hoá đơn trước
+            {
+                billCurrent.TrangThai = Constants.StatusBill.PAID;
+                billCurrent.MaNhanVien = Memory.user.MaNguoiDung;
+
+                (string label, BillModel bill) = await BillService.Ins.updateBill(billCurrent, DetailBillList);
+
+                if (bill != null)
+                {
+                    currentTable.TrangThai = Constants.StatusTable.FREE;
+
+                    (string labelTable, TableDTO table) = await TableService.Ins.updateTable(currentTable);
+
+                    loadTableList();
+                    DetailBillList.Clear();
+
+                    MessageBoxCF ms = new MessageBoxCF("Thanh toán thành công", MessageType.Accept, MessageButtons.OK);
+                    ms.ShowDialog();
+                }
+                else
+                {
+                    MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                    ms.ShowDialog();
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Giảm số lượng sản phẩm
+        /// </summary>
+        private async void reduceProduct()
+        {
+            var groupedData = DetailBillList.GroupBy(item => item.MaSanPham)
+                                .Select(group => new
+                                {
+                                    MaSanPham = group.Key,
+                                    SoLuong = group.Sum(item => item.SoLuong)
+                                });
+
+            foreach (var group in groupedData)
+            {
+                await ProductService.Ins.reduceQuantityProduct(group.MaSanPham, group.SoLuong);
+            }
+
+            loadMenuList();
         }
     }
 }

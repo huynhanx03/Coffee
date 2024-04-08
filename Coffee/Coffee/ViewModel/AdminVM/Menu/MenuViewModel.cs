@@ -41,6 +41,27 @@ namespace Coffee.ViewModel.AdminVM.Menu
             set { _SelectedProduct = value; OnPropertyChanged(); }
         }
 
+        private int maxProductQuantity;
+
+        private int _ProductQuantity;
+
+        public int ProductQuantity
+        {
+            get { return _ProductQuantity; }
+            set 
+            {
+                if (value <= 0)
+                    _ProductQuantity = 1;
+                else if (value > maxProductQuantity)
+                    _ProductQuantity = maxProductQuantity;
+                else
+                    _ProductQuantity = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
 
         #region ICommand
@@ -49,6 +70,10 @@ namespace Coffee.ViewModel.AdminVM.Menu
         public ICommand loadProductListIC { get; set; }
         public ICommand searchItemIC { get; set; }
         public ICommand uploadImageIC { get; set; }
+        public ICommand deleteProductIC { get; set; }
+        public ICommand editProductIC { get; set; }
+        public ICommand addQuantityProductIC { get; set; }
+        public ICommand confirmAddQuantityProductIC { get; set; }
         #endregion
 
         public MenuViewModel()
@@ -68,6 +93,16 @@ namespace Coffee.ViewModel.AdminVM.Menu
                 openWindowAddProduct();
             });
 
+            deleteProductIC = new RelayCommand<ProductDTO>((p) => { return true; }, (p) =>
+            {
+                deleteProduct();
+            });
+
+            deleteProductIC = new RelayCommand<ProductDTO>((p) => { return true; }, (p) =>
+            {
+                editProduct();
+            });
+
             searchItemIC = new RelayCommand<TextBox>(null, (p) =>
             {
                 if (p.Text != null)
@@ -77,11 +112,23 @@ namespace Coffee.ViewModel.AdminVM.Menu
                 }
             });
 
+            addQuantityProductIC = new RelayCommand<ProductDTO>((p) => { return true; }, (p) =>
+            {
+                addQuantityProduct();
+            });
+
+            confirmAddQuantityProductIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                confirmAddQuantityProduct();
+            });
+
             #region operation
             confirmOperationProductIC = new RelayCommand<object>((p) =>
             {
-                return !(string.IsNullOrEmpty(ProductName) || string.IsNullOrEmpty(SelectedProdcutTypeName)
-                   || string.IsNullOrEmpty(Image));
+                return !(string.IsNullOrEmpty(ProductName)
+                        || string.IsNullOrEmpty(SelectedProdcutTypeName)
+                        || string.IsNullOrEmpty(Image)
+                        || string.IsNullOrEmpty(Description));
             },
             (p) =>
             {
@@ -178,9 +225,9 @@ namespace Coffee.ViewModel.AdminVM.Menu
 
             if (ms.ShowDialog() == true)
             {
-                (string label, bool isDeleteEmployee) = await ProductService.Ins.DeleteProduct(SelectedProduct);
+                (string label, bool isDeleteProduct) = await ProductService.Ins.DeleteProduct(SelectedProduct);
 
-                if (isDeleteEmployee)
+                if (isDeleteProduct)
                 {
                     MessageBoxCF msn = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
                     loadProductList();
@@ -209,6 +256,50 @@ namespace Coffee.ViewModel.AdminVM.Menu
             TypeOperation = 1; // Add product
             w.ShowDialog();
             MaskName.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Chỉnh sửa sản phẩm
+        /// </summary>
+        private void editProduct()
+        {
+
+        }
+
+        /// <summary>
+        /// Thêm số lượng sản phẩm
+        /// </summary>
+        private async void addQuantityProduct()
+        {
+            // Tính giá trị lớn nhất có thể tạo được
+            (string label, int maxProductQuantity) = await IngredientService.Ins.getMaxIngredientQuantity(SelectedProduct.DanhSachCongThuc);
+
+            this.maxProductQuantity = maxProductQuantity;
+        }
+
+        /// <summary>
+        /// Xác nhận thêm số lượng
+        /// </summary>
+        private async void confirmAddQuantityProduct()
+        {
+            // Giảm bớt số lượng
+            await IngredientService.Ins.reduceIngredientQuantity(SelectedProduct.DanhSachCongThuc, ProductQuantity);
+
+            // Thêm số lượng cho sản phẩm
+            (string label, bool isIncrease) = await ProductService.Ins.increaseQuantityProduct(SelectedProduct.MaSanPham, ProductQuantity);
+
+            if (isIncrease)
+            {
+                MessageBoxCF ms = new MessageBoxCF("Thêm số lượng sản phẩm thành công", MessageType.Accept, MessageButtons.OK);
+                ms.ShowDialog();
+
+                loadProductList();
+            }
+            else
+            {
+                MessageBoxCF ms = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                ms.ShowDialog();
+            }
         }
     }
 }

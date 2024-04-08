@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Coffee.DALs
 {
@@ -124,6 +125,11 @@ namespace Coffee.DALs
                     FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham");
                     Dictionary<string, ProductDTO> productData = productResponse.ResultAs<Dictionary<string, ProductDTO>>();
 
+                    // Lấy dữ liệu từ nút "ProductType" trong Firebase
+                    FirebaseResponse productTypeResponse = await context.Client.GetTaskAsync("LoaiSanPham");
+                    Dictionary<string, ProductTypeDTO> productTypeData = productResponse.ResultAs<Dictionary<string, ProductTypeDTO>>();
+                    List<ProductTypeDTO> listProductType = productTypeData.Values.ToList();
+
                     var result = (from product in productData.Values
                                   select new ProductDTO
                                   {
@@ -132,6 +138,7 @@ namespace Coffee.DALs
                                       MaLoaiSanPham = product.MaLoaiSanPham,
                                       HinhAnh = product.HinhAnh,
                                       SoLuong = product.SoLuong,
+                                      LoaiSanPham = listProductType.First(x => x.MaLoaiSanPham == product.MaLoaiSanPham).LoaiSanPham,
                                       DanhSachCongThuc = product.CongThuc.Values.ToList(),
                                       DanhSachChiTietKichThuocSanPham = product.ChiTietKichThuocSanPham.Values.ToList(),
                                   }).ToList();
@@ -153,7 +160,7 @@ namespace Coffee.DALs
         ///     1: Thông báo
         ///     2: True nếu xoá thành công, False xoá thất bại
         /// </returns>
-        public async Task<(string, bool)> DeleteProduct(string ProductID)
+        public async Task<(string, bool)> deleteProduct(string ProductID)
         {
             try
             {
@@ -161,6 +168,58 @@ namespace Coffee.DALs
                 {
                     await context.Client.DeleteTaskAsync("SanPham/" + ProductID);
                     return ("Xoá sản phẩm thành công", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, false);
+            }
+        }
+
+        /// <summary>
+        /// Tìm sản phẩm
+        /// </summary>
+        /// <param name="ProductID"> Mã sản phẩm </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Sản phẩm
+        /// </returns>
+        public async Task<(string, ProductDTO)> findProduct(string ProductID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham/" + ProductID);
+                    ProductDTO product = productResponse.ResultAs<ProductDTO>();
+
+                    return ("Tìm sản phẩm thành công", product);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật số lượng sản phẩm
+        /// </summary>
+        /// <param name="productID"> mã sản phẩm </param>
+        /// <param name="quantity"> số lượng </param>
+        /// <returns>\
+        ///     1. Thông báo
+        ///     2. True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, bool)> updateQuantityProduct(string productID, int quantity)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    await context.Client.UpdateTaskAsync("SanPham/" + productID, new { SoLuong = quantity });
+
+                    return ("Cập nhật sản phẩm thành công", true);
                 }
             }
             catch (Exception ex)

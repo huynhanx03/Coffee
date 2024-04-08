@@ -194,14 +194,14 @@
                                                 <Button Style="{DynamicResource btnInDtg}"
                                                         Background="Green" BorderBrush="Green"
                                                         Margin="15 0 0 0"
-                                                        Click="Import_Click">
+                                                        Command="{Binding DataContext.addIngredientToImportIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                     <materialDesign:PackIcon Kind="Import" Width="15" Height="15"/>
                                                 </Button>
 
                                                 <Button Style="{DynamicResource btnInDtg}"
                                                         Background="#8295B9" BorderBrush="#41AAE2"
                                                         Margin="10 0 0 0"
-                                                        Click="Edit_Click">
+                                                        Command="{Binding DataContext.openWindowEditIngredientIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                     <materialDesign:PackIcon Kind="EditOutline" Width="15" Height="15"/>
                                                 </Button>
 
@@ -209,7 +209,7 @@
                                                         Background="#AD7270"
                                                         BorderBrush="#A20F27"
                                                         Margin="10 0 0 0"
-                                                        Click="Delete_Click">
+                                                        Command="{Binding DataContext.deleteIngredientIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                     <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                                 </Button>
                                             </StackPanel>
@@ -347,7 +347,14 @@
                                         <DataTemplate>
                                             <TextBox BorderBrush="{DynamicResource ForegroundCF}"
                                                      Foreground="{DynamicResource ForegroundCF}"
-                                                     Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}" />
+                                                     Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="PreviewTextInput" >
+                                                        <i:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext}"
+                                                                            MethodName="NumberValidationTextBox"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -371,7 +378,14 @@
                                         <DataTemplate>
                                             <TextBox BorderBrush="{DynamicResource ForegroundCF}"
                                                      Foreground="{DynamicResource ForegroundCF}"
-                                                     Text="{Binding Gia, UpdateSourceTrigger=PropertyChanged}" />
+                                                     Text="{Binding Gia, UpdateSourceTrigger=PropertyChanged}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="PreviewTextInput" >
+                                                        <i:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext}"
+                                                                            MethodName="NumberValidationTextBox"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -385,7 +399,7 @@
                                                         Background="#AD7270"
                                                         BorderBrush="#A20F27"
                                                         Margin="15 0 0 0"
-                                                        Click="Remove_Click">
+                                                        Command="{Binding DataContext.removeIngredientIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                                     <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                                 </Button>
                                             </StackPanel>

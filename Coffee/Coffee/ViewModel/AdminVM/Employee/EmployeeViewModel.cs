@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +18,7 @@ using System.Windows.Input;
 
 namespace Coffee.ViewModel.AdminVM.Employee
 {
-    public partial class EmployeeViewModel: BaseViewModel
+    public partial class EmployeeViewModel: BaseViewModel, IConstraintViewModel
     {
         #region variable
         public Grid MaskName { get; set; }
@@ -39,6 +40,8 @@ namespace Coffee.ViewModel.AdminVM.Employee
         public ICommand openWindowAddEmployeeIC { get; set; }
         public ICommand loadEmployeeListIC { get; set; }
         public ICommand searchEmployeeIC { get; set; }
+        public ICommand openWindowEditEmployeeIC { get; set; }
+        public ICommand deleteEmployeeIC { get; set; }
         #endregion
 
         public EmployeeViewModel()
@@ -54,9 +57,19 @@ namespace Coffee.ViewModel.AdminVM.Employee
                 MaskName = p;
             });
 
-            loadEmployeeListIC = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            loadEmployeeListIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 loadEmployeeList();
+            });
+
+            openWindowEditEmployeeIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                openWindowEditEmployee();
+            });
+
+            deleteEmployeeIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                deleteEmployee();
             });
 
             openWindowAddEmployeeIC = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -212,6 +225,17 @@ namespace Coffee.ViewModel.AdminVM.Employee
                     msn.ShowDialog();
                 }
             }
+        }
+
+        /// <summary>
+        /// Kiểm tra chỉ được nhập số
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

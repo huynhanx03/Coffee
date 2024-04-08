@@ -115,6 +115,46 @@ namespace Coffee.DALs
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        ///     Danh sách hóa đơn nhập kho
+        /// </returns>
+        public async Task<(string, List<ImportDTO>)> getListBillImport()
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    // Lấy dữ liệu từ nút "Imports" trong Firebase
+                    FirebaseResponse billimportResponse = await context.Client.GetTaskAsync("PhieuNhapKho");
+                    Dictionary<string, ImportDTO> billimportData = billimportResponse.ResultAs<Dictionary<string, ImportDTO>>();
+
+                    // Lấy dữ liệu từ nút "Employees" trong Firebase
+                    FirebaseResponse employeeResponse = await context.Client.GetTaskAsync("NhanVien");
+                    Dictionary<string, EmployeeDTO> employeeData = employeeResponse.ResultAs<Dictionary<string, EmployeeDTO>>();
+
+
+                    var result = (from billimport in billimportData.Values
+                                  join employee in employeeData.Values on billimport.MaNhanVien equals employee.MaNhanVien
+                                  select new ImportDTO
+                                  {
+                                      MaNhanVien = billimport.MaNhanVien,
+                                      MaPhieuNhapKho = billimport.MaPhieuNhapKho,
+                                      NgayTaoPhieu = billimport.NgayTaoPhieu,
+                                      TongTien = billimport.TongTien,
+                                  }).ToList();
+
+                    return ("Lấy danh sách hóa đơn nhập kho thành công", result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
         /// Xoá phiếu nhập kho
         /// </summary>
         /// <param name="importID"></param>

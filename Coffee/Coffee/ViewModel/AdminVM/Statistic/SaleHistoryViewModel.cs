@@ -1,5 +1,6 @@
 ﻿using Coffee.DTOs;
 using Coffee.Services;
+using Coffee.Views.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,6 +45,29 @@ namespace Coffee.ViewModel.AdminVM.Statistic
                 BillList = new ObservableCollection<BillDTO>(billlist);
             }
         }
+        /// <summary>
+        /// xóa hóa đơn
+        /// </summary>
+        public async void deleteBill()
+        {
+            MessageBoxCF ms = new MessageBoxCF("Xác nhận xoá hóa đơn?", MessageType.Error, MessageButtons.YesNo);
 
+            if (ms.ShowDialog() == true)
+            {
+                (string label, bool isDeleteBillList) = await BillService.Ins.DeleteBill(SelectedBill.MaHoaDon);
+
+                if (isDeleteBillList)
+                {
+                    MessageBoxCF msn = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
+                    loadBillList();
+                    msn.ShowDialog();
+                }
+                else
+                {
+                    MessageBoxCF msn = new MessageBoxCF(label, MessageType.Error, MessageButtons.OK);
+                    msn.ShowDialog();
+                }
+            }
+        }
     }
 }

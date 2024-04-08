@@ -27,10 +27,12 @@ namespace Coffee.Views.Admin.StatisticPage
     /// </summary>
     public partial class StatisticPage : Page
     {
+        #region variable
         public IEnumerable<ISeries> Series;
         List<DateTimePoint> dateTimePoints = new List<DateTimePoint>();
         private ObservableCollection<BillDTO> _BillListchart;
         public ObservableCollection<BillDTO> BillListchart;
+        #endregion
         public StatisticPage()
         {
             InitializeComponent();

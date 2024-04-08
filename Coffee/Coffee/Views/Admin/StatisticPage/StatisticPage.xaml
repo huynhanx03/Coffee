@@ -14,7 +14,6 @@
     </Page.DataContext>
     <lvc:CartesianChart
         Name="lineChart"
-        Series="{Binding LineSeries}"
         XAxes="{Binding XAxes}"
         YAxes="{Binding YAxes}">
     </lvc:CartesianChart>

@@ -23,18 +23,12 @@ namespace Coffee.ViewModel.AdminVM.Statistic
 {
     public partial class StatisticViewModel
     {
-        List<DateTimePoint> dateTimePoints = new List<DateTimePoint>();
-        long TongTienThongKe = 0;
-
-        //cột x
-        public List<ISeries> LineSeries = new List<ISeries>();
-
-       
+        //Biểu đồ cột x
         public Axis[] XAxes { get; set; } =
     {
         new DateTimeAxis(TimeSpan.FromDays(1), date => date.ToString("dd/MM/yyyy"))
     };
-        //cột y
+        //Biểu đồ cột y
         public Axis[] YAxes { get; set; }
             = new Axis[]
             {

@@ -65,4 +65,7 @@
     <system:String x:Key="DayCreate">Ngày tạo</system:String>
     <system:String x:Key="Allcost">Tổng tiền</system:String>
     <system:String x:Key="StateBill">Mã hóa đơn</system:String>
+    <system:String x:Key="IDwarehouse">Mã phiếu nhập kho</system:String>
+    <system:String x:Key="CreateDayWareHouse">Ngày tạo phiếu</system:String>
+
 </ResourceDictionary>

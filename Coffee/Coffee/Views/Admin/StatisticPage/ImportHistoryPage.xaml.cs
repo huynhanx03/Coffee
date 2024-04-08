@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee.ViewModel.AdminVM.Statistic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace Coffee.Views.Admin.StatisticPage
         public ImportHistoryPage()
         {
             InitializeComponent();
+        }
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            //(DataContext as StatisticViewModel).openWindowEditBill();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StatisticViewModel).deleteBillImport();
         }
     }
 }

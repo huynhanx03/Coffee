@@ -88,6 +88,18 @@ namespace Coffee.Services
         }
 
         /// <summary>
+        /// Danh sách hóa đơn kho
+        /// </summary>
+        /// <returns>
+        ///     1: Thông báo
+        ///     2: True nếu xoá thành công, False xoá thất bại
+        /// </returns>
+        public async Task<(string, List<ImportDTO>)> getListBillImport()
+        {
+            return await BillImportDAL.Ins.getListBillImport();
+        }
+
+        /// <summary>
         /// Xoá phiếu nhập kho
         /// </summary>
         /// <param name="importID"></param>

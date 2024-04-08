@@ -11,13 +11,20 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
+using Coffee.DTOs;
 
 namespace Coffee.ViewModel.AdminVM.Statistic
 {
     public partial class StatisticViewModel : BaseViewModel
     {
         #region variable
-        
+        private ObservableCollection<ProductDTO> _ListTopMenu;
+        public ObservableCollection<ProductDTO> ListTopMenu
+        {
+            get { return _ListTopMenu; }
+            set { _ListTopMenu = value; OnPropertyChanged(); }
+        }
         public Frame MainFrame;
         #endregion
 
@@ -26,6 +33,7 @@ namespace Coffee.ViewModel.AdminVM.Statistic
         public ICommand loadSaleHistoryIC { get; set; }
         public ICommand loadImportHistoryIC { get; set; }
         public ICommand loadStatisticIC { get; set; }
+        public ICommand loadTopMenuIC { get; set; }
         #endregion
 
         public StatisticViewModel()
@@ -52,13 +60,18 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             {
                 loadBillList();
             });
-
+            loadWarehouseListIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                loadWareHouseList();
+            });
+            loadTopMenuIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+            });
             #endregion
-
         }
         #region operation
 
         #endregion
-           
+        
     }
 }

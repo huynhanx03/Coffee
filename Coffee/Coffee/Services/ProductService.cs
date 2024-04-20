@@ -95,6 +95,17 @@ namespace Coffee.Services
         /// 
         /// </summary>
         /// <returns>
+        ///     Lấy tên sản phâm
+        /// </returns>
+        public async Task<ProductDTO> getNameProduct(string id)
+        {
+            return await ProductDAL.Ins.getNameProduct(id);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
         ///     Danh sách sản phẩm
         /// </returns>
         public async Task<(string, List<ProductDTO>)> getListProduct()

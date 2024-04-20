@@ -20,7 +20,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding loadBillListIC}"/>
+            <i:InvokeCommandAction Command="{Binding loadBillListTimeIC}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -54,7 +54,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Style="{DynamicResource txblInDtg}"
-                                       Text="{Binding MaBan}" />
+                                       Text="{Binding MaHoaDon}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -104,7 +104,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!--  Button chỉnh sửa, xóa cho mỗi nhân viên  -->
+                <!--  Button xem, xóa cho mỗi hóa đơn  -->
                 <DataGridTemplateColumn Width="auto" Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -112,19 +112,17 @@
                                 <Button Style="{DynamicResource btnInDtg}"
                                         Background="#8295B9" BorderBrush="#41AAE2"
                                         Margin="35 0 0 0"
-                                        >
-                                    <materialDesign:PackIcon Kind="EditOutline" Width="15" Height="15"/>
+                                        Command="{Binding DataContext.openWindowBillIC, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <materialDesign:PackIcon Kind="exclamation" Width="15" Height="15"/>
                                 </Button>
-
                                 <Button Style="{StaticResource btnInDtg}"
                                         Background="#AD7270"
                                         BorderBrush="#A20F27"
                                         Margin="25 0 0 0"
                                         Click="Delete_Click">
-                                        
-
                                     <materialDesign:PackIcon Kind="DeleteOutline" Width="15" Height="15"/>
                                 </Button>
+                                
                             </StackPanel>
 
                         </DataTemplate>

@@ -21,6 +21,7 @@
     <system:String x:Key="WorkingDay">Ngày làm</system:String>
     <system:String x:Key="Wage">Lương</system:String>
     <system:String x:Key="LoginInformation">Thông tin đăng nhập</system:String>
+    <system:String x:Key="AccountInformation">Thông tin tài khoản</system:String>
     <system:String x:Key="Username">Tài khoản</system:String>
     <system:String x:Key="Password">Mật khẩu</system:String>
     <system:String x:Key="ConfirmPassword">Xác nhận mật khẩu</system:String>
@@ -73,4 +74,6 @@
     <system:String x:Key="TableNameTransferred">Tên bàn chuyển đến</system:String>
     <system:String x:Key="TableNameNumber1">Tên bàn thứ nhất</system:String>
     <system:String x:Key="TableNameNumber2">Tên bàn thứ hai</system:String>
+    <system:String x:Key="ingredientID">Mã nguyên liệu</system:String>
+    <system:String x:Key="unitID">Mã đơn vị</system:String>
 </ResourceDictionary>

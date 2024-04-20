@@ -19,6 +19,7 @@ using ChartKit.Defaults;
 using Coffee.DTOs;
 using Coffee.Services;
 using System.Globalization;
+using Coffee.ViewModel.AdminVM.Statistic;
 
 namespace Coffee.Views.Admin.StatisticPage
 {
@@ -32,12 +33,12 @@ namespace Coffee.Views.Admin.StatisticPage
         List<DateTimePoint> dateTimePoints = new List<DateTimePoint>();
         private ObservableCollection<BillDTO> _BillListchart;
         public ObservableCollection<BillDTO> BillListchart;
+        public StatisticViewModel statisticViewModel;
         #endregion
         public StatisticPage()
         {
             InitializeComponent();
             Loadthongtinbill();
-            
         }
         public async void Loadthongtinbill()
         {
@@ -54,8 +55,10 @@ namespace Coffee.Views.Admin.StatisticPage
 
             foreach (var group in groupedBills)
             {
+                
                 dateTimePoints.Add(new DateTimePoint(group.Date, group.Total));
             }
+            //load dữ liệu lên biểu đồ
             Series = new ObservableCollection<ISeries>
            {
                new LineSeries<DateTimePoint>

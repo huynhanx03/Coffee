@@ -242,6 +242,8 @@
     <Compile Include="ViewModel\AdminVM\Menu\MenuViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Menu\OperationOfMenuViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Setting\SettingViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Statistic\BillimportViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Statistic\BillViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Statistic\ImportHistoryViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Statistic\SaleHistoryViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Statistic\StatisticPageViewModel.cs" />
@@ -284,6 +286,12 @@
     </Compile>
     <Compile Include="Views\Admin\SettingPage\MainSettingPage.xaml.cs">
       <DependentUpon>MainSettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticPage\BillimportView.xaml.cs">
+      <DependentUpon>BillimportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticPage\BillView.xaml.cs">
+      <DependentUpon>BillView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\StatisticPage\ImportHistoryPage.xaml.cs">
       <DependentUpon>ImportHistoryPage.xaml</DependentUpon>
@@ -406,6 +414,14 @@
     <Page Include="Views\Admin\SettingPage\MainSettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\StatisticPage\BillimportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticPage\BillView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\StatisticPage\ImportHistoryPage.xaml">
       <SubType>Designer</SubType>

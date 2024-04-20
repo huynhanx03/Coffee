@@ -154,7 +154,7 @@ namespace Coffee.ViewModel.AdminVM.Employee
         /// <summary>
         /// Lấy danh sách chức vị
         /// </summary>
-        public async void loadPosition()
+        public async Task loadPosition()
         {
             (string label, List<PositionDTO> listPosition) = await PositionService.Ins.getAllPosition();
 

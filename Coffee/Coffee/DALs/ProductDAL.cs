@@ -153,6 +153,40 @@ namespace Coffee.DALs
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        ///     Lấy tên sản phẩm
+        /// </returns>
+        public async Task<ProductDTO> getNameProduct(string ProductID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    // Lấy dữ liệu từ nút "SanPham" trong Firebase
+                    FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham");
+
+                    if (productResponse.Body != null && productResponse.Body != "null")
+                    {
+                        Dictionary<string, ProductDTO> productdata = productResponse.ResultAs<Dictionary<string, ProductDTO>>();
+
+                        ProductDTO Product = (from product in productdata.Values where product.MaSanPham == ProductID select new ProductDTO{
+                                                TenSanPham = product.TenSanPham
+                                               }).FirstOrDefault();
+                        return Product;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi và trả về thông báo lỗi
+                throw new Exception("Có lỗi xảy ra: " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Xoá sản phẩm
         /// </summary>
         /// <param name="ProductID"> Mã sản phẩm </param>

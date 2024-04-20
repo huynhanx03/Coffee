@@ -13,12 +13,22 @@ using System.Windows.Input;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
 using Coffee.DTOs;
+using Coffee.Views.Admin.EmployeePage;
+using System.Windows;
+using MaterialDesignThemes.Wpf;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Net;
+using ChartKit.SkiaSharpView.WPF;
+using Coffee.Services;
+using Coffee.Models;
 
 namespace Coffee.ViewModel.AdminVM.Statistic
 {
     public partial class StatisticViewModel : BaseViewModel
     {
         #region variable
+        public Grid MaskName { get; set; }
         private ObservableCollection<ProductDTO> _ListTopMenu;
         public ObservableCollection<ProductDTO> ListTopMenu
         {
@@ -26,9 +36,38 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             set { _ListTopMenu = value; OnPropertyChanged(); }
         }
         public Frame MainFrame;
+
+        private DateTime _FromDate;
+        public DateTime FromDate
+        {
+            get { return _FromDate; }
+            set
+            {
+                _FromDate = value;
+                OnPropertyChanged(nameof(FromDate));
+                // Gọi phương thức load danh sách hóa đơn
+                LoadBillList();
+                loadBillImportList();
+            }
+        }
+
+        private DateTime _ToDate;
+        public DateTime ToDate
+        {
+            get { return _ToDate; }
+            set
+            {
+                _ToDate = value;
+                OnPropertyChanged(nameof(ToDate));
+                // Gọi phương thức load danh sách hóa đơn
+                LoadBillList();
+                loadBillImportList();
+            }
+        }
         #endregion
 
         #region Icommand
+        public ICommand loadShadowMaskIC { get; set; }
         public ICommand loadMainFrame { get; set; }
         public ICommand loadSaleHistoryIC { get; set; }
         public ICommand loadImportHistoryIC { get; set; }
@@ -38,9 +77,16 @@ namespace Coffee.ViewModel.AdminVM.Statistic
 
         public StatisticViewModel()
         {
+            _FromDate = DateTime.Parse("3/1/2024");
+            _ToDate = DateTime.Now;
+            #region 
             loadMainFrame = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 MainFrame = p;
+            });
+            loadShadowMaskIC = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                MaskName = p;
             });
             loadSaleHistoryIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
@@ -54,24 +100,80 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             {
                 MainFrame.Content = new StatisticPage();
             });
+            loadBillListTimeIC = new RelayCommand<object>(p => true, p => LoadBillList(FromDate,ToDate));
+            loadBillImportListtimeIC = new RelayCommand<object>(p => true, p => loadBillImportList(FromDate, ToDate));
 
-            #region
-            loadBillListIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            loadTopMenuIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                loadBillList();
+                LoadTopMenu();
             });
-            loadWarehouseListIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            openWindowBillIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                loadWareHouseList();
+                openWindowBill();
             });
-            loadTopMenuIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            openWindowBillImportIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
+                openWindowBillImport();
+            });
+            closeBillViewWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Close();
+            });
+            closeBillImportViewWindowIC = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Close();
             });
             #endregion
         }
         #region operation
+        //mở cửa sổ chi tiết hóa đơn
+        public async void openWindowBill()
+        {
+            BillView b = new BillView();
+            await loadBill(SelectedBill);
+            b.ShowDialog();
+        }
 
+        //load dữ liệu chi tiết hóa đơn
+        private async Task loadBill(BillDTO bill)
+        {
+            MaskName.Visibility = Visibility.Visible;
+            NgayTao = bill.NgayTao;
+            TongTien = Convert.ToInt32(bill.TongTien);
+            await getNameEmployee(bill.MaNhanVien);
+            await getListDetailBill(bill.MaHoaDon);
+            MaskName.Visibility = Visibility.Collapsed;
+        } 
+
+        //mở cửa sổ chi tiết hóa đơn nhập kho
+        public async void openWindowBillImport()
+        {
+            BillimportView b = new BillimportView();
+            await loadBillImport(SelectedBillImport);
+            b.ShowDialog();
+        }
+
+        //load dữ liệu chi tiết hóa đơn nhập kho
+        private async Task loadBillImport(ImportDTO import)
+        {
+            MaskName.Visibility = Visibility.Visible;
+            NgayTaoPhieu = import.NgayTaoPhieu;
+            TongTienNhap = Convert.ToInt32(import.TongTien);
+            await getNameEmployeeImport(import.MaNhanVien);
+            await getListDetailBillImport(import.MaPhieuNhapKho);
+            MaskName.Visibility = Visibility.Collapsed;
+
+        }
+        //load dữ liệu các sản phẩm bán chạy
+        public async void LoadTopMenu()
+        {
+            (string label, List<ProductDTO> productlist) = await BillService.Ins.GetMostSoldFoods();
+
+            if (productlist != null)
+            {
+                ListTopMenu = new ObservableCollection<ProductDTO>(productlist);
+            }
+        }
         #endregion
-        
     }
 }

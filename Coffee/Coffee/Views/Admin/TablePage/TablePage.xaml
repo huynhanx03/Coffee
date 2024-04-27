@@ -182,7 +182,8 @@
                                                 BorderBrush="#41AAE2"
                                                 Margin="0 0 30 0"
                                                 Command="{Binding DataContext.openEditTableIC, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                CommandParameter="{Binding}">
+                                                CommandParameter="{Binding}"
+                                                Visibility="{Binding DataContext.role, RelativeSource={RelativeSource AncestorType=ListView}, Converter={StaticResource RoleConverter}}">
                                             <materialDesign:PackIcon Kind="EditOutline" Width="15" Height="15"/>
                                         </Button>
 

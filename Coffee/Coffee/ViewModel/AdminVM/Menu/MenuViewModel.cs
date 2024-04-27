@@ -117,7 +117,11 @@ namespace Coffee.ViewModel.AdminVM.Menu
                 addQuantityProduct();
             });
 
-            confirmAddQuantityProductIC = new RelayCommand<object>((p) => { return true; }, (p) =>
+            confirmAddQuantityProductIC = new RelayCommand<object>((p) =>
+            { 
+                return SelectedProduct != null && ProductQuantity > 0; 
+            },
+            (p) =>
             {
                 confirmAddQuantityProduct();
             });
@@ -290,6 +294,8 @@ namespace Coffee.ViewModel.AdminVM.Menu
 
             if (isIncrease)
             {
+                ProductQuantity = 0;
+
                 MessageBoxCF ms = new MessageBoxCF("Thêm số lượng sản phẩm thành công", MessageType.Accept, MessageButtons.OK);
                 ms.ShowDialog();
 

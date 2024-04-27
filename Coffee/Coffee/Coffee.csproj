@@ -192,6 +192,7 @@
     <Compile Include="DTOs\PositionDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
     <Compile Include="DTOs\ProductRecipeDTO.cs" />
+    <Compile Include="DTOs\ProductRecommendDTO.cs" />
     <Compile Include="DTOs\ProductSizeDetailDTO.cs" />
     <Compile Include="DTOs\ProductSizeDTO.cs" />
     <Compile Include="DTOs\ProductTypeDTO.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Utils\Firebase.cs" />
     <Compile Include="Utils\Helper\Helper.cs" />
     <Compile Include="Utils\Memory.cs" />
+    <Compile Include="Utils\RecommendSystemService.cs" />
     <Compile Include="ViewModel\AdminVM\Employee\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Employee\OperationOfEmployeeViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Ingredient\ImportViewModel.cs" />

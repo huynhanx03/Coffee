@@ -114,8 +114,13 @@ namespace Coffee.ViewModel.AdminVM.Table
             // Đã hết số lượng
             if (totalQuantity == SelectedProduct.SoLuong)
             {
-                MessageBoxCF ms = new MessageBoxCF("Sản phẩm đã hết hàng", MessageType.Error, MessageButtons.OK);
-                ms.ShowDialog();
+                MessageBoxCF ms = new MessageBoxCF("Sản phẩm đã hết hàng\nGợi ý sản phẩm?", MessageType.Error, MessageButtons.YesNo);
+                
+                if (ms.ShowDialog() == true)
+                {
+
+                }
+
                 return;
             }
 

@@ -44,7 +44,7 @@ namespace Coffee
         }
         public async void t()
         {
-            await BillDAL.Ins.getDetailBillById("HD0001");
+            await RecommendSystemService.Ins.getRecommend("SP0001");
         }
     }
 }

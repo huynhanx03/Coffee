@@ -216,20 +216,49 @@
                 </Border>
 
                 <Grid Grid.Column="1">
-                    <TextBox Style="{DynamicResource txbStyle}"
-                             BorderBrush="{DynamicResource MainColorCF}"
-                             Margin="0 0 0 0"
-                             Text="{Binding ProductQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <materialDesign:HintAssist.Hint>
-                            <TextBlock Foreground="{DynamicResource MainColorCF}"
-                                       Text="{DynamicResource Quantity}"/>
-                        </materialDesign:HintAssist.Hint>
-                    </TextBox>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <Button Style="{DynamicResource btnStyle}"
-                            Margin="0,100,0,0"
-                            Command="{Binding confirmAddQuantityProductIC}"
-                            Content="{DynamicResource Confirm}"/>
+                    <TextBlock Style="{DynamicResource Header1}"
+                               Text="{DynamicResource AddQuantityProduct}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="1">
+                        <Label 
+                               Content="{DynamicResource ProductName}" 
+                               Foreground="{DynamicResource ForegroundCF}"
+                               FontSize="14"
+                               FontWeight="Bold"/>
+                        <Label 
+                               Content="{Binding SelectedProduct.TenSanPham, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                               Foreground="{DynamicResource ForegroundCF}"
+                               FontSize="14"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal"
+                                Margin="15 0 0 0">
+                        <TextBox 
+                                 Style="{DynamicResource txbStyle}"
+                                 VerticalAlignment="Top"
+                                 BorderBrush="{DynamicResource MainColorCF}"
+                                 Margin="0 0 0 0"
+                                 Text="{Binding ProductQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <materialDesign:HintAssist.Hint>
+                                <TextBlock Foreground="{DynamicResource MainColorCF}"
+                                           Text="{DynamicResource Quantity}"/>
+                            </materialDesign:HintAssist.Hint>
+                        </TextBox>
+
+                        <Button Margin="10 0 0 0"
+                                VerticalAlignment="Top"
+                                Style="{DynamicResource btnStyle}"
+                                Command="{Binding confirmAddQuantityProductIC}"
+                                Content="{DynamicResource Confirm}"/>
+                    </StackPanel>
                 </Grid>
             </Grid>
             

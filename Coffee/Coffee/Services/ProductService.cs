@@ -38,6 +38,12 @@ namespace Coffee.Services
         /// </returns>
         public async Task<(string, ProductDTO)> createProduct(ProductDTO product, List<ProductSizeDetailDTO> listProductSizeDetail, List<ProductRecipeDTO> listProductRecipe)
         {
+            // Kiểm tra tên sản phẩm
+            (string label, ProductDTO productFind) = await ProductDAL.Ins.findProductByName(product.TenSanPham, product.MaSanPham);
+
+            if (productFind != null)
+                return ("Tên sản phẩm đã tồn tại", null);
+
             // Tìm mã sản phẩm lớn nhất
             string maSanPhamMax = await this.getMaxMaSanPham();
             string maSanPhamNew = Helper.nextID(maSanPhamMax, "SP");
@@ -77,6 +83,12 @@ namespace Coffee.Services
         /// </returns>
         public async Task<(string, ProductDTO)> updateProduct(ProductDTO product)
         {
+            // Kiểm tra tên sản phẩm
+            (string label, ProductDTO productFind) = await ProductDAL.Ins.findProductByName(product.TenSanPham, product.MaSanPham);
+
+            if (productFind != null)
+                return ("Tên sản phẩm đã tồn tại", null);
+
             return await ProductDAL.Ins.updateProduct(product);
         }
 
@@ -111,6 +123,17 @@ namespace Coffee.Services
         public async Task<(string, List<ProductDTO>)> getListProduct()
         {
             return await ProductDAL.Ins.getListProduct();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        ///     Danh sách sản phẩm
+        /// </returns>
+        public async Task<(string, List<ProductRecommendDTO>)> getListProductRecommend()
+        {
+            return await ProductDAL.Ins.getListProductRecommend();
         }
 
         /// <summary>

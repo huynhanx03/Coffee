@@ -76,4 +76,5 @@
     <system:String x:Key="TableNameNumber2">Tên bàn thứ hai</system:String>
     <system:String x:Key="ingredientID">Mã nguyên liệu</system:String>
     <system:String x:Key="unitID">Mã đơn vị</system:String>
+    <system:String x:Key="AddQuantityProduct">Thêm số lượng sản phẩm</system:String>
 </ResourceDictionary>

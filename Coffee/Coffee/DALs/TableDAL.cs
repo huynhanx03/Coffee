@@ -173,5 +173,35 @@ namespace Coffee.DALs
                 return (ex.Message, false);
             }
         }
+
+        /// <summary>
+        /// Tìm bàn theo tên
+        /// </summary>
+        /// <param name="tableName"> Tên bàn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Bàn
+        /// </returns>
+        public async Task<(string, TableDTO)> findTableByName(string tableName, string tableID = "null")
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse tableResponse = await context.Client.GetTaskAsync("Ban");
+                    Dictionary<string, TableDTO> tableData = tableResponse.ResultAs<Dictionary<string, TableDTO>>();
+                    TableDTO table = tableData.Values.FirstOrDefault(x => x.TenBan == tableName && x.MaBan != tableID);
+
+                    if (table != null)
+                        return ("Tìm thành công", table);
+                    else
+                        return ("Không tồn tại", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
     }
 }

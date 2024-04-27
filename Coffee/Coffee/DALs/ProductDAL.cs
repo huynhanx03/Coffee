@@ -143,7 +143,47 @@ namespace Coffee.DALs
                                       DanhSachChiTietKichThuocSanPham = product.ChiTietKichThuocSanPham.Values.ToList(),
                                   }).ToList();
 
-                    return ("Lấy danh sách nhân viên thành công", result);
+                    return ("Lấy danh sách sản phẩm thành công", result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        ///     Danh sách sản phẩm
+        /// </returns>
+        public async Task<(string, List<ProductRecommendDTO>)> getListProductRecommend()
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    // Lấy dữ liệu từ nút "Product" trong Firebase
+                    FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham");
+                    Dictionary<string, ProductDTO> productData = productResponse.ResultAs<Dictionary<string, ProductDTO>>();
+
+                    // Lấy dữ liệu từ nút "ProductType" trong Firebase
+                    FirebaseResponse productTypeResponse = await context.Client.GetTaskAsync("LoaiSanPham");
+                    Dictionary<string, ProductTypeDTO> productTypeData = productResponse.ResultAs<Dictionary<string, ProductTypeDTO>>();
+                    List<ProductTypeDTO> listProductType = productTypeData.Values.ToList();
+
+                    var result = (from product in productData.Values
+                                  select new ProductRecommendDTO
+                                  {
+                                      MaSanPham = product.MaSanPham,
+                                      TenSanPham = product.TenSanPham,
+                                      SoLuong = product.SoLuong,
+                                      LoaiSanPham = listProductType.First(x => x.MaLoaiSanPham == product.MaLoaiSanPham).LoaiSanPham,
+                                      CongThuc = product.CongThuc.Values.ToList().Select(x => x.TenNguyenLieu).ToList(),
+                                  }).ToList();
+
+                    return ("Lấy danh sách sản phẩm thành công", result);
                 }
             }
             catch (Exception ex)
@@ -259,6 +299,36 @@ namespace Coffee.DALs
             catch (Exception ex)
             {
                 return (ex.Message, false);
+            }
+        }
+
+        /// <summary>
+        /// Tìm sản phẩm theo tên sản phẩm
+        /// </summary>
+        /// <param name="productName"> Tên sản phẩm </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Sản phẩm
+        /// </returns>
+        public async Task<(string, ProductDTO)> findProductByName(string productName, string productID = "null")
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse productResponse = await context.Client.GetTaskAsync("SanPham");
+                    Dictionary<string, ProductDTO> productData = productResponse.ResultAs<Dictionary<string, ProductDTO>>();
+                    ProductDTO product = productData.Values.FirstOrDefault(x => x.TenSanPham == productName && x.MaSanPham != productID);
+
+                    if (product != null)
+                        return ("Tìm thành công", product);
+                    else
+                        return ("Không tồn tại", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
             }
         }
     }

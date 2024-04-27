@@ -1,5 +1,6 @@
 ﻿using Coffee.DTOs;
 using Coffee.Models;
+using Coffee.Services;
 using Coffee.Utils;
 using FireSharp.Response;
 using System;
@@ -162,32 +163,39 @@ namespace Coffee.DALs
         /// <returns>
         ///     Danh sách hóa đơn nhập kho theo thời gian
         /// </returns>
-        public async Task<(string, List<ImportDTO>)> getListBillImporttime(DateTime fromdate,DateTime todate)
+        public async Task<(string, List<ImportDTO>)> getListBillImporttime(DateTime fromdate, DateTime todate)
         {
             try
             {
                 using (var context = new Firebase())
                 {
-                    // Lấy dữ liệu từ nút "Imports" trong Firebase
+                    // Lấy dữ liệu từ nút "PhieuNhapKho" trong Firebase
                     FirebaseResponse billimportResponse = await context.Client.GetTaskAsync("PhieuNhapKho");
                     Dictionary<string, ImportDTO> billimportData = billimportResponse.ResultAs<Dictionary<string, ImportDTO>>();
 
-                    // Lấy dữ liệu từ nút "Employees" trong Firebase
-                    FirebaseResponse employeeResponse = await context.Client.GetTaskAsync("NhanVien");
-                    Dictionary<string, EmployeeDTO> employeeData = employeeResponse.ResultAs<Dictionary<string, EmployeeDTO>>();
+                    // Lấy dữ liệu từ nút "NguoiDung" trong Firebase
+                    FirebaseResponse userResponse = await context.Client.GetTaskAsync("NguoiDung");
+                    Dictionary<string, UserDTO> userData = userResponse.ResultAs<Dictionary<string, UserDTO>>();
 
+                    var result = new List<ImportDTO>();
 
-                    var result = (from billimport in billimportData.Values
-                                  join employee in employeeData.Values on billimport.MaNhanVien equals employee.MaNhanVien
-                                  where DateTime.ParseExact(billimport.NgayTaoPhieu, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture) >= fromdate &&
-                                        DateTime.ParseExact(billimport.NgayTaoPhieu, "dd/MM/yyyy", CultureInfo.InvariantCulture) <= todate
-                                  select new ImportDTO
-                                  {
-                                      MaNhanVien = billimport.MaNhanVien,
-                                      MaPhieuNhapKho = billimport.MaPhieuNhapKho,
-                                      NgayTaoPhieu = billimport.NgayTaoPhieu,
-                                      TongTien = billimport.TongTien,
-                                  }).ToList();
+                    foreach (var billimport in billimportData.Values)
+                    {
+                        if (DateTime.ParseExact(billimport.NgayTaoPhieu, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture) >= fromdate &&
+                            DateTime.ParseExact(billimport.NgayTaoPhieu, "dd/MM/yyyy", CultureInfo.InvariantCulture) <= todate)
+                        {
+                            var user = userData.Values.FirstOrDefault(u => u.MaNguoiDung == billimport.MaNhanVien);
+                            var importDto = new ImportDTO
+                            {
+                                MaNhanVien = billimport.MaNhanVien,
+                                MaPhieuNhapKho = billimport.MaPhieuNhapKho,
+                                NgayTaoPhieu = billimport.NgayTaoPhieu,
+                                TongTien = billimport.TongTien,
+                                TenNhanVien = user != null ? user.HoTen : null
+                            };
+                            result.Add(importDto);
+                        }
+                    }
 
                     return ("Lấy danh sách hóa đơn nhập kho thành công", result);
                 }

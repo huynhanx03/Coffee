@@ -7,7 +7,7 @@
     mc:Ignorable="d"
     Title="MainSettingPage"
     Height="700"
-    Width="1000"
+    Width="850"
     Name="MainSettingPageCF"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -67,17 +67,42 @@
                     CornerRadius="20">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="65*" />
-                            <RowDefinition Height="490*" />
-                            <RowDefinition Height="70*" />
+                            <RowDefinition Height="56*" />
+                            <RowDefinition Height="151*" />
+                            <RowDefinition Height="364*" />
+                            <RowDefinition Height="51*" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBlock Style="{DynamicResource Header1}"
                                 Margin="30 20 0 0"
                                 Text="{DynamicResource AccountInformation}" />
                         </Grid>
-
                         <Grid Grid.Row="1">
+                            <Border
+    Width="150"
+    Height="150"
+    Background="{DynamicResource Background3CF}"
+    BorderBrush="{DynamicResource ForegroundCF}"
+    BorderThickness="0.5"
+    HorizontalAlignment="Center"
+    CornerRadius="100">
+                                <Ellipse Width="150"
+        Height="150">
+                                    <Ellipse.Fill>
+                                        <ImageBrush x:Name="img"
+                ImageSource="{Binding Image}" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                        <i:InvokeCommandAction
+                Command="{Binding uploadImageIC}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,3,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -85,10 +110,10 @@
 
                             <Grid Grid.Column="0">
                                 <StackPanel
-                                    Margin="0 10 0 0"
+                                    Margin="0 0 0 0"
                                     Orientation="Vertical">
                                     <TextBlock
-                                        Margin="40 10 0 10"
+                                        Margin="40 0 0 5"
                                         Style="{DynamicResource Header2}"
                                         Text="{DynamicResource BasicInformation}" />
                                     <TextBox Style="{DynamicResource txbStyle}"
@@ -144,46 +169,27 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </TextBox>
-                                    <ComboBox Style="{DynamicResource cbStyle}"
-                                        BorderBrush="{DynamicResource MainColorCF}"
-                                        ItemsSource="{Binding ListGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        Text="{Binding SelectedGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        SelectedIndex="0">
+                                    <DatePicker
+    Margin="0 0 0 0"
+    Style="{DynamicResource dpStyle}"
+    BorderBrush="{DynamicResource MainColorCF}"
+    SelectedDate="{Binding Birthday, Mode=TwoWay}">
                                         <materialDesign:HintAssist.Hint>
                                             <TextBlock Foreground="{DynamicResource MainColorCF}"
-                                                Text="{DynamicResource Gender}" />
+            Text="{DynamicResource Birthday}" />
                                         </materialDesign:HintAssist.Hint>
-                                    </ComboBox>
-
-                                    <TextBox Style="{DynamicResource txbStyle}"
-                                        BorderBrush="{DynamicResource MainColorCF}"
-                                        Margin="0 10 0 0"
-                                        Text="{Binding Address}">
-                                        <materialDesign:HintAssist.Hint>
-                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
-                                                Text="{DynamicResource Address}" />
-                                        </materialDesign:HintAssist.Hint>
-                                    </TextBox>
+                                    </DatePicker>
                                 </StackPanel>
 
                             </Grid>
                             <Grid Grid.Column="1">
                                 <StackPanel Grid.Column="1"
-                                    Margin="0 10 0 0"
+                                    Margin="0 35 0 0"
                                     Orientation="Vertical">
 
-                                    <DatePicker
-                                        Margin="0 10 0 0"
-                                        Style="{DynamicResource dpStyle}"
-                                        BorderBrush="{DynamicResource MainColorCF}"
-                                        SelectedDate="{Binding Birthday, Mode=TwoWay}">
-                                        <materialDesign:HintAssist.Hint>
-                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
-                                                Text="{DynamicResource Birthday}" />
-                                        </materialDesign:HintAssist.Hint>
-                                    </DatePicker>
 
-                                    <DatePicker Margin="0 10 0 0"
+
+                                    <DatePicker
                                         Style="{DynamicResource dpStyle}"
                                         BorderBrush="{DynamicResource MainColorCF}"
                                         SelectedDate="{Binding WorkingDay, Mode=TwoWay}">
@@ -192,13 +198,35 @@
                                                 Text="{DynamicResource WorkingDay}" />
                                         </materialDesign:HintAssist.Hint>
                                     </DatePicker>
+                                    <ComboBox Style="{DynamicResource cbStyle}"
+                                              Margin="0 10 0 0"
+     BorderBrush="{DynamicResource MainColorCF}"
+     ItemsSource="{Binding ListGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+     Text="{Binding SelectedGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+     SelectedIndex="0">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
+             Text="{DynamicResource Gender}" />
+                                        </materialDesign:HintAssist.Hint>
+                                    </ComboBox>
+
+                                    <TextBox Style="{DynamicResource txbStyle}"
+     BorderBrush="{DynamicResource MainColorCF}"
+     Margin="0 10 0 0"
+     Text="{Binding Address}">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
+             Text="{DynamicResource Address}" />
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
                                     <TextBlock
-                                        Margin="40 10 0 10"
+                                        Margin="40 5 0 5"
                                         Style="{DynamicResource Header2}"
                                         Text="{DynamicResource LoginInformation}" />
                                     <TextBox Style="{DynamicResource txbStyle}"
                                         BorderBrush="{DynamicResource MainColorCF}"
                                         Margin="0 0 0 0"
+                                             IsReadOnly="True"
                                         Text="{Binding Username}">
                                         <materialDesign:HintAssist.Hint>
                                             <TextBlock Foreground="{DynamicResource MainColorCF}"
@@ -210,39 +238,17 @@
                                     <TextBox Style="{DynamicResource txbStyle}"
                                         BorderBrush="{DynamicResource MainColorCF}"
                                         Margin="0 10 0 20"
-                                        Text="{Binding Password}">
+                                        Text="{Binding Password}"
+                                             >
                                         <materialDesign:HintAssist.Hint>
                                             <TextBlock Foreground="{DynamicResource MainColorCF}"
                                                 Text="{DynamicResource Password}" />
                                         </materialDesign:HintAssist.Hint>
                                     </TextBox>
-                                    <Border
-                                        Width="170"
-                                        Height="170"
-                                        Background="{DynamicResource Background3CF}"
-                                        BorderBrush="{DynamicResource ForegroundCF}"
-                                        BorderThickness="0.5"
-                                        HorizontalAlignment="Center"
-                                        CornerRadius="100">
-                                        <Ellipse Width="170"
-                                            Height="170">
-                                            <Ellipse.Fill>
-                                                <ImageBrush x:Name="img"
-                                                    ImageSource="{Binding Image}" />
-                                            </Ellipse.Fill>
-                                        </Ellipse>
-
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <i:InvokeCommandAction
-                                                    Command="{Binding uploadImageIC}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Border>
                                 </StackPanel>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="3">
                             <StackPanel
                                 HorizontalAlignment="Right"
                                 Orientation="Horizontal">

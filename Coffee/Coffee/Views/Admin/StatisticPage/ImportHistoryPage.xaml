@@ -57,11 +57,11 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="auto" Header="{DynamicResource IDemployee}" SortMemberPath="MaNhanVien">
+                <DataGridTemplateColumn Width="auto" Header="{DynamicResource Employee}" SortMemberPath="MaNhanVien">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Style="{DynamicResource txblInDtg}"
-                                   Text="{Binding MaNhanVien}" />
+                                   Text="{Binding TenNhanVien}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -12,6 +12,5 @@ namespace Coffee.DTOs
         public string TenSanPham { get; set; }
         public string LoaiSanPham { get; set; }
         public int SoLuong { get; set; }
-        public List<string> CongThuc { get; set; }
     }
 }

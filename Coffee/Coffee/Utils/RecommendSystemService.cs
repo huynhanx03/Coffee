@@ -30,7 +30,7 @@ namespace Coffee.Utils
 
         private string baseAPI = "http://127.0.0.1:5000";
 
-        public async Task getRecommend(string MaSanPham)
+        public async Task<List<ProductRecommendDTO>> getRecommend(string MaSanPham)
         {
             string json = JsonConvert.SerializeObject(MaSanPham);
 
@@ -41,17 +41,17 @@ namespace Coffee.Utils
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var response = await httpClient.PostAsync(baseAPI + "/recommend", content);
-                response.EnsureSuccessStatusCode();
 
-                // Đọc và chuyển đổi kết quả từ Colab thành danh sách List<Product>
-                string responseJson = await response.Content.ReadAsStringAsync();
-                //List<ProductDTO> recommendedProducts = JsonSerializer.Deserialize<List<ProductDTO>>(responseJson);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseContent = response.Content.ReadAsStringAsync().Result;
 
-                //// In ra danh sách List<Product> nhận được từ Colab
-                //foreach (var product in recommendedProducts)
-                //{
-                //    Console.WriteLine($"ProductId: {product.ProductId}, Name: {product.Name}");
-                //}
+                    return JsonConvert.DeserializeObject<List<ProductRecommendDTO>>(responseContent);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }

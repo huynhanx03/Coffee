@@ -77,4 +77,5 @@
     <system:String x:Key="ingredientID">Mã nguyên liệu</system:String>
     <system:String x:Key="unitID">Mã đơn vị</system:String>
     <system:String x:Key="AddQuantityProduct">Thêm số lượng sản phẩm</system:String>
+    <system:String x:Key="RecommendProduct">Gợi ý sản phẩm</system:String>
 </ResourceDictionary>

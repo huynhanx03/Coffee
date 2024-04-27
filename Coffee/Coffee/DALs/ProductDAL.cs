@@ -180,7 +180,6 @@ namespace Coffee.DALs
                                       TenSanPham = product.TenSanPham,
                                       SoLuong = product.SoLuong,
                                       LoaiSanPham = listProductType.First(x => x.MaLoaiSanPham == product.MaLoaiSanPham).LoaiSanPham,
-                                      CongThuc = product.CongThuc.Values.ToList().Select(x => x.TenNguyenLieu).ToList(),
                                   }).ToList();
 
                     return ("Lấy danh sách sản phẩm thành công", result);

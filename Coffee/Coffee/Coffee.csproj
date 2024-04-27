@@ -253,6 +253,7 @@
     <Compile Include="ViewModel\AdminVM\Table\MainTableViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\MenuViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\OperationOfTableViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\Table\RecommendProductViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\SalesViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Table\TableViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
@@ -321,6 +322,9 @@
     </Compile>
     <Compile Include="Views\Admin\TablePage\OperationOfTableWindow.xaml.cs">
       <DependentUpon>OperationOfTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\TablePage\RecommendProductWindow.xaml.cs">
+      <DependentUpon>RecommendProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\TablePage\SalesPage.xaml.cs">
       <DependentUpon>SalesPage.xaml</DependentUpon>
@@ -460,6 +464,10 @@
     <Page Include="Views\Admin\TablePage\OperationOfTableWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\TablePage\RecommendProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\TablePage\SalesPage.xaml">
       <Generator>MSBuild:Compile</Generator>

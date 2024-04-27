@@ -68,9 +68,9 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="56*" />
-                            <RowDefinition Height="151*" />
-                            <RowDefinition Height="364*" />
-                            <RowDefinition Height="51*" />
+                            <RowDefinition Height="170*" />
+                            <RowDefinition Height="350*" />
+                            <RowDefinition Height="65*" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBlock Style="{DynamicResource Header1}"
@@ -102,7 +102,7 @@
                                 </i:Interaction.Triggers>
                             </Border>
                         </Grid>
-                        <Grid Grid.Row="2" Margin="0,3,0,0">
+                        <Grid Grid.Row="2" Margin="0,30,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -112,10 +112,7 @@
                                 <StackPanel
                                     Margin="0 0 0 0"
                                     Orientation="Vertical">
-                                    <TextBlock
-                                        Margin="40 0 0 5"
-                                        Style="{DynamicResource Header2}"
-                                        Text="{DynamicResource BasicInformation}" />
+                                    
                                     <TextBox Style="{DynamicResource txbStyle}"
                                         BorderBrush="{DynamicResource MainColorCF}"
                                         Margin="0 0 0 0"
@@ -125,6 +122,17 @@
                                                 Text="{DynamicResource FullName}" />
                                         </materialDesign:HintAssist.Hint>
                                     </TextBox>
+
+                                    <DatePicker
+Style="{DynamicResource dpStyle}"
+BorderBrush="{DynamicResource MainColorCF}"
+SelectedDate="{Binding Birthday, Mode=TwoWay}"
+                                        Margin="0 10 0 0">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
+        Text="{DynamicResource Birthday}" />
+                                        </materialDesign:HintAssist.Hint>
+                                    </DatePicker>
 
                                     <TextBox Style="{DynamicResource txbStyle}"
                                         BorderBrush="{DynamicResource MainColorCF}"
@@ -169,35 +177,35 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </TextBox>
-                                    <DatePicker
-    Margin="0 0 0 0"
-    Style="{DynamicResource dpStyle}"
-    BorderBrush="{DynamicResource MainColorCF}"
-    SelectedDate="{Binding Birthday, Mode=TwoWay}">
-                                        <materialDesign:HintAssist.Hint>
-                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
-            Text="{DynamicResource Birthday}" />
-                                        </materialDesign:HintAssist.Hint>
-                                    </DatePicker>
+                                    
                                 </StackPanel>
 
                             </Grid>
                             <Grid Grid.Column="1">
-                                <StackPanel Grid.Column="1"
-                                    Margin="0 35 0 0"
+                                <StackPanel 
                                     Orientation="Vertical">
 
-
-
-                                    <DatePicker
-                                        Style="{DynamicResource dpStyle}"
-                                        BorderBrush="{DynamicResource MainColorCF}"
-                                        SelectedDate="{Binding WorkingDay, Mode=TwoWay}">
+                                    <TextBox Style="{DynamicResource txbStyle}"
+BorderBrush="{DynamicResource MainColorCF}"
+Text="{Binding Address}">
                                         <materialDesign:HintAssist.Hint>
                                             <TextBlock Foreground="{DynamicResource MainColorCF}"
-                                                Text="{DynamicResource WorkingDay}" />
+        Text="{DynamicResource Address}" />
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+
+                                    <DatePicker
+    Style="{DynamicResource dpStyle}"
+    BorderBrush="{DynamicResource MainColorCF}"
+    SelectedDate="{Binding WorkingDay, Mode=TwoWay}"
+Margin="0 10 0 0"
+                                        >
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
+            Text="{DynamicResource WorkingDay}" />
                                         </materialDesign:HintAssist.Hint>
                                     </DatePicker>
+                                    
                                     <ComboBox Style="{DynamicResource cbStyle}"
                                               Margin="0 10 0 0"
      BorderBrush="{DynamicResource MainColorCF}"
@@ -211,21 +219,8 @@
                                     </ComboBox>
 
                                     <TextBox Style="{DynamicResource txbStyle}"
-     BorderBrush="{DynamicResource MainColorCF}"
-     Margin="0 10 0 0"
-     Text="{Binding Address}">
-                                        <materialDesign:HintAssist.Hint>
-                                            <TextBlock Foreground="{DynamicResource MainColorCF}"
-             Text="{DynamicResource Address}" />
-                                        </materialDesign:HintAssist.Hint>
-                                    </TextBox>
-                                    <TextBlock
-                                        Margin="40 5 0 5"
-                                        Style="{DynamicResource Header2}"
-                                        Text="{DynamicResource LoginInformation}" />
-                                    <TextBox Style="{DynamicResource txbStyle}"
                                         BorderBrush="{DynamicResource MainColorCF}"
-                                        Margin="0 0 0 0"
+                                        Margin="0 10 0 0"
                                              IsReadOnly="True"
                                         Text="{Binding Username}">
                                         <materialDesign:HintAssist.Hint>
@@ -253,7 +248,7 @@
                                 HorizontalAlignment="Right"
                                 Orientation="Horizontal">
                                 <Button Style="{DynamicResource btnStyle}"
-                                    Margin="0,0,20,0"
+                                    Margin="0,0,40,20"
                                     Command="{Binding confirmUserIC}"
                                     Content="{DynamicResource Confirm}" />
                             </StackPanel>

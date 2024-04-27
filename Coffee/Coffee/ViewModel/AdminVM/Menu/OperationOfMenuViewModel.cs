@@ -219,11 +219,11 @@ namespace Coffee.ViewModel.AdminVM.Menu
 
             ProductDTO product = new ProductDTO
             {
-                TenSanPham = ProductName,
+                TenSanPham = ProductName.Trim(),
                 LoaiSanPham = productType.LoaiSanPham,
                 MaLoaiSanPham = productType.MaLoaiSanPham,
                 HinhAnh = newImage,
-                Mota = Description
+                Mota = Description.Trim()
             };
 
             switch (TypeOperation)

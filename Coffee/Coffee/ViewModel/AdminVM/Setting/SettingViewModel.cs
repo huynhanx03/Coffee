@@ -218,17 +218,17 @@ namespace Coffee.ViewModel.AdminVM.Setting
 
             UserDTO user = new UserDTO
             {
-                HoTen = FullName,
-                CCCD_CMND = IDCard,
-                Email = Email,
-                SoDienThoai = NumberPhone,
-                DiaChi = Address,
+                HoTen = FullName.Trim(),
+                CCCD_CMND = IDCard.Trim(),
+                Email = Email.Trim(),
+                SoDienThoai = NumberPhone.Trim(),
+                DiaChi = Address.Trim(),
                 GioiTinh = SelectedGender,
                 NgayTao = WorkingDay.ToString("dd/MM/yyyy"),
                 NgaySinh = Birthday.ToString("dd/MM/yyyy"),
                 HinhAnh = newImage,
-                TaiKhoan = Username,
-                MatKhau = Password,
+                TaiKhoan = Username.Trim(),
+                MatKhau = Password.Trim(),
             };
 
             MessageBoxCF msa = new MessageBoxCF("Xác nhận thay đổi thông tin?", MessageType.Error, MessageButtons.YesNo);

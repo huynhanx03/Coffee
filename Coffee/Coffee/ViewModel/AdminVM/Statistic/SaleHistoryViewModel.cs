@@ -20,7 +20,7 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             get { return _BillList; }
             set { _BillList = value; OnPropertyChanged(); }
         }
-        
+
         private BillDTO _SelectedBill;
         public BillDTO SelectedBill
         {

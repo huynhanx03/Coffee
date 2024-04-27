@@ -148,6 +148,7 @@ namespace Coffee.Services
             return await BillDAL.Ins.getListBilltime(fromdate,todate);
         }
 
+
         /// <summary>
         /// Danh sách chi tiết hóa đơn
         /// </summary>

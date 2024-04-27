@@ -1,5 +1,6 @@
 ﻿using Coffee.DTOs;
 using Coffee.Models;
+using Coffee.Services;
 using Coffee.Utils;
 using FireSharp.Response;
 using System;
@@ -224,26 +225,26 @@ namespace Coffee.DALs
         /// <returns>
         ///     Danh sách hóa đơn theo thời gian
         /// </returns>
-        public async Task<(string, List<BillDTO>)> getListBilltime(DateTime fromdate,DateTime todate)
+        public async Task<(string, List<BillDTO>)> getListBilltime(DateTime fromdate, DateTime todate)
         {
             try
             {
                 using (var context = new Firebase())
                 {
-                    // Lấy dữ liệu từ nút "Bills" trong Firebase
+                    // Lấy dữ liệu từ nút "HoaDon" trong Firebase
                     FirebaseResponse billResponse = await context.Client.GetTaskAsync("HoaDon");
                     Dictionary<string, BillDTO> billData = billResponse.ResultAs<Dictionary<string, BillDTO>>();
 
-                    // Lấy dữ liệu từ nút "Employees" trong Firebase
-                    FirebaseResponse employeeResponse = await context.Client.GetTaskAsync("NhanVien");
-                    Dictionary<string, EmployeeDTO> employeeData = employeeResponse.ResultAs<Dictionary<string, EmployeeDTO>>();
+                    // Lấy dữ liệu từ nút "NguoiDung" trong Firebase
+                    FirebaseResponse userResponse = await context.Client.GetTaskAsync("NguoiDung");
+                    Dictionary<string, UserDTO> userData = userResponse.ResultAs<Dictionary<string, UserDTO>>();
 
                     // Lấy dữ liệu từ nút "Tables" trong Firebase
                     FirebaseResponse tableResponse = await context.Client.GetTaskAsync("Ban");
                     Dictionary<string, TableDTO> tableData = tableResponse.ResultAs<Dictionary<string, TableDTO>>();
 
                     var result = (from bill in billData.Values
-                                  join employee in employeeData.Values on bill.MaNhanVien equals employee.MaNhanVien
+                                  join user in userData.Values on bill.MaNhanVien equals user.MaNguoiDung
                                   join table in tableData.Values on bill.MaBan equals table.MaBan
                                   where DateTime.ParseExact(bill.NgayTao, "HH:mm:ss dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture) >= fromdate &&
                                     DateTime.ParseExact(bill.NgayTao, "HH:mm:ss dd/MM/yyyy", CultureInfo.InvariantCulture) <= todate
@@ -254,7 +255,8 @@ namespace Coffee.DALs
                                       MaNhanVien = bill.MaNhanVien,
                                       NgayTao = bill.NgayTao,
                                       TongTien = bill.TongTien,
-                                      TrangThai = bill.TrangThai
+                                      TrangThai = bill.TrangThai,
+                                      TenNhanVien = user.HoTen
                                   }).ToList();
 
                     return ("Lấy danh sách hóa đơn thành công", result);
@@ -265,7 +267,6 @@ namespace Coffee.DALs
                 return (ex.Message, null);
             }
         }
-
         /// <summary>
         /// lấy chi tiết hoá đơn với mã hoá đơn
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using Coffee.DTOs;
 using Coffee.Services;
+using Coffee.Utils;
 using Coffee.Views.MessageBox;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Coffee.ViewModel.AdminVM.Statistic
     public partial class StatisticViewModel : BaseViewModel
     {
         #region variable
-        private ObservableCollection<BillDTO> _BillList;
+        private ObservableCollection<BillDTO> _BillList = new ObservableCollection<BillDTO>();
         public ObservableCollection<BillDTO> BillList
         {
             get { return _BillList; }
@@ -39,7 +40,7 @@ namespace Coffee.ViewModel.AdminVM.Statistic
         /// <summary>
         /// load danh sách hóa đơn
         /// </summary>
-        private async void LoadBillList(DateTime fromDate = default(DateTime), DateTime toDate = default(DateTime))
+        private async Task LoadBillList(DateTime fromDate = default(DateTime), DateTime toDate = default(DateTime))
         {
             (string label, List<BillDTO> billList) = await BillService.Ins.getListBilltime(fromDate, toDate);
 
@@ -87,6 +88,18 @@ namespace Coffee.ViewModel.AdminVM.Statistic
 
                 if (isDeleteBillList)
                 {
+                    // Xoá thành công nếu hoá đơn chưa thanh toán thì chuyển bàn đó thành trống
+                    
+
+                    if (SelectedBill.TrangThai == Constants.StatusBill.UNPAID)
+                    {
+                        (string labelGetTable, TableDTO table) = await TableService.Ins.getTable(SelectedBill.MaBan);
+
+                        table.TrangThai = Constants.StatusTable.FREE;
+
+                        (string labelTable, TableDTO tableUpdate) = await TableService.Ins.updateTable(table);
+                    }
+
                     MessageBoxCF msn = new MessageBoxCF(label, MessageType.Accept, MessageButtons.OK);
                     LoadBillList();
                     msn.ShowDialog();

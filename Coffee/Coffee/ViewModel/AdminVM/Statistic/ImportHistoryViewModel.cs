@@ -14,7 +14,7 @@ namespace Coffee.ViewModel.AdminVM.Statistic
     public partial class StatisticViewModel:BaseViewModel
     {
         #region variable
-        private ObservableCollection<ImportDTO> _BillImportList;
+        private ObservableCollection<ImportDTO> _BillImportList = new ObservableCollection<ImportDTO>();
         public ObservableCollection<ImportDTO> BillImportList
         {
             get { return _BillImportList; }
@@ -35,7 +35,7 @@ namespace Coffee.ViewModel.AdminVM.Statistic
         /// <summary>
         /// load danh sách hóa đơn nhập kho
         /// </summary>
-        private async void loadBillImportList(DateTime fromDate = default(DateTime), DateTime toDate = default(DateTime))
+        private async Task loadBillImportList(DateTime fromDate = default(DateTime), DateTime toDate = default(DateTime))
         {
             (string label, List<ImportDTO> billimportlist) = await BillImportService.Ins.getListBillImporttime(fromDate,toDate);
 

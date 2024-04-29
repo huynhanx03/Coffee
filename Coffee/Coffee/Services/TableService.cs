@@ -104,5 +104,18 @@ namespace Coffee.Services
         {
             return await TableDAL.Ins.getListTable();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tableID"> Mã bàn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Bàn
+        /// </returns>
+        public async Task<(string, TableDTO)> getTable(string tableID)
+        {
+            return await TableDAL.Ins.getTable(tableID);
+        }
     }
 }

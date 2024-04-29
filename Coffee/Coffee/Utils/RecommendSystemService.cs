@@ -32,26 +32,33 @@ namespace Coffee.Utils
 
         public async Task<List<ProductRecommendDTO>> getRecommend(string MaSanPham)
         {
-            string json = JsonConvert.SerializeObject(MaSanPham);
-
-            // Gửi yêu cầu POST đến Colab
-            using (var httpClient = new HttpClient())
+            try
             {
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                string json = JsonConvert.SerializeObject(MaSanPham);
 
-                var response = await httpClient.PostAsync(baseAPI + "/recommend", content);
-
-                if (response.IsSuccessStatusCode)
+                // Gửi yêu cầu POST đến Colab
+                using (var httpClient = new HttpClient())
                 {
-                    string responseContent = response.Content.ReadAsStringAsync().Result;
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    return JsonConvert.DeserializeObject<List<ProductRecommendDTO>>(responseContent);
+                    var response = await httpClient.PostAsync(baseAPI + "/recommend", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = response.Content.ReadAsStringAsync().Result;
+
+                        return JsonConvert.DeserializeObject<List<ProductRecommendDTO>>(responseContent);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
-                else
-                {
-                    return null;
-                }
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

@@ -35,7 +35,6 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             get { return _ListTopMenu; }
             set { _ListTopMenu = value; OnPropertyChanged(); }
         }
-        public Frame MainFrame;
 
         private DateTime _FromDate;
         public DateTime FromDate
@@ -43,11 +42,12 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             get { return _FromDate; }
             set
             {
-                _FromDate = value;
-                OnPropertyChanged(nameof(FromDate));
-                // Gọi phương thức load danh sách hóa đơn
-                LoadBillList();
-                loadBillImportList();
+                if (value > ToDate)
+                    _FromDate = ToDate;
+                else
+                    _FromDate = value;
+
+                OnPropertyChanged();
             }
         }
 
@@ -58,50 +58,48 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             set
             {
                 _ToDate = value;
-                OnPropertyChanged(nameof(ToDate));
-                // Gọi phương thức load danh sách hóa đơn
-                LoadBillList();
-                loadBillImportList();
+                OnPropertyChanged();
             }
         }
         #endregion
 
         #region Icommand
         public ICommand loadShadowMaskIC { get; set; }
-        public ICommand loadMainFrame { get; set; }
         public ICommand loadSaleHistoryIC { get; set; }
         public ICommand loadImportHistoryIC { get; set; }
         public ICommand loadStatisticIC { get; set; }
         public ICommand loadTopMenuIC { get; set; }
+        public ICommand loadDataIC { get; set; }
         #endregion
 
         public StatisticViewModel()
         {
-            _FromDate = DateTime.Parse("3/1/2024");
-            _ToDate = DateTime.Now;
+            ToDate = DateTime.Now;
+            FromDate = ToDate;
+            
             #region 
-            loadMainFrame = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            {
-                MainFrame = p;
-            });
+            
             loadShadowMaskIC = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 MaskName = p;
             });
             loadSaleHistoryIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                MainFrame.Content = new SaleHistoryPage();
+                p.Content = new SaleHistoryPage();
             });
             loadImportHistoryIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                MainFrame.Content = new ImportHistoryPage();
+                p.Content = new ImportHistoryPage();
             });
+
             loadStatisticIC = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                MainFrame.Content = new StatisticPage();
+                p.Content = new StatisticPage();
             });
+
             loadBillListTimeIC = new RelayCommand<object>(p => true, p => LoadBillList(FromDate,ToDate));
             loadBillImportListtimeIC = new RelayCommand<object>(p => true, p => loadBillImportList(FromDate, ToDate));
+            loadDataIC = new RelayCommand<object>(p => true, p => loadData());
 
             loadTopMenuIC = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -162,7 +160,6 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             await getNameEmployeeImport(import.MaNhanVien);
             await getListDetailBillImport(import.MaPhieuNhapKho);
             MaskName.Visibility = Visibility.Collapsed;
-
         }
         //load dữ liệu các sản phẩm bán chạy
         public async void LoadTopMenu()
@@ -175,5 +172,12 @@ namespace Coffee.ViewModel.AdminVM.Statistic
             }
         }
         #endregion
+
+        public async void loadData()
+        {
+            await LoadBillList(FromDate, ToDate);
+            await loadBillImportList(FromDate, ToDate);
+            await loadCartesianChar();
+        }
     }
 }

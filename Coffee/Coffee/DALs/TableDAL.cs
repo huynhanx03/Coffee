@@ -78,6 +78,33 @@ namespace Coffee.DALs
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="tableID"> Mã bàn </param>
+        /// <returns>
+        ///     1. Thông báo
+        ///     2. Bàn
+        /// </returns>
+        public async Task<(string, TableDTO)> getTable(string tableID)
+        {
+            try
+            {
+                using (var context = new Firebase())
+                {
+                    FirebaseResponse tableResponse = await context.Client.GetTaskAsync("Ban/" + tableID);
+
+                    TableDTO table = tableResponse.ResultAs<TableDTO>();
+
+                    return ("Lấy bàn thành công", table);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns>
         ///     Mã bàn lớn nhất
         /// </returns>

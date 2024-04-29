@@ -29,7 +29,7 @@ namespace Coffee.Views.Admin.StatisticPage
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as StatisticViewModel).deleteBillImport();
+            (DataContext as StatisticViewModel).deleteBill();
         }
     }
 }

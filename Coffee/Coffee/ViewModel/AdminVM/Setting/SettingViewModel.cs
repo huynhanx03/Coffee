@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +18,7 @@ using System.Windows.Input;
 
 namespace Coffee.ViewModel.AdminVM.Setting
 {
-    public partial class SettingViewModel : BaseViewModel
+    public partial class SettingViewModel : BaseViewModel, IConstraintViewModel
     {
         #region variable
         public string _FullName { get; set; }
@@ -231,21 +232,32 @@ namespace Coffee.ViewModel.AdminVM.Setting
                 MatKhau = Password.Trim(),
             };
 
-            MessageBoxCF msa = new MessageBoxCF("Xác nhận thay đổi thông tin?", MessageType.Error, MessageButtons.YesNo);
-            user.MaNguoiDung = Memory.user.MaNguoiDung;
-            if (msa.ShowDialog() == true)
-            {
-                (string labelEdit,UserDTO userEdit) = await UserService.Ins.updateUser(user);
+            (string labelEdit, UserDTO userEdit) = await UserService.Ins.updateUser(user);
 
-                if (userEdit != null)
-                {
-                    await CloudService.Ins.DeleteImage(OriginImage);
-                }
+            if (userEdit != null)
+            {
+                MessageBoxCF msa = new MessageBoxCF("Cập nhật thông tin thành công", MessageType.Accept, MessageButtons.OK);
+                msa.ShowDialog();
+
+                await CloudService.Ins.DeleteImage(OriginImage);
+                user.MaNguoiDung = Memory.user.MaNguoiDung;
             }
             else
             {
-                msa.Close();
+                MessageBoxCF msa = new MessageBoxCF(labelEdit, MessageType.Error, MessageButtons.OK);
+                msa.ShowDialog();
             }
+        }
+
+        /// <summary>
+        /// Kiểm tra chỉ được nhập số
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

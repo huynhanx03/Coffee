@@ -141,6 +141,7 @@ namespace Coffee.DALs
                                       LoaiSanPham = listProductType.First(x => x.MaLoaiSanPham == product.MaLoaiSanPham).LoaiSanPham,
                                       DanhSachCongThuc = product.CongThuc.Values.ToList(),
                                       DanhSachChiTietKichThuocSanPham = product.ChiTietKichThuocSanPham.Values.ToList(),
+                                      Mota = product.Mota,
                                   }).ToList();
 
                     return ("Lấy danh sách sản phẩm thành công", result);

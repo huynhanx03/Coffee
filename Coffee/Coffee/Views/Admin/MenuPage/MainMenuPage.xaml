@@ -222,7 +222,7 @@
                                                     Margin="15,0,0,0"
                                                     Background="#8295B9"
                                                     BorderBrush="#41AAE2"
-                                                    Command="{Binding DataContext.editProductIC, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    Command="{Binding DataContext.openWindowEditProductIC, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                     Style="{DynamicResource btnInDtg}">
                                                     <materialDesign:PackIcon
                                                         Width="15"

@@ -81,7 +81,7 @@ namespace Coffee.Services
         ///     1: Thông báo
         ///     2: Sản phẩm
         /// </returns>
-        public async Task<(string, ProductDTO)> updateProduct(ProductDTO product)
+        public async Task<(string, ProductDTO)> updateProduct(ProductDTO product, List<ProductSizeDetailDTO> listProductSizeDetail, List<ProductRecipeDTO> listProductRecipe)
         {
             // Kiểm tra tên sản phẩm
             (string label, ProductDTO productFind) = await ProductDAL.Ins.findProductByName(product.TenSanPham, product.MaSanPham);
@@ -89,7 +89,24 @@ namespace Coffee.Services
             if (productFind != null)
                 return ("Tên sản phẩm đã tồn tại", null);
 
-            return await ProductDAL.Ins.updateProduct(product);
+            (string labelUpdate, ProductDTO productUpdate) = await ProductDAL.Ins.updateProduct(product);
+
+            if (productUpdate == null)
+                return (labelUpdate, null);
+
+            // Thêm chi tiết kích thước sản phẩm
+            (string labelCreateProductSizeDetail, bool isCreateProductSizeDetail) = await ProductSizeDetailService.Ins.createProductSizeDetail(product.MaSanPham, listProductSizeDetail); ;
+
+            // Thêm công thức sản phẩm 
+            (string labelCreateProductRecipe, bool isCreateProductRecipe) = await ProductRecipeService.Ins.createProductRecipe(product.MaSanPham, listProductRecipe);
+
+            if (!isCreateProductSizeDetail)
+                return (labelCreateProductSizeDetail, null);
+
+            if (!isCreateProductRecipe)
+                return (labelCreateProductRecipe, null);
+
+            return (labelUpdate, productUpdate);
         }
 
         /// <summary>

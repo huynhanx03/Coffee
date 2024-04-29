@@ -121,7 +121,8 @@
                                             SortMemberPath="TenKichThuoc">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Style="{DynamicResource txblInDtg}" Text="{Binding TenKichThuoc}" />
+                                                    <TextBlock Style="{DynamicResource txblInDtg}" 
+                                                               Text="{Binding TenKichThuoc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -135,7 +136,7 @@
                                                     <TextBox
                                                         BorderBrush="{DynamicResource ForegroundCF}"
                                                         Foreground="{DynamicResource ForegroundCF}"
-                                                        Text="{Binding Gia, UpdateSourceTrigger=PropertyChanged}" />
+                                                        Text="{Binding Gia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
